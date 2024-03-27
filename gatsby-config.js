@@ -34,6 +34,10 @@ module.exports = {
           }
         ]
       },
+      {
+        title: 'Technical Assets',
+        path: '/technical-assets'
+      }
     ],
   },
   plugins: [`@adobe/gatsby-theme-aio`]
