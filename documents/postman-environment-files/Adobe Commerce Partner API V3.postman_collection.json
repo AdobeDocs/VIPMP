@@ -1,0 +1,1310 @@
+{
+	"info": {
+		"_postman_id": "b740e971-3d9f-4fd6-ba41-c8657dd7731a",
+		"name": "Adobe Commerce Partner API V3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13024978"
+	},
+	"item": [
+		{
+			"name": "Initialization",
+			"item": [
+				{
+					"name": "1 - Load Crypto Library for RS256",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setGlobalVariable(\"jsrsasign-js\", responseBody);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js",
+							"protocol": "http",
+							"host": [
+								"kjur",
+								"github",
+								"io"
+							],
+							"path": [
+								"jsrsasign",
+								"jsrsasign-latest-all-min.js"
+							]
+						},
+						"description": "Load the RSA-Sign Crypto LIbrary in a global environment variable\n\nSource: http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js\n\nGithub: https://github.com/kjur/jsrsasign"
+					},
+					"response": []
+				},
+				{
+					"name": "2 - JWT Generate + Auth",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Tips from: https://github.com/kjur/jsrsasign/issues/199",
+									"// https://github.com/kjur/jsrsasign/wiki/Tutorial-for-JWT-generation",
+									"",
+									"var navigator = {}; //fake a navigator object for the lib",
+									"var window = {}; //fake a window object for the lib",
+									"eval(postman.getGlobalVariable(\"jsrsasign-js\")); //import javascript jsrsasign",
+									"",
+									"// Add https if it is not present in IMS URL",
+									"var ims = postman.getEnvironmentVariable(\"IMS\");",
+									"if (ims.substring(0, 8) != \"https://\") {",
+									"    postman.setEnvironmentVariable(\"IMS\", \"https://\" + ims);",
+									"}",
+									"",
+									"var header = {",
+									"\t\"alg\": \"RS256\"",
+									"};",
+									"",
+									"var data = {",
+									"\t\"exp\": Math.round(87000 + Date.now()/1000),",
+									"\t\"iss\": postman.getEnvironmentVariable(\"IMS_ORG\"),",
+									"\t\"sub\": postman.getEnvironmentVariable(\"TECHNICAL_ACCOUNT_ID\"),",
+									"\t\"aud\": postman.getEnvironmentVariable(\"IMS\")+\"/c/\"+postman.getEnvironmentVariable(\"API_KEY\")",
+									"};",
+									"",
+									"var meta_scopes = postman.getEnvironmentVariable(\"META_SCOPE\").toString().split(\",\");",
+									"// console.log(scope);",
+									"// meta_scopes = meta_scopes.split(',');",
+									"meta_scopes.forEach(function(scope){",
+									"    var meta_scope = postman.getEnvironmentVariable(\"IMS\")+\"/s/\"+",
+									"                     scope;",
+									"    data[meta_scope] = true;",
+									"});",
+									"console.log(data);",
+									"",
+									"var secret = postman.getEnvironmentVariable(\"PRIVATE_KEY\");",
+									"",
+									"var sHeader = JSON.stringify(header);",
+									"var sPayload = JSON.stringify(data);",
+									"var sJWT = KJUR.jws.JWS.sign(\"RS256\", sHeader, sPayload, secret);",
+									"",
+									"postman.setEnvironmentVariable(\"JWT_TOKEN\", sJWT);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"if (data.hasOwnProperty(\"access_token\")) {",
+									"    postman.setEnvironmentVariable(\"ACCESS_TOKEN\", data.access_token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "{{API_KEY}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{CLIENT_SECRET}}",
+									"type": "text"
+								},
+								{
+									"key": "jwt_token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{IMS}}/ims/exchange/jwt/",
+							"host": [
+								"{{IMS}}"
+							],
+							"path": [
+								"ims",
+								"exchange",
+								"jwt",
+								""
+							]
+						},
+						"description": "Generate a JWT token using the Crypto RS256\nSend to IMS for access_token"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Reseller Management",
+			"item": [
+				{
+					"name": "Create Reseller Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.hasOwnProperty(\"resellerId\")) {",
+									"    pm.environment.set(\"resellerId\", jsonData[\"resellerId\"]);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var uuid = require('uuid');",
+									"pm.environment.set(\"externalReferenceId\", uuid.v4().substring(0,35));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "X-Request-Id",
+								"type": "text",
+								"value": "{{$guid}}"
+							},
+							{
+								"key": "x-correlation-id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"distributorId\": \"{{distributorId}}\",\r\n    \"externalReferenceId\": \"{{externalReferenceId}}\",\r\n    \"companyProfile\": {\r\n        \"companyName\": \"Reseller Name {{externalReferenceId}}\",\r\n        \"preferredLanguage\": \"en-US\",\r\n        \"address\": {\r\n            \"country\": \"GB\",\r\n            \"region\": \"00\",\r\n            \"city\": \"Madrid\",\r\n            \"addressLine1\": \"RONDA DE LA COMUNICACION\",\r\n            \"addressLine2\": \"\",\r\n            \"postalCode\": \"SW1A 1AA\",\r\n            \"phoneNumber\": \"\"\r\n        },\r\n        \"contacts\": [\r\n            {\r\n                \"firstName\": \"test firstname\",\r\n                \"lastName\": \"test lastname\",\r\n                \"email\": \"testname@adobe.com\",\r\n                \"phoneNumber\": \"20-7323-8195\"\r\n            }\r\n        ]\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/resellers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"resellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reseller",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/resellers/{{resellerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"resellers",
+								"{{resellerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Reseller",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "12345",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"companyProfile\": {\n        \"companyName\": \"Reseller Name ce01fd3b-4e84-4df7-805e-a1993380b1b\",\n        \"preferredLanguage\": \"en-US\",\n        \"address\": {\n            \"country\": \"GB\",\n            \"region\": \"00\",\n            \"city\": \"Madrid\",\n            \"addressLine1\": \"RONDA DE LA COMUNICACION\",\n            \"addressLine2\": \"\",\n            \"postalCode\": \"SW1A 1AA\",\n            \"phoneNumber\": \"\"\n        },\n        \"contacts\": [\n            {\n                \"firstName\": \"Kevin\",\n                \"lastName\": \"Gregor\",\n                \"email\": \"testname@adobe.com\",\n                \"phoneNumber\": \"39 041 2708311\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/resellers/{{resellerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"resellers",
+								"{{resellerId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer Management",
+			"item": [
+				{
+					"name": "Create Customer Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.hasOwnProperty(\"customerId\")) {",
+									"    pm.environment.set(\"customerId\", jsonData[\"customerId\"]);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var uuid = require('uuid');",
+									"pm.environment.set(\"externalReferenceId\", uuid.v4().substring(0,35));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"externalReferenceId\": \"{{externalReferenceId}}\",\n    \"resellerId\": \"{{resellerId}}\",\n    \"companyProfile\": {\n        \"companyName\": \"Test Customer {{externalReferenceId}}\",\n        \"preferredLanguage\": \"es-ES\",\n        \"address\": {\n            \"country\": \"GB\",\n            \"region\": \"00\",\n            \"city\": \"Madrid\",\n            \"addressLine1\": \"RONDA DE LA COMUNICACION\",\n            \"addressLine2\": \"\",\n            \"postalCode\": \"SW1A 1AA\",\n            \"phoneNumber\": \"\"\n        },\n        \"contacts\": [\n            {\n                \"firstName\": \"first_name\",\n                \"lastName\": \"last_name\",\n                \"email\": \"firstnamelastnameabc123@test.com\",\n                \"phoneNumber\": \"20-7323-8195\"\n            }\n        ]\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer Account",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"companyProfile\": {\n        \"companyName\": \"Test Customer\",\n        \"preferredLanguage\": \"es-LA\",\n        \"address\": {\n            \"country\": \"GB\",\n            \"region\": \"00\",\n            \"city\": \"Madrid\",\n            \"addressLine1\": \"RONDA DE LA COMUNICACION\",\n            \"addressLine2\": \"\",\n            \"postalCode\": \"SW1A 1AA\",\n            \"phoneNumber\": \"\"\n        },\n        \"contacts\": [\n            {\n                \"firstName\": \"first_name\",\n                \"lastName\": \"last_name\",\n                \"email\": \"firstnamelastnameabc123@test.com\",\n                \"phoneNumber\": \"20-7323-8195\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order Management V3",
+			"item": [
+				{
+					"name": "Order Preview",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var uuid = require('uuid');",
+									"pm.environment.set(\"externalReferenceId\", uuid.v4().substring(0,35));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "X-Request-Id",
+								"type": "text",
+								"value": "{{$guid}}"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"type": "text",
+								"value": "{{$guid}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-gw-ims-client-id",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "x-gw-ims-authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"externalReferenceId\" : \"{{externalReferenceId}}\",\r\n    \"orderType\" : \"PREVIEW\",\r\n\t\"currencyCode\" : \"USD\",\r\n\t\"lineItems\" : [\r\n\t\t{\r\n\t\t\t\"extLineItemNumber\" : 1,\r\n\t\t\t\"offerId\" : \"65304479CA03A12\",\r\n\t\t\t\"quantity\" : 20\r\n\t\t}\r\n\t]\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create NEW Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.hasOwnProperty(\"orderId\")) {",
+									"    pm.environment.set(\"orderId\", jsonData[\"orderId\"]);",
+									"}",
+									"",
+									"for (var i in jsonData.lineItems) {",
+									"    var item = jsonData.lineItems[i];",
+									"    if (item.hasOwnProperty(\"subscriptionId\")) {",
+									"        pm.environment.set(\"subscriptionId\", item[\"subscriptionId\"]);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var uuid = require('uuid');",
+									"pm.environment.set(\"externalReferenceId\", uuid.v4().substring(0,35));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-gw-ims-client-id",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "x-gw-ims-authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"externalReferenceId\" : \"{{externalReferenceId}}\",\r\n    \"orderType\" : \"NEW\",\r\n\t\"currencyCode\" : \"USD\",\r\n\t\"lineItems\" : [\r\n\t\t{\r\n\t\t\t\"extLineItemNumber\" : 1,\r\n\t\t\t\"offerId\" : \"65304479CA01A12\",\r\n\t\t\t\"quantity\" : 20\r\n\t\t}\r\n\t]\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create RETURN Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var uuid = require('uuid');",
+									"pm.environment.set(\"externalReferenceId\", uuid.v4().substring(0,35));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"externalReferenceId\": \"{{externalReferenceId}}\",\r\n    \"referenceOrderId\": \"{{orderId}}\",\r\n    \"orderType\": \"RETURN\",\r\n    \"currencyCode\": \"USD\",\r\n    \"lineItems\": [\r\n        {\r\n            \"extLineItemNumber\": 1,\r\n            \"offerId\": \"65304479CA02A12\",\r\n            \"quantity\": 20\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"for (var i in jsonData.lineItems) {",
+									"    var item = jsonData.lineItems[i];",
+									"    if (item.hasOwnProperty(\"subscriptionId\")) {",
+									"        pm.environment.set(\"subscriptionId\", item[\"subscriptionId\"]);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "X-Request-Id",
+								"type": "text",
+								"value": "{{$guid}}"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"type": "text",
+								"value": "{{$guid}}"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-gw-ims-client-id",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "x-gw-ims-authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}/orders/{{orderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}",
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders for Customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}/orders?offset=0&limit=25&order-type=NEW&offer-id=65304479CA01A12&status=1000&start-date=2022-01-01T03:43:07Z&end-date=2022-01-31&reference-order-id=D9200008262",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "25"
+								},
+								{
+									"key": "order-type",
+									"value": "NEW"
+								},
+								{
+									"key": "offer-id",
+									"value": "65304479CA01A12"
+								},
+								{
+									"key": "status",
+									"value": "1000"
+								},
+								{
+									"key": "start-date",
+									"value": "2022-01-01T03:43:07Z"
+								},
+								{
+									"key": "end-date",
+									"value": "2022-01-31"
+								},
+								{
+									"key": "reference-order-id",
+									"value": "D9200008262"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subscription Management",
+			"item": [
+				{
+					"name": "Get Subscription Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}/subscriptions/{{subscriptionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}",
+								"subscriptions",
+								"{{subscriptionId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Subscriptions for Customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-gw-ims-client-id",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Subscription Auto-Renewal",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Correlation-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"autoRenewal\" :{\n\t\t\"enabled\" : true,\n\t\t\"renewalQuantity\" : null\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/customers/{{customerId}}/subscriptions/{{subscriptionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"customers",
+								"{{customerId}}",
+								"subscriptions",
+								"{{subscriptionId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transfers",
+			"item": [
+				{
+					"name": "Preview Offers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{API_KEY}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/memberships/:membershipId/offers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"memberships",
+								":membershipId",
+								"offers"
+							],
+							"variable": [
+								{
+									"key": "membershipId",
+									"value": "233451"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer Subscriptions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.hasOwnProperty(\"transferId\")) {",
+									"    pm.environment.set(\"transferId\", jsonData[\"transferId\"]);",
+									"}",
+									"if (jsonData.hasOwnProperty(\"customerId\")) {",
+									"    pm.environment.set(\"customerId\", jsonData[\"customerId\"]);",
+									"}",
+									"if (jsonData.hasOwnProperty(\"membershipId\")) {",
+									"    pm.environment.set(\"membershipId\", jsonData[\"membershipId\"]);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{API_KEY}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-correlation-id",
+								"value": "{{$guid}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"resellerId\" : \"P1000012490\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/memberships/:membershipId/transfers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"memberships",
+								":membershipId",
+								"transfers"
+							],
+							"variable": [
+								{
+									"key": "membershipId",
+									"value": "XATJ2IQYS5I3GXNZMTHB"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transfer Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.hasOwnProperty(\"customerId\")) {",
+									"    pm.environment.set(\"customerId\", jsonData[\"customerId\"]);",
+									"}",
+									"for (var i in jsonData.lineItems) {",
+									"    var item = jsonData.lineItems[i];",
+									"    if (item.hasOwnProperty(\"subscriptionId\")) {",
+									"        pm.environment.set(\"subscriptionId\", item[\"subscriptionId\"]);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{API_KEY}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/memberships/{{membershipId}}/transfers/{{transferId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"memberships",
+								"{{membershipId}}",
+								"transfers",
+								"{{transferId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{API_KEY}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/ping",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"ping"
+					]
+				},
+				"description": "/ping"
+			},
+			"response": []
+		},
+		{
+			"name": "Health Check (Auth)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"type": "text",
+						"value": "{{API_KEY}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/partnerservice/ping",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"partnerservice",
+						"ping"
+					]
+				},
+				"description": "/partnerservice/ping"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
