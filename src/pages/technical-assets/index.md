@@ -3,9 +3,23 @@ title: Technical Assets
 description: Includes documentation, sample price list and reconciliation files, reseller pass-through terms, and a sample Postman environment.
 ---
 
-<DiscoverBlock width= "33%" slots="heading, link, text"/>
+### Archive
+
+<DiscoverBlock width= "33%" slots="link, text"/>
+
+[2-29-24 External API Documentation](/documents/archive/2-29-24%20External%20API%20Documentation.pdf)
+
+2-29-24 External API Documentation.
+
+<DiscoverBlock width= "33%" slots="link, text"/>
+
+[12-21-23 External API Documentation ](/documents/archive/12-21-23%20External%20API%20Documentation.pdf)
+
+12-21-23 External API Documentation.
 
 ### Developer Documentation
+
+<DiscoverBlock width= "33%" slots="link, text"/>
 
 [Adobe Commerce Partner API Credential Generation OAuth](/documents/Adobe%20Commerce%20Partner%20API%20Credential%20Generation%20OAuth.pdf)
 
@@ -13,21 +27,15 @@ Documentation for generating OAuth credentials in CPAPI.
 
 <DiscoverBlock width= "33%" slots="link, text"/>
 
-[2-29-24 External API Documentation](/documents/developer-documentation/2-29-24%20External%20API%20Documentation.pdf)
+[2024-6 VIP Marketplace API Documentation](/documents/developer-documentation/2024_6_VIP_Marketplace_API_Documentation.pdf)
 
-External API Documentation.
+2024-6 VIP Marketplace API Documentation
 
 <DiscoverBlock width= "33%" slots="link, text"/>
 
 [CPAPI Three Year Commit Sandbox Documentation](/documents/developer-documentation/CPAPI%20Three%20Year%20Commit%20Sandbox%20Documentation.pdf)
 
 Sandbox Three Year Commit documentation.
-
-<DiscoverBlock width= "33%" slots="link, text"/>
-
-[12-21-23 External API Documentation](/documents/developer-documentation/12-21-23%20External%20API%20Documentation.pdf)
-
-External API Documentation.
 
 <DiscoverBlock width= "33%" slots="link, text"/>
 
