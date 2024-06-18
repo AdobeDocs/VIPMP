@@ -13,7 +13,7 @@ description: Includes documentation, sample price list and reconciliation files,
 
 <DiscoverBlock width= "33%" slots="link, text"/>
 
-[12-21-23 External API Documentation ](/documents/archive/12-21-23%20External%20API%20Documentation.pdf)
+[12-21-23 External API Documentation](/documents/archive/12-21-23%20External%20API%20Documentation.pdf)
 
 12-21-23 External API Documentation.
 
