@@ -3,7 +3,7 @@
 You can convert an existing government customer to an LGA. An LGA-enabled distributor can do this in the last 30 days of the customer's current term (Anniversary date –30 (AD-30)). Ensure that the following conditions are met to convert a GOV customer to an LGA:
 
 - If the customer holds any Team offer or consumables, the `autoRenewal` must be turned off.
-- The customer should not be part of any active Linked Memberships. If required, the  customer can join an LGA-specific Linked Membership after the AD.
+- The customer should not be part of any active Linked Memberships. If required, the customer can join an LGA-specific Linked Membership after the AD.
 - The customer should not be applied for or committed to Three-Year Commits (3YC).
 - The `marketSegment` of the customer must be `GOV`.
 - The `country` must be the US or Canada.
@@ -28,49 +28,46 @@ The detailed steps are as follows:
 
 1. Use the [Update Subscription API](../subscription_management/update_subscription.md) (`PATCH /v3/customers/{customer-id}/subscriptions/{subscription-id}`) to disable `autoRenewal`. A sample request body is as follows:
 
-    ```json
-    {
-        "autoRenewal": {
+   ```json
+   {
+     "autoRenewal": {
        "enabled": false,
        "renewalQuantity": 7
-    }
-    }
-    ```
+     }
+   }
+   ```
 
 2. Use the [GET Customer Details API](../customer_account/get_customer_account.md) (`GET: /v3/customers/{customer-id}`) to verify other aspects such as 3YC, Linked Membership, market segment, country, region, and renewal quantity.
 3. Use the [Update Customer Details API](../customer_account/update_customer_account.md) (`PATCH : /v3/customers/{customer-id}`) to specify the customer as an LGA customer and marketSubSegments as FEDERAL or STATE. The request body is as follows:
 
-    ```json
-    {
-    ...
-    "benefits": [{
-        "type": "LARGE_GOVERNMENT_AGENCY",
-    }]
-    "companyProfile": {
-        ...
-        "marketSegment": "GOV",
-        "marketSubSegments": ["FEDERAL", "STATE"],
-      }
-      ...
-    }
-    ```
+   ```json
+   {
+     ...
+     "benefits": [{ "type": "LARGE_GOVERNMENT_AGENCY" }],
+     "companyProfile": {
+       ...
+       "marketSegment": "GOV",
+       "marketSubSegments": ["FEDERAL", "STATE"]
+     }
+   }
+   ```
 
 4. Use the [GET Customer Details API](../customer_account/get_customer_account.md) (`GET: /v3/customers/{customer-id}`) to view the LGA status and other details. The status field shows `"status":  "PENDING_UPGRADE”` to indicate that the customer will be upgraded to LGA at the AD. Sample response of the Get Customer Details API before AD:
 
    ```json
-    {
-        ...
-        "benefits": [{            
-        "type": "LARGE_GOVERNMENT_AGENCY",
-        "status":  "PENDING_UPGRADE"
-     }]
-     "companyProfile": {
-        ...
-        "marketSegment": "GOV",
-        "marketSubSegments": ["FEDERAL", "STATE"],
-      }
-      ...
-    }
+   {
+    ...
+    "benefits": [{
+       "type": "LARGE_GOVERNMENT_AGENCY",
+       "status":  "PENDING_UPGRADE"
+    }],
+    "companyProfile": {
+       ...
+       "marketSegment": "GOV",
+       "marketSubSegments": ["FEDERAL", "STATE"]
+     }
+     ...
+   }
    ```
 
 5. Subscriptions opted by the customer get updated at the Anniversary Date (AD).
@@ -89,9 +86,7 @@ Sample response of the Get Customer API after AD:
     "companyName": "Test organization for linked membership",
     "preferredLanguage": "en-US",
     "marketSegment": "GOV",
-    "marketSubSegments": [
-      "FEDERAL"
-    ],
+    "marketSubSegments": ["FEDERAL"],
     "address": {
       "country": "US",
       "region": "CA",

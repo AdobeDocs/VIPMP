@@ -42,34 +42,31 @@ A sample response is as follows:
 
 ```json
 {
-"transferId": "110014510",
-"customerId": "1005472660",
-"resellerId": "1000187468",
-"creationDate": "2024-07-03T06:04:01Z",
-"status": "1000",
-"totalCount": 1,
-"lineItems": [
+  "transferId": "110014510",
+  "customerId": "1005472660",
+  "resellerId": "1000187468",
+  "creationDate": "2024-07-03T06:04:01Z",
+  "status": "1000",
+  "totalCount": 1,
+  "lineItems": [
     {
-    "lineItemNumber": 1,
-    "offerId": "65304479CA01A12",
-    "quantity": 110,
-    "subscriptionId": "9bec01597a466898af170a5a203bb1NA",
-    "renewalDate": "2025-06-10T16:22:08.000+00:00"
+      "lineItemNumber": 1,
+      "offerId": "65304479CA01A12",
+      "quantity": 110,
+      "subscriptionId": "9bec01597a466898af170a5a203bb1NA",
+      "renewalDate": "2025-06-10T16:22:08.000+00:00"
     }
-],
-"benefits": [
+  ],
+  "benefits": [
     {
-      "type": "LARGE_GOVERNMENT_AGENCY"
+      "type": "LARGE_GOVERNMENT_AGENCY",
+      "commitmentRequest": null,
+      "recommitmentRequest": null
     }
-  ]
-},
-"commitmentRequest": null,
-"recommitmentRequest": null
-}
-],
-"discounts": [
-... // existing fields
-]
+  ],
+  "discounts": [
+    ... // existing fields
+  ],
 }
 ```
 
