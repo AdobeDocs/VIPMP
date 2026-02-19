@@ -34,7 +34,7 @@ Use the `POST /v3/customers` API to create an LGA customer. Here are the specifi
 
 - The `benefits` array must include the `LARGE_GOVERNMENT_AGENCY` indicator for the LGA customer.
 - The `marketSegment` should be set to `GOV` for LGA customers.
-- The `marketSubSegments` field is mandatory for LGA customer creation and should have one of the following values:  `FEDERAL` or `STATE`.
+- The `marketSubSegments` field is mandatory for new LGA customer creation and should have one of the following values:  `FEDERAL` or `STATE`. The `marketSubSegments` field is not required for customers migrating from VIP to VIP Marketplace.
 
 #### Request
 

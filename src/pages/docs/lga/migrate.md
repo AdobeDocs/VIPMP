@@ -65,4 +65,6 @@ A sample response is as follows:
 }
 ```
 
+**Note:** The `marketSubSegments` field is not mandatory for customers migrating from VIP to VIP Marketplace.
+
 For more information, see [Transfer API](../migration/transfer-subscription.md).

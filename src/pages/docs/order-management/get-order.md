@@ -196,13 +196,16 @@ If `promotions` array indicates the promotions applied to the Order. For example
 | 403         | Invalid API Key                     |
 | 404         | Invalid customer ID                 |
 
-## Pricing and invoicing data in order details (this feature is not available in production)
+## Pricing and invoicing data in order details
 
 Partners can view invoicing and pricing details for customer orders through the [Get Order](get-order.md), [Preview Order](order-scenarios.md#preview-an-order), and [Preview Renewal APIs](order-scenarios.md#preview-renewal-orders).
 
 Pricing data returned through these APIs reflects partner pricing, discounts, proration logic, and totals as priced and stored in Adobe systems.
 
-**Note:** No tax information is returned through these APIs.
+**Note:** 
+
+- These APIs do not return tax information.
+- Pricing information is not available in these APIs for exceptional return orders that are not refunded.
 
 ### How partners can use these APIs
 

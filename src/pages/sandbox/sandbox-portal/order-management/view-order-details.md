@@ -13,6 +13,10 @@ To view order details:
 
 ![Viewing created orders in the Sandbox Portal](../image/view_order2.png)
 
+**Note:** The order details also include pricing information. Only orders created after the pricing feature was introduced provide pricing information, as shown in the following figure:
+
+![Pricing information in order details](../image/view-order3.png)
+
 ## Search for Orders (Portal Only)
 
 Two criteria can be used to search for Orders in the Portal:
