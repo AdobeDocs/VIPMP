@@ -8,6 +8,7 @@ You can use the following APIs to get details of available flexible discounts an
 - [Get Order](#get-order)
 - [Get Order History of a customer](#get-order-history-of-a-customer)
 - [Preview Renewal](#preview-renewal-with-flexible-discount-code)
+- [Apply flexible discounts when placing manual renewal orders](#apply-flexible-discounts-when-placing-manual-renewal-orders)
 - [Create a subscription with flexible discount](#create-a-scheduled-subscription-with-flexible-discount)
 - [Update subscription with a flexible discount code](#update-a-subscription-with-flexible-discount-code)
 - [Remove a flexible discount from a subscription](#remove-a-flexible-discount-from-a-subscription)
@@ -452,22 +453,13 @@ None.
 
 The same as the standard [Get Order History API](../order-management/get-order.md).
 
-## Apply flexible discounts on subscriptions
+## Preview renewal with flexible discount code
 
-- [Preview Renewal with flexible discount code](#preview-renewal-with-flexible-discount-code)
-- [Manual preview renewal with flexible discount code](#manual-preview-renewal-order-with-flexible-discount-code)
-- [Create Scheduled Subscription with flexible discount](#create-a-scheduled-subscription-with-flexible-discount)
-- [Update Subscription with a flexible discount code](#update-a-subscription-with-flexible-discount-code)
-- [Remove  flexible discount from a subscription](#remove-a-flexible-discount-from-a-subscription)
-
-### Preview renewal with flexible discount code
-
-Eligibility for flexible discounts is validated in both automated preview renewal
-and manual preview renewals.
+Eligibility for flexible discounts is validated in both automated preview renewal and manual preview renewals.
 
 **Note:** The flexible discount codes included in the response apply only to renewal scenarios. They cannot be used when creating a new order.
 
-#### Preview automated renewal
+### Preview automated renewal
 
 The `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `PREVIEW_RENEWAL` is used in the request to verify the eligibility of the order, including validation of customer eligibility for the flexible discount code that is currently applied on the subscription.
 
@@ -527,7 +519,7 @@ The `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `PREVI
 }
 ```
 
-#### Manual Preview Renewal Order with flexible discount code
+### Manual Preview Renewal Order with flexible discount code
 
 Use the `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `PREVIEW_RENEWAL` to manually preview the renewal order, including the eligibility of the customer for the flexible discount code included in the request.
 
@@ -607,6 +599,74 @@ Use the `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `P
     "links": { // As existing response fields }
 }
 ```
+
+## Apply flexible discounts when placing manual renewal orders
+
+You can apply a flexible discount to renewal orders, including late renewals, by specifying flexible discount codes at the line item level in the `Create Order` request. To do this, set `orderType` to `RENEWAL` and include `flexDiscountCodes` for the applicable line items.
+
+| Endpoint                             | Method |
+|--------------------------------------|--------|
+| `/v3/customers/<customer-id>/orders` | POST   |
+
+**Request:**
+
+The following sample request shows how to apply a flexible discount code to a Create Order request to get a discounted price:
+
+```json
+{
+  "orderType": "RENEWAL",
+  "externalReferenceId": "759",
+  "currencyCode": "USD",
+  "lineItems": [
+    {
+      "extLineItemNumber": 1,
+      "offerId": "80004567EA01A12",
+      "subscriptionId": " e0b170437c4e96ac5428364f674dffNA ",
+      "flexDiscountCodes": ["SUMMER_SALE_12"],
+      "quantity": 1
+    }
+  ]
+}
+```
+
+**Response:**
+
+```json
+{
+  "referenceOrderId": "",
+  "orderType": "RENEWAL",
+  "externalReferenceId": "759",
+  "customerId": "9876543210",
+  "orderId": "5120008001",
+  "currencyCode": "USD",
+  "creationDate": "2019-05-02T22:49:54Z",
+  "status": "1002",
+  "lineItems": [
+    {
+      "extLineItemNumber": 1,
+      "offerId": "80004567EA01A12",
+      "quantity": 1,
+      "status": "1002",
+      "subscriptionId": " e0b170437c4e96ac5428364f674dffNA ",
+      "flexDiscounts": [
+                {
+                    "id": "55555555-313b-476c-9d0b-6a610d5b91e0",
+                    "code": "SUMMER_SALE_12",
+                    "result": "SUCCESS"
+                }
+      ]
+    }
+  ],
+  "links": { ... }
+}
+```
+
+## Apply flexible discounts on subscriptions
+
+- [Create Scheduled Subscription with flexible discount](#create-a-scheduled-subscription-with-flexible-discount)
+- [Update Subscription with a flexible discount code](#update-a-subscription-with-flexible-discount-code)
+- [Remove  flexible discount from a subscription](#remove-a-flexible-discount-from-a-subscription)
+
 
 ### Create a scheduled subscription with flexible discount
 
