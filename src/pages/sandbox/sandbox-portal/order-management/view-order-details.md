@@ -63,6 +63,25 @@ There are two ways to view all Orders associated with a customer in the portal:
 
 ![Viewing Orders associated with a customer from the Orders tab](../image/view_order_4.png)
 
+The Customer details also include the orders and subscriptions that are associated with the selected customer.
+
+![Order and subscription details](../image/customer-order-details.png)
+
+This information helps partners understand the customer’s purchase history, active subscriptions, and renewal-related data.
+
+### Customer’s associated orders
+
+This section lists all orders that are linked to the customer.
+
+| **Field** | **Description** |
+|---|---|
+| **Order ID** | The unique identifier assigned to the order. |
+| **Customer ID** | The unique identifier of the customer who placed or received the order. |
+| **Created Date** | The date and time when the order was created. |
+| **Status** | The current status of the order. |
+| **Order Type** | Indicates the type of order, such as a new order or a transfer. |
+| **Order Price** | The total price of the order. A hyphen (**-**) indicates that the price is not applicable or not available for the order type. |
+
 ### Additional Filters
 
 Orders can be filtered further by two additional criteria:

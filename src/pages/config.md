@@ -42,6 +42,8 @@
             - [Get details of all subscriptions of a customer](/docs/subscription-management/get-details-for-customers.md)
             - [Update subscription](/docs/subscription-management/update-subscription.md)
         - [Price Lists](/docs/manage-pricing/index.md)
+        - [Flexible Discounts API](./docs/flex-discounts/flex-discount-apis.md)
+        - [Recommendations API](./docs/recommendations/recommendations-apis.md)
         - [Notifications](/docs/notification-management/index.md)
     - [Manage operational workflows](/docs/resources/workflows.md)
         - [Three-Year Commits](/docs/customer-account/three-year-commit.md)
