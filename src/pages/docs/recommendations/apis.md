@@ -28,7 +28,7 @@ Here’s the sample request body:
 ```json
 {
   "recommendationContext": "RENEWAL_ORDER_PREVIEW | GENERIC | ORDERS_VIEW",
-  "customerId": "<CustomerId>",
+  "customerId": "1005513019",
   "offers": [
     {
       "offerId": "30005897CA01A12",

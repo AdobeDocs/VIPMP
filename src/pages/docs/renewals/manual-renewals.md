@@ -26,7 +26,7 @@ The following are the key capabilities and rules that define how early renewal w
   - **For 3YC customers:** The price effective date is based on the license commitment start date. Early renewal does not modify the customer’s commitment cycle. When a customer under 3YC attempts to renew early (before AD), the system preserves the integrity of the 3‑year commitment. In 3YC, AD is not reset to the early renewal date. Instead, AD is rolled over only after renewal is processed, ensuring that the next renewal cycle remains aligned with the original 3YC structure.
 
 - **Quantity and product rules**  
-  - The first early renewal order must include only existing products and quantities.
+  - The first early renewal order can be either for new product or existing products and quantities that the customer already owns.
   - Offer‑level validation ensures that the ordered quantity (plus any previously renewed quantity) does not exceed the customer’s current quantity.
   - Seats or products additions are allowed only after the initial early renewal order is successfully processed.
 
