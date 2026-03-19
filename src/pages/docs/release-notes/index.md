@@ -8,6 +8,36 @@
 
 ## API changes
 
+### March 16, 2026
+
+#### Flexible Discounts – Introductory offers support
+
+**Expected release:** March, 2026.
+
+This release enhances the Flexible Discounts capability in VIP Marketplace to support Introductory Offers as a new discount category. The introductory offer is a type of discount that helps partners apply a fixed-price discount to a customer’s first purchase or first-time use of a specific product. Some benefits include:
+
+- Incentivizing early onboarding of new Adobe products
+- Transition from SKU-based promotions to promotional codes
+
+**New capabilities:**
+
+- **Category filtering:**  
+  The newly introduced `categories` query parameter of the [Fetch Flexible Discounts](../flex-discounts/apis.md#get-flexible-discounts) endpoint supports filtering by category. Supported values:
+  - `STANDARD`: Regular Flexible Discounts (% off, $ off)
+  - `INTRO`: Introductory Offers
+
+- **New discount type:**  
+  The `type` parameter with value `FIXED_PRICE` allows partners to offer a product at a fixed price, regardless of its original price.
+  *Example:* Adobe Express at $39.99 for new customers.
+
+- **Eligibility enhancements:**  
+  Flexible Discounts for Introductory Offers can be applied only if the customer has never owned the product previously.
+
+For more information, see:
+
+- [Flexible Discounts](../flex-discounts/index.md)
+- [Manage Flexible Discounts using APIs](../flex-discounts/apis.md)
+
 ### February 11, 2026
 
 #### Modified Price List documentation
