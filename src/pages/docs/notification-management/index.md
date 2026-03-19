@@ -69,3 +69,7 @@ None.
 | 400         | Bad request                                 |
 | 401         | Invalid Authorization token                 |
 | 403         | Invalid API Key                             |
+
+## See also
+
+- [Get licenses pending partner order](../customer-account/get-licenses.md)

@@ -1,48 +1,37 @@
 # Manage renewals
 
-Managing subscription renewals helps partners ensure uninterrupted service for customers and maintain accurate subscription configurations throughout the contract lifecycle. Adobe supports these renewal paths:
+Managing subscription renewals enables partners to ensure uninterrupted service and maintain accurate subscription configurations. Adobe supports both auto-renewals, which are system-initiated, and manual renewals, which are partner-initiated and can occur either early or late.
 
-1. **Auto‑renewal (system‑initiated)**
+![alt text](renewals-1.png)
 
-   - These renewals are triggered automatically by Adobe systems based on the renewal configuration.
-   - Occurs each year on the subscription renewal date.
-   - The renewal maintains the products, while the quantity is updated according to the customer’s preferred renewal quantity.
-   - Does not require partner action unless the customer chooses to opt out.
+**Key dates:**
 
-2. **Manual renewal (partner‑initiated)**
+- **Anniversary date (AD):** The contract renewal date that determines the start and end of the subscription term. The AD rolls over after a successful early renewal.
+- **Renewal date:** The date on which the system runs auto-renewal. This date does not change if an early renewal is completed.
 
-   Manual renewal includes two variants:
+## Renewal types
 
-   1. Late renewal
+### Auto-renewal (system-initiated)
 
-      - Occurs after anniversary date (AD) up to the allowed grace period (typically 14 days).
-      - Partners can renew subscriptions manually during this window.
-      - Valid only for products and quantities owned in the prior term.
-      - Additional quantities or new products must be purchased in a separate new order.
+- Triggered automatically by Adobe on the renewal date each year.
+- Uses the subscription’s configured renewal quantity and preferences.
+- No partner action is required unless the customer opts out. In that case, use [Update Subscription](../subscription-management/update-subscription.md) to disable auto-renewal.
 
-   2. Early renewal
+### Manual renewal (partner-initiated)
 
-      - Allows partners to renew a customer’s existing subscriptions ahead of time.
-      - Allows partners to subscribe to new products and adding more seats to the existing subscription.
-      - Occurs before anniversary date (within AD‑30 and AD-1).
-      - Enables earlier billing and service continuation.
+| Variant           | When                                         | Rules                                                                                                      |
+| ----------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Early renewal | Before the AD, between AD-30 and AD-1          | New products and additional seats are allowed. The order is invoiced immediately. The AD rolls over after the first early renewal order. |
+| Late renewal | After the AD and within the grace period, typically 14 days | Only the same products are allowed, and the quantity must be less than or equal to the prior term. New products or additional quantities are not permitted.         |
 
-## Important dates in the renewal model
+For details and API flows, see [Managing early renewals using APIs](manual-renewals.md) and [Managing auto-renewals using APIs](auto-renewals.md).
 
-### Anniversary date (AD)
+## Quick reference
 
-- The AD is the official contract renewal date for the customer.
-- It determines the start and end of a subscription term.
-- AD will change after a successful early renewal.
-
-### Renewal date
-
-- Represents the date on which the system attempts the auto‑renewal.
-- Renewal date does not change, even if early renewal happens.
-- Renewal date continues to drive system‑initiated renewal workflows.
-
-## Define auto-renewal and manual renewal
-
-You can use [Create Subscription](../subscription-management/create-subscription.md) and [Update Subscription](../subscription-management/update-subscription.md) APIs to create or modify a subscription to define the auto-renewal configuration. If the auto-renewal configuration is enabled, subscriptions are renewed using current quantities and renewal preferences. For more information on how to define auto-renewal, see [managing auto-renewals using APIs](auto-renewals.md).
-
-Partners can perform manual renewals using APIs. For more information, see [managing manual renewals using APIs](manual-renewals.md).
+| What you need                                             | Where to go                                                                                                                                        |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Configure auto-renewal** (enable/disable, set quantity) | - [Create Subscription](../subscription-management/create-subscription.md) (`POST /v3/customers/<customer-id>/subscriptions`) \<br/\> -  [Update Subscription](../subscription-management/update-subscription.md) (`PATCH /v3/customers/<customer-id>/subscriptions/<subscription-id>`) |
+| **Preview a renewal** (pricing, eligibility)              | `POST /v3/customers/{customerId}/orders` with `orderType: "PREVIEW_RENEWAL"`. See [Order scenarios](../order-management/order-scenarios.md) for more details.                                                              |
+| **Place a renewal order** (early or late)                 | `POST /v3/customers/{customerId}/orders` with `orderType: "RENEWAL"`. See [Order scenarios](../order-management/order-scenarios.md) for more details.                                                                              |
+| **Check subscription renewal state**                      | - [Get details of all subscriptions of a customer](../subscription-management/get-details-for-customers.md) (`GET /v3/customers/{customerId}/subscriptions`) \<br/\> - [Get details of a specific subscription](../subscription-management/get-details.md) (`GET /v3/subscriptions/{subscriptionId}`)  |
+| **Renewal-specific error codes**                          | [Error codes specific to early renewals](error-codes.md)                                                                                           |

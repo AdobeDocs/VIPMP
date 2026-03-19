@@ -18,7 +18,9 @@ Auto‑renewal process outcomes:
 - Expire the subscription if auto‑renew is turned off.
 - Update the subscription attributes even when all seats were already early renewed.
 
-For more information, see:
+## See also
 
 - [Create Subscription](../subscription-management/create-subscription.md)
-- [Update subscription](../subscription-management/update-subscription.md)
+- [Update Subscription](../subscription-management/update-subscription.md)
+- [Manage renewals (overview)](overview.md)
+- [Managing early renewals using APIs](manual-renewals.md)
