@@ -4,50 +4,6 @@ The following features are scheduled for release:
 
 **Important:** The release timelines stated herein are indicative only and are provided for guidance purposes. Actual release dates may vary.
 
-## Pricing and invoicing data available in GET Order APIs
-
-**Expected release:** March, 2026.
-
-The VIP Marketplace now provides partners with enhanced access to pricing and invoicing information through the `GET Order by ID` and `GET Order History` APIs.
-
-These enhancements allow partners to view the same pricing elements that appear in the invoice spreadsheets, which improves transparency and reconciliation accuracy.
-
-### New capabilities
-
-- Pricing is now available in the following APIs when the `fetch-price=true` query parameter is included in the request:
-
-  - Get Order by ID
-  - Get Order History
-
-- Partners can retrieve detailed pricing and invoicing data directly through these API responses, including:
-
-  - `partnerPrice`
-  - `discountedPartnerPrice`
-  - `netPartnerPrice`
-  - `lineItemPartnerPrice`
-  - `pricingSummary`
-
-- Pricing is returned only for:
-
-  - Single‑currency orders
-  - Orders with completed status (1000)
-  - Orders placed after the pricing feature was introduced
-
-- Additional details
-
-  - The `proratedDays` field appears when pricing is fetched for mid‑term purchases.
-Multi‑currency pricing for previews is not supported. 
-
-For more information, see:
-
-- [Preview with Pricing](../order-management/order-scenarios.md)
-- [Get order by ID](../order-management/get-order.md#get-details-of-a-specific-order)
-- [Get order history for a customer](../order-management/get-order.md#get-the-order-history-of-a-customer)
-
-**Sandbox changes**
-
-- The Order and Customer records in the Sandbox UI displays pricing information. For more information, see: [View order details in Sandbox](../../sandbox/sandbox-portal/order-management/view-order-details.md) and [View customer details in Sandbox](../../sandbox/sandbox-portal/customer-management/get-customer-details.md).
-
 ## Early Renewals – Subscription renewal ahead of anniversary date
 
 **Expected release:** April, 2026.
