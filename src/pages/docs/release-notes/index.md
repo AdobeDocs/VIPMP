@@ -8,16 +8,58 @@
 
 ## API changes
 
+### March 23, 2026
+
+#### Pricing and invoicing data available in Get Order APIs
+
+The VIP Marketplace now provides partners with enhanced access to pricing and invoicing information through the `GET Order by ID` and `GET Order History` APIs.
+
+These enhancements allow partners to view the same pricing elements that appear in the invoice spreadsheets, which improves transparency and reconciliation accuracy.
+
+#### New capabilities
+
+- Pricing is now available in the following APIs when the `fetch-price=true` query parameter is included in the request:
+
+  - Get Order by ID
+  - Get Order History
+
+- Partners can retrieve detailed pricing and invoicing data directly through these API responses, including:
+
+  - `partnerPrice`
+  - `discountedPartnerPrice`
+  - `netPartnerPrice`
+  - `lineItemPartnerPrice`
+  - `pricingSummary`
+
+- Pricing is returned only for:
+
+  - Single‑currency orders
+  - Orders with completed status (1000)
+  - Orders placed after the pricing feature was introduced
+
+- Additional details
+
+  - The `proratedDays` field appears when pricing is fetched for mid‑term purchases.
+Multi‑currency pricing for previews is not supported.
+
+For more information, see:
+
+- [Preview with Pricing](../order-management/order-scenarios.md)
+- [Get order by ID](../order-management/get-order.md#get-details-of-a-specific-order)
+- [Get order history for a customer](../order-management/get-order.md#get-the-order-history-of-a-customer)
+
+**Sandbox changes**
+
+- The Order and Customer records in the Sandbox UI display pricing information. For more information, see: [View order details in Sandbox](../../sandbox/sandbox-portal/order-management/view-order-details.md) and [View customer details in Sandbox](../../sandbox/sandbox-portal/customer-management/get-customer-details.md).
+
 ### March 16, 2026
 
 #### Flexible Discounts – Introductory offers support
 
-**Expected release:** March, 2026.
-
 This release enhances the Flexible Discounts capability in VIP Marketplace to support Introductory Offers as a new discount category. The introductory offer is a type of discount that helps partners apply a fixed-price discount to a customer’s first purchase or first-time use of a specific product. Some benefits include:
 
 - Incentivizing early onboarding of new Adobe products
-- Transition from SKU-based promotions to promotional codes
+- Transitioning from SKU-based promotions to promotional codes
 
 **New capabilities:**
 
@@ -249,6 +291,7 @@ Changes to support on-demand flexible discount release:
 
 ### Earlier releases
 
+- [View pricing data in order details](../../sandbox/sandbox-portal/order-management/view-order-details.md) and [View pricing details in customer records](../../sandbox/sandbox-portal/customer-management/get-customer-details.md)
 - [Manage Flexible Discounts](../../sandbox/sandbox-portal/flex-discounts/index.md)
 - [Manage Product Recommendations](../../sandbox/sandbox-portal/recommendations/index.md)
 - [Manage High Growth Offers](../../sandbox/sandbox-portal/high-growth-offer/high-growth.md)

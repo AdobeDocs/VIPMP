@@ -14,7 +14,7 @@ The following two manual renewal types are supported:
 | What you need | Where to go |
 |---------------|-------------|
 | Preview renewal pricing and eligibility | -  [Preview Renewal Order](../order-management/create-order.md)  (`POST /v3/customers/{customerId}/orders` with `orderType: "PREVIEW_RENEWAL"`). See [Order scenarios](../order-management/order-scenarios.md) for more details. |
-| Place a renewal order (early or late) | `POST /v3/customers/{customerId}/orders` with `orderType: "RENEWAL"`. See [Create Order](../order-management/create-order.md) and [Order scenarios](../order-management/order-scenarios.md). |
+| Place a renewal order (early or late) | - Create Renewal Order (`POST /v3/customers/{customerId}/orders` with `orderType: "RENEWAL"`). See [Create Order](../order-management/create-order.md) and [Order scenarios](../order-management/order-scenarios.md). |
 | Verify renewed quantity | - [Get details of all subscriptions of a customer](../subscription-management/get-details-for-customers.md) (`GET /v3/customers/{customerId}/subscriptions`) \<br/\> - [Get details of a specific subscription](../subscription-management/get-details.md) (`GET /v3/subscriptions/{subscriptionId}`) |
 | Renewal-specific error codes | [Error codes specific to early renewals](error-codes.md) |
 
