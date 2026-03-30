@@ -22,7 +22,7 @@ Managing subscription renewals enables partners to ensure uninterrupted service 
 | Variant           | When                                         | Rules                                                                                                      |
 | ----------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | Early renewal | Before the AD, between AD-30 and AD-1          | New products and additional seats are allowed. The order is invoiced immediately. The AD rolls over after the first early renewal order. |
-| Late renewal | After the AD and within the grace period, typically 14 days | Only the same products are allowed, and the quantity must be less than or equal to the prior term. New products or additional quantities are not permitted.         |
+| Late renewal | After the AD, and typically within 14 days ater AD. | Only the same products are allowed, and the quantity must be less than or equal to the prior term. New products or additional quantities are not permitted.         |
 
 For details and API flows, see [Managing early renewals using APIs](manual-renewals.md) and [Managing auto-renewals using APIs](auto-renewals.md).
 

@@ -30,9 +30,9 @@ The UI displays a list of current discounts, including the following details:
 - Discount `code` to identify the discount. Use this code to apply the discounted price.
 - `category` of the discount. Possible values are: `STANDARD` and `INTRO`.
 - Start and end date of discount.
-- Status of the discount. Only discounts with **ACTIVE** status are eligible.
+- Status of the discount.
 - Offer IDs the discount applies to.
-- Type and value of discount. A discount can have either fixed discount or a percentage discount on the price. For example, if the `type` is **FIXED DISCOUNT** and `value` is **20**, and `currency` is **USD**, this means a flat discount of $20 on the offer price.
+- Type and value of the discount. A discount can be either a fixed discount, a percentage discount, or a fixed price. For example, if the `type` is **FIXED DISCOUNT** and `value` is **20**, and `currency` is **USD**, this means a flat discount of $20 on the offer price.
 - Discount lock end date for reusable flexible discounts. This date determines the date until a reusable flexible discount can continue to be used after its end date.
 
 You can use the discount code while placing an order using the Create Order API.
@@ -48,6 +48,10 @@ Reusable flexible discounts allow partners to continue using a discount for a cu
 The discount lock end date is exposed in the [Get Flexible Discounts API](../../../docs/flex-discounts/apis.md#get-flexible-discounts) response and in the UI for reusable flexible discounts:
 
 ![Edit reusable flexible discounts](../image/resuable-discount.png)
+
+Partners can edit the end date of reusable flexible discounts of customers belong to them. This capability allows partners to continue using a reusable discount after its end date but before the discountLockEndDate. You can modify the end date of a reusable discount in the Edit Reusable Flex Discounts tab, as described in the workflow below. The updated end date must be later than the flexible discount start date and earlier than the `discountLockEndDate`.
+
+**Note:** The time displayed in the UI, the Get Flexible Discounts API, and the Get Orders API is in UTC.
 
 **Workflow to reuse a flexible discount after its end date**
 
@@ -66,6 +70,14 @@ To allow a customer to continue using a reusable flexible discount after its end
 5. Reuse the flexible discount after its end date
 
    Even though the discount end date has passed, the reusable flexible discount can still be used for the same customer as long as the current date is before the discount lock end date.
+6. Also customer can do PREVIEW_RENEWAL without line items to see how reusable discount is auto applied in preview renewal response, and can later enjoy same discount in Auto renewal order.
+
+Example for editing the end date of reusable flexible discounts:
+
+- If a customer places an order using a reusable flexible discount before its end date, for example on 1 April 2026 at 13:00:00 UTC, the end date of the reusable flexible discount can be updated after the order is completed, for example to 1 April 2026 at 13:30:00 UTC.
+- The customer can then place another order using the same reusable flexible discount after the updated end date but before the `discountLockEndDate`, for example on 1 April 2026 at 13:45:00 UTC.
+
+**Note:** The time displayed in the Edit Reusable Flex Discounts UI tab, the Get Flexible Discounts API, and the Get Orders API is in UTC.
 
 ### View flexible discounts applied to an Order
 

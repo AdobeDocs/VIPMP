@@ -20,7 +20,7 @@ Key advantages of flexible discounts include:
    [*Note: This feature is not yet released, expected release - April, 2026*]
   
   - Allows customers to reuse an eligible discount for renewals and seat additions until a configured discount lock end date.
-  - Ensures customers who use a discount during its active period can continue to benefit from it for a defined time, reducing churn caused by sharp price increases.
+  - Ensures customers who use a reusable discount during its active period can continue to benefit from it for a defined time, reducing churn caused by sharp price increases.
   - Enables customers to review the applied reusable discount using Preview Renewal.
   - Eliminates the need for customers to explicitly opt in again using Update Subscription when a reusable discount has already been applied to an eligible subscription.
   - Supports fixed-price introductory offers that span multiple terms, enabling better budget planning for customers.
@@ -74,7 +74,15 @@ Flexible discounts are available to all VIP Marketplace customers, regardless of
 
 Introductory offers apply only to customers who are purchasing a product for the first time.
 
-For reusable discounts, customers must use the discount at least once during the discount’s active period. Once used, the discount can be reused for renewals and eligible order updates until the configured discount reusability date, provided at least one qualifying order remains active.
+**For reusable discounts**
+
+- A reusable flexible discount must be used at least once by the customer during the discount’s active period. If a customer has enjoyed a reusable discount before end date of that flexible discount, then customer can enjoy the same flexible discount until `discountLockEndDate` even after end date of that flex discount.
+- Once used in an order that contributes to a subscription, the discount becomes reusable for that subscription.
+- The reusable flexible discount is automatically applied to subscription auto-renewals and eligible order updates until the configured `discountLockEndDate`, provided at least one qualifying order remains active.
+- Customers are not required to explicitly opt in using Update Subscription for the automatic application of a reusable flexible discount.
+- If a flexible discount is explicitly selected using Update Subscription, that discount takes priority and the automatic application of the reusable flexible discount does not occur.
+- If multiple reusable flexible discounts are used across different orders contributing to the same subscription, the most recently applied reusable flexible discount is automatically applied.
+- Reusable flexible discounts can be identified by the presence of the `discountLockEndDate` field in the [Get Flexible Discounts](./apis.md#get-flexible-discounts) API response.
 
 ## Partner integration process  
 
