@@ -36,9 +36,9 @@ Early renewal allows partners to renew subscriptions before the AD and introduce
 
 ### Quantity and product rules
 
-- The first early renewal can include existing products or new products.
-- Offer‑level validation ensures renewed quantity does not exceed the customer’s current entitlement.
-- Additional seats or products are allowed only after the first early renewal is processed.
+- The first early renewal can include either existing products or new products.
+- One Order can contain either  existing products upto existing current quantities or a combination of new products with additional seats of existing products beyond current quantity.
+- New seat addition in an early renewal order for existing products (subsequent orders) can only be executed after early renewing all the existing quantities of that product.
 - EOL SKUs can be early renewed only for 3YC customers.
 - EOS SKUs cannot be early renewed.
 
