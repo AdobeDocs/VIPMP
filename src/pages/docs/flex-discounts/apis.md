@@ -233,7 +233,7 @@ The only query parameters supported in this endpoint are `limit` and `offset`.
 
 | Parameters | Type |Required | Description |
 |--|--|--|--|
-|limit |Integer |No |Specify the number of items to be returned in the response. Default value is 20 and the maximum possible value is 30. |
+|limit |Integer |No |Specify the number of items to be returned in the response. Default value is 20 and the maximum possible value is 50. |
 |offset |Integer |No |Set the start offset of the returned items. Default value is 0. |
 
 **Request Header**
