@@ -76,13 +76,12 @@ Introductory offers apply only to customers who are purchasing a product for the
 
 **For reusable discounts**
 
-- A reusable flexible discount must be used at least once by the customer during the discount’s active period. If a customer has enjoyed a reusable discount before end date of that flexible discount, then customer can enjoy the same flexible discount until `discountLockEndDate` even after end date of that flex discount.
-- Once used in an order that contributes to a subscription, the discount becomes reusable for that subscription.
-- The reusable flexible discount is automatically applied to subscription auto-renewals and eligible order updates until the configured `discountLockEndDate`, provided at least one qualifying order remains active.
-- Customers are not required to explicitly opt in using Update Subscription for the automatic application of a reusable flexible discount.
-- If a flexible discount is explicitly selected using Update Subscription, that discount takes priority and the automatic application of the reusable flexible discount does not occur.
-- If multiple reusable flexible discounts are used across different orders contributing to the same subscription, the most recently applied reusable flexible discount is automatically applied.
-- Reusable flexible discounts can be identified by the presence of the `discountLockEndDate` field in the [Get Flexible Discounts](./apis.md#get-flexible-discounts) API response.
+- If a customer has used a reusable flexible discount before the end date of that flexible discount, the customer can continue to use the same flexible discount until the `discountLockEndDate`, even after the flexible discount’s end date.
+- When a reusable flexible discount has already been used by a customer in an order that contributes to a subscription, the subscription will have the reusable flexible discount automatically applied during auto-renewal until the `discountLockEndDate`.
+- To auto-apply the reusable discount to a subscription, customers do not need to explicitly opt in using [Update Subscription](../subscription-management/update-subscription.md).
+- However, if a flexible discount is explicitly opted using Update Subscription, that opted flexible discount will take priority, and the automatic application of the reusable discount will not occur.
+- If multiple reusable flexible discounts have been used in different orders contributing to the same subscription, the most recently applied reusable flexible discount will be automatically applied in the auto-renewal order.
+- To identify whether a flexible discount is reusable, the `discountLockEndDate` field will be present for reusable flexible discounts in the [Get Flexible Discounts](./apis.md#get-flexible-discounts) API response.
 
 ## Partner integration process  
 
