@@ -4,11 +4,11 @@ The following features are scheduled for release:
 
 **Important:** The release timelines stated herein are indicative only and are provided for guidance purposes. Actual release dates may vary.
 
-## Promotion Reusability support
+## Support for automatic discount continuity across renewals
 
 **Expected release:** April, 2026.
 
-The promotion reusability allows eligible promotions to be reused beyond their initial end date under defined conditions. With this enhancement, a promotion can be configured for extended usage if it meets the required eligibility criteria. Partners can continue to apply a reusable promotion until the configured reusableUntilDate, provided the promotion is used at least once before the promotion end date.
+The discount reusability allows eligible discounts to be reused beyond their initial end date under defined conditions. With this enhancement, a discount can be configured for extended usage if it meets the required eligibility criteria. Partners can continue to apply a reusable discount until the configured reusableUntilDate, provided the discount is used at least once before the discount end date.
 
 **Key details**
 
