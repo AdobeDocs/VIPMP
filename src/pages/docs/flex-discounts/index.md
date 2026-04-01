@@ -15,15 +15,14 @@ Key advantages of flexible discounts include:
 
   - Allows partners to activate discounts within days for timely seasonal discounts like Black Friday.
 
-- **Renewals with reusable discounts**
+- **Reusable discounts to automatic discount continuity across renewals**
 
    [*Note: This feature is not yet released, expected release - April, 2026*]
   
   - Allows customers to reuse an eligible discount for renewals and seat additions until a configured discount lock end date.
-  - Ensures customers who use a reusable discount during its active period can continue to benefit from it for a defined time, reducing churn caused by sharp price increases.
-  - Enables customers to review the applied reusable discount using Preview Renewal.
-  - Eliminates the need for customers to explicitly opt in again using Update Subscription when a reusable discount has already been applied to an eligible subscription.
-  - Supports fixed-price introductory offers that span multiple terms, enabling better budget planning for customers.
+  - Ensure customers who take advantage of a reusable discount during its initial offering period (start/end date) can retain that pricing benefit beyond the discount’s end date, smoothing price transitions and reducing churn.
+  - Customers can review the reusable discount using the Preview Renewal API call.
+  - Eliminates the need for customers to reapply a discount by using Update Subscription when it is already associated with an eligible subscription.
 
 ## Flexible discount types
 
