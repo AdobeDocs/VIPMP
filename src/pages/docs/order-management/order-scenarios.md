@@ -384,7 +384,7 @@ A few of the benefits of previewing a renewal order include:
 
 - No `orderId`, `status`, and `links` in the request.
 - In case of no `lineItems` in the request, the response indicates what would be in the RENEWAL order based on the auto-renewal preferences (`autoRenewal.enabled` and `autoRenewal.renewalQuantity`) on the customer’s subscriptions.
-- In case of `lineItems` in the request, the response indicates the RENEWAL order initiated after anniversary date for the selected line items.
+- In case of `lineItems` in the request, the response indicates the RENEWAL order initiated for the selected line items, supporting both Early Renewal (before anniversary date) and Late Renewal (after anniversary date).
 - If the customer does not have any subscriptions with autoRenewal enabled, then an error is returned.
 - Returns the best available offer IDs for the renewal order.
 - The `eligibleOffers` section lists the High Growth Offers available for the customer. Read more about the [High Growth Offers](../customer-account/high-growth.md).
