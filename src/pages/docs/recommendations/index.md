@@ -18,6 +18,65 @@ Regardless of the user type, the journey remains the same, as the recommendation
 
 ![Sample Recommendations displayed in UI](../image/recomendation_UI.png)
 
+## Recommendation Ranking and Ordering
+
+The [Fetch Recommendations](./apis.md#fetch-recommendations) API returns a ranked list of product recommendations tailored to an individual customer. Each recommendation includes both a `category` and a `rank`, which together define how partners should interpret and present the results.
+
+### Recommendation categories
+
+Recommendations are grouped into the following categories:
+
+- **Upsell**  
+    Recommends a higher-tier version of a product the customer already owns.
+
+- **Cross-sell**  
+    Recommends complementary products that extend the value of the customer’s existing products.
+
+- **Addon**  
+    Recommends additional products or services that enhance the current product experience.
+
+These categories are designed to reflect the type of opportunity.
+
+### Ranking within categories
+
+Within each category, multiple recommendations may be offered and are further prioritized using a ranking attribute to help partners identify the order of relevance.
+
+For a customer with Acrobat Standard, the API may return:
+
+| Category | Product                     | Rank |
+|----------|-----------------------------|------|
+| Upsell   | Acrobat Pro                 | 0    |
+| Upsell   | Acrobat Studio              | 1    |
+| Addon    | Acrobat AI Assistant (AIA)  | 0    |
+
+In the example above:
+
+- **Acrobat Pro** is the highest-priority upsell recommendation.
+- **Acrobat Studio** is a secondary upsell option.
+- **AIA** is the top (and only) addon recommendation.
+
+### Dynamic nature of recommendations
+
+Recommendations are generated dynamically at runtime based on:
+
+- Customer entitlements
+- Market and regional factors
+- Product availability
+- Recommendation engine logic
+
+As a result:
+
+- Partners should invoke the Recommendation API in real time for each customer interaction.
+- Partners should not cache or hardcode SKU mappings.
+- The set of recommendations and their ranking may change over time.
+
+### Best practices
+
+- Always fetch recommendations per customer session or transaction.
+- Display recommendations grouped by category and ordered by rank.
+- Design UI components to handle variable list lengths.
+- Avoid building logic that depends on fixed product relationships or static hierarchies.
+
 ## Partner integration process to provide recommendations
 
 Below is a high-level overview of the partner integration model for providing recommendations:
