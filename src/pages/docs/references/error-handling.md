@@ -104,6 +104,7 @@ Some error responses will include additionalDetails, an array of strings with mo
 | 2153       | Line item and cancelling line item mismatch. |    Preview Switch Order,   Create Switch Order            |     400             |
 | 2154       | Upgrade not supported |    Preview Switch Order,   Create Switch Order.            |     400             |
 | 2164       |  All subscriptions are already renewed.                                             | Preview Renewal, Create Renewal Order              | 400                                                                                                                                                                      |
+| 2166       |  This promo code is applicable for only 3YC customers.                                             | Preview Renewal, Create Order, Preview Order              | 400                                                                                                                                                                      |
 |3115 | Invalid Customer or Subscription ID| Get Subscription Details, Update Subscription Auto-Renewal, Preview Switch Order, Create Switch Order, Preview Revert Switch, Create Revert Switch Order| 404|
 |3116 | renewalQuantity out of range |Update Subscription Auto-Renewal| 400|
 |3117 | currentQuantity out of range | | 400|

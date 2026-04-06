@@ -653,7 +653,7 @@ The `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `PREVI
             "flexDiscounts": [
                 {
                     "id": "55522355-313b-476c-9d0b-7a710f4h83s4",
-                    "code": "ABCD-XV54-HG34-78YT",
+                    "code": "ABCD-XV54-YG34-98YT",
                     "result": "FAILURE"
                 }
             ]
@@ -663,7 +663,7 @@ The `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `PREVI
 }
 ```
 
-**Note:** If a subscription previously opted for a flexible discount or benefited from a reusable discount, but no longer meets the qualification criteria, the AutoRenewal PreviewRenewal will show FAILURE for that flexible discount on the affected line item, as shown in the above example.
+**Note:** If a subscription previously opted for a flexible discount or benefited from a reusable discount, but no longer meets the qualification criteria to receive the discount in the AutoRenewal, then the PreviewRenewal for AutoRenewal will show FAILURE for that flexible discount on the affected line item, as shown in the above example.
 
 ### Manual Preview Renewal Order with flexible discount code
 
