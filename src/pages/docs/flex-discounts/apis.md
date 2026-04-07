@@ -599,9 +599,7 @@ The same as the standard [Get Order History API](../order-management/get-order.m
 
 ## Preview renewal with flexible discount code
 
-Eligibility for flexible discounts is validated in both automated preview renewal and manual preview renewals.
-
-**Note:** The flexible discount codes included in the response apply only to renewal scenarios. They cannot be used when creating a new order.
+Eligibility for flexible discounts is validated in preview renewal for both auto-renewal and manual renewals.
 
 ### Preview automated renewal
 
