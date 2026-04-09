@@ -1,12 +1,34 @@
 # Release notes
 
-
 - [API changes](#api-changes)
 - [Sandbox changes](#sandbox-changes)
 
 **Important:** This section lists only features that are currently available in production. For planned enhancements and upcoming changes, see [Upcoming releases](./upcoming-releases.md).
 
 ## API changes
+
+### April 09, 2026
+
+#### Support for automatic discount continuity across renewals
+
+The discount reusability allows eligible discounts to be reused beyond their initial end date under defined conditions. With this enhancement, a discount can be configured for extended usage if it meets the required eligibility criteria. Partners can continue to apply a reusable discount until the configured reusableUntilDate, provided the discount is used at least once before the discount end date.
+
+**Key details**
+
+- Allows customers to reuse an eligible discount for renewals and seat additions until a configured discount lock end date.
+- Ensures customers who use a discount during its active period can continue to benefit from it for a defined time, reducing churn caused by sharp price increases.
+- Enables customers to review the applied reusable discount using Preview Renewal.
+- Eliminates the need for customers to explicitly opt in again using Update Subscription when a reusable discount has already been applied to an eligible subscription.
+- Introduced the following changes to [Get Flexible Discounts](../flex-discounts/apis.md#get-flexible-discounts) API:
+  - The `include-eligible-reusable-discounts` query parameter fetches reusable flexible discounts in the response.
+  - The newly introduced `REUSABLE` value of the `status` parameter indicates whether a flexible discount is reusable.
+  - The `discountLockEndDate` parameter in the response indicates the date through which a flexible discount may continue to be applied beyond its initial offering period (start/end date). Reusable discounts are identified by the presence of the discountLockEndDate field in the response.
+
+For more information, see [Manage Flexible Discounts](../flex-discounts/index.md).
+
+**Sandbox changes**
+
+The **Portal Resources > View Available Flex Discounts** page in the Sandbox UI lists the available flexible discounts. The **Edit Reusable Flex Discounts** tab allows you to change a discount's end date and test reusable flexible discounts. For more information, see [Edit reusable flexible discounts](../../sandbox/sandbox-portal/flex-discounts/index.md#edit-reusable-flexible-discounts).
 
 ### March 30, 2026
 
