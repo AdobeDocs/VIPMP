@@ -17,8 +17,6 @@ Key advantages of flexible discounts include:
 
 - **Reusable discounts to automatic discount continuity across renewals**
 
-   [*Note: This feature is not yet released, expected release - April, 2026*]
-  
   - Allows customers to reuse an eligible discount for renewals and seat additions until a configured discount lock end date.
   - Ensure customers who take advantage of a reusable discount during its initial offering period (start/end date) can retain that pricing benefit beyond the discount’s end date, smoothing price transitions and reducing churn.
   - Customers can review the reusable discount using the Preview Renewal API call.
