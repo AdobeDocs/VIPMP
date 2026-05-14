@@ -26,7 +26,7 @@ The [Fetch Recommendations](./apis.md#fetch-recommendations) API returns a ranke
 
 Recommendations are grouped into the following categories:
 
-- **Upsell**  
+- **Upsell**
     Recommends a higher-tier version of a product the customer already owns.
 
 - **Cross-sell**  
@@ -79,7 +79,7 @@ As a result:
 
 ## Partner integration process to provide recommendations
 
-Below is a high-level overview of the partner integration model for providing recommendations:
+Below is a high-level overview of the partner integration model for providing non-overlay recommendations:
 
 ![Partner integration process](../image/reco.png)
 
@@ -98,5 +98,22 @@ The following use case demonstrates how to obtain recommendations for a customer
 The following figure illustrates how recommendations are fetched to assist customers in selecting the best products that meet their needs:
 
 ![Recommendations Use Case sample](../image/reco_usecase.png)
+
+## Overlay recommendations
+
+Adobe agents frequently engage directly with customers during overlay interactions to understand their needs and assess purchase intent. When an agent identifies a clear intent to purchase, a lead is generated on behalf of the customer and persisted within a Recommendation object. This lead is surfaced to the customer's assigned partner through the existing [Fetch Recommendations](./apis.md#fetch-recommendations) API.
+
+Overlay recommendations bridge the coordination gap between Adobe and partners by providing timely, actionable visibility into customer purchase intent. With this information, partners can proactively engage the customer, continue the conversation, and efficiently complete order placement.
+
+### How overlay recommendations differ from product recommendations?
+
+| Aspect | Product Recommendations | Overlay Recommendations |
+|---|---|---|
+| Source | Generated algorithmically by the recommendation engine | Created by Adobe agents during overlay interactions |
+| Purpose | Suggest upsell, cross-sell, and add-on opportunities | Communicate customer purchase intent to partners |
+| Structure | `productRecommendations` with `upsells`, `crossSells`, `addOns` | `overlayRecommendations` with `new` and `renew` lead arrays |
+| Lifecycle | Dynamic per request | Stateful: OPEN, consumed on order placement, or expired |
+
+Both types are returned together in the [Fetch Recommendations](./apis.md#fetch-recommendations) response, allowing partners to discover product recommendations and purchase-intent leads in a single API call.
 
 Read more about [how to manage recommendations using APIs](apis.md).

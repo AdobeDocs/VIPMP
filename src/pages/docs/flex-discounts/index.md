@@ -14,6 +14,7 @@ Key advantages of flexible discounts include:
 - **Quick flexible discount launches for seasonal sales:**
 
   - Allows partners to activate discounts within days for timely seasonal discounts like Black Friday.
+  - Allows partners to discover upcoming discounts through the API ahead of their start date, enabling advance preparation of marketing and storefront workflows.
 
 - **Reusable discounts to automatic discount continuity across renewals**
 

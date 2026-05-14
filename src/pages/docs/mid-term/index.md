@@ -27,7 +27,7 @@ You can use the [GET Offer Switch Paths](apis.md#1-retrieve-upgrade-paths) API t
   You can either switch the entire quantity or a certain number of the original subscription quantity.
 
   **Example:** Out of 100 seats, only 40 are switched to Acrobat Standard Enterprise, and the remaining 60 stay on the original product.
-  If the upgrade path is marked `PARTIALLY_ALLOWED`, the partner can perform either a partial or full upgrade.
+  If the upgrade path is marked `PARTIAL_ALLOWED`, the partner can perform either a partial or full upgrade.
 
 **Note:** After a full switch, only the new product renews. After a partial switch, both products renew. The subscription's anniversary date remains unchanged.
 

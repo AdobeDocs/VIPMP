@@ -128,7 +128,30 @@ The following response header, added to all responses, provides data to understa
         },
       },
     ],
-  },
+  }
+  "overlayRecommendations": {
+    "new": [
+      {
+        "createdAt": "2026-01-27T08:15:35Z",
+        "expiresAt": "2026-02-27T08:15:35Z",
+        "status": "OPEN",
+        "items": [
+          { "offerId": "30006208CA01A12", "quantity": 25 },
+          { "offerId": "65318386CA02012", "quantity": 1 }
+        ]
+      }
+    ],
+    "renew": [
+      {
+        "createdAt": "2026-01-28T09:20:10Z",
+        "expiresAt": "2026-02-28T09:20:10Z",
+        "status": "OPEN",
+        "items": [
+          { "offerId": "30006208CA01A12", "quantity": 15 }
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -146,6 +169,15 @@ The following response header, added to all responses, provides data to understa
 | source                 | Object                   | Indicates the source of the recommendation.                                                                                                                                                              |
 | sourceType             | String                   | Specifies the type of the source entity. Currently only `OFFER` is supported.                                                                                                                              |
 | offerIds               | String Array             | List of offer IDs that contributed to this recommendation.                                                                                                                                               |
+| overlayRecommendations | Object                   | Contains overlay recommendation leads created by Adobe agents during overlay interactions. Present only when leads exist for the customer. For more information, see [Overlay recommendations](./index.md#overlay-recommendations).                                                               |
+| new                    | Array of Leads           | List of leads representing new purchase intent identified during overlay interactions.                                                                                                                    |
+| renew                  | Array of Leads           | List of leads representing renewal intent identified during overlay interactions.                                                                                                                         |
+| createdAt              | String (ISO-8601)        | Timestamp when the lead was created.                                                                                                                                                                     |
+| expiresAt              | String (ISO-8601)        | Timestamp when the lead expires if not acted upon.                                                                                                                                                        |
+| status                 | String                   | Lead lifecycle state. Possible values: `OPEN` and `EXPIRED`.                                                                                                                                                                     |
+| items                  | Array of Items           | List of products and quantities in the lead.                                                                                                                                                             |
+| offerId                | String                   | Offer identifier (Part Number) for the lead item.                                                                                                                                                        |
+| quantity               | Integer                  | Number of units of the product in the lead.                                                                                                                                                              |
 
 ### HTTP Status Codes
 
