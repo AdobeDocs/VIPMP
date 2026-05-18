@@ -217,8 +217,6 @@ On failure, the response includes the appropriate HTTP status code based on the 
 
 ## Get flexible discounts of a customer
 
-[*Note: This feature is not yet released, expected release - April, 2026*]
-
 Use the `/v3/customers/<customer-id>/flex-discounts` endpoint to get details of reusable flexible discounts used by the customer and that are in the ACTIVE or REUSABLE state.
 
 | Endpoint                                      | Method |

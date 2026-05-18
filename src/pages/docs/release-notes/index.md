@@ -7,6 +7,32 @@
 
 ## API changes
 
+### May 11, 2026
+
+#### Flexible discounts are now discoverable before their start date
+
+Partners can now retrieve upcoming flexible discounts using `GET /v3/flex-discounts`, so you can see upcoming offers ahead of their go-live date. This is the default behavior for the endpoint; no new parameters are required to see those discounts.
+
+**What changed?**
+
+The `GET /v3/flex-discounts` endpoint now returns upcoming flexible discounts in addition to those that are already live by default.
+
+**Important:** A discount with a future `startDate` will still show `status: ACTIVE`. For integrations, `ACTIVE` should not be read as “can be applied to an order today.” Use `startDate` relative to the current date to decide whether a discount is eligible for orders now.
+
+**Why it matters**
+
+Partners can now prepare marketing campaigns, brief resellers, and configure storefronts ahead of a discount's live date, rather than waiting for comms or account-manager outreach
+
+**Action required**
+
+| Action                         | Details                                                                                                                                                                      |
+|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Gate discount use on startDate | The status field alone no longer indicates whether a discount is live. Compare startDate to the current date to determine if a discount can be applied to orders today.     |
+| Audit existing logic            | Find any code paths that assume `status: ACTIVE` means “usable right now” and align them with the rule above.                                                                              |
+| To keep legacy behavior                 | Pass `start-date=<today>` as a query parameter to return only currently-live discounts to replicate the previous behavior of the API.                                                       |
+
+For more information, see [Manage Flexible Discounts](../flex-discounts/index.md).
+
 ### April 09, 2026
 
 #### Support for automatic discount continuity across renewals
