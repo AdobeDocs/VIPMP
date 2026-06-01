@@ -546,13 +546,59 @@ None.
 
 ```json
 {
+    "totalCount": 3,
+    "offset": 0,
+    "limit": 25,
+    "count": 3,
     "items": [
+        {
+            "referenceOrderId": "",
+            "orderType": "NEW",
+            "externalReferenceId": "ext-ref-new-001",
+            "customerId": "1005944528",
+            "orderId": "5120008001",
+            "currencyCode": "USD",
+            "creationDate": "2025-01-15T10:30:00Z",
+            "status": "1000",
+            "lineItems": [
+                {
+                    "extLineItemNumber": 1,
+                    "offerId": "80004567CA01A12",
+                    "quantity": 10,
+                    "status": "1000",
+                    "subscriptionId": "a1b2c3d4e5f6789012345678abcdefNA",
+                    "currencyCode": "USD",
+                    "flexDiscounts": [
+                        {
+                            "id": "11111111-aaaa-bbbb-cccc-111111111111",
+                            "code": "SUMMER_SALE_123",
+                            "result": "SUCCESS"
+                        }
+                    ]
+                },
+                {
+                    "extLineItemNumber": 2,
+                    "offerId": "80004568CA01A12",
+                    "quantity": 5,
+                    "status": "1000",
+                    "subscriptionId": "b2c3d4e5f6789012345678abcdef01NA",
+                    "currencyCode": "USD",
+                    "flexDiscounts": [
+                        {
+                            "id": "33333333-aaaa-bbbb-cccc-333333333333",
+                            "code": "LOYALTY_DISCOUNT_456",
+                            "result": "SUCCESS"
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "referenceOrderId": "",
             "orderType": "SWITCH",
             "externalReferenceId": "a96ee8fe-c440-4d1c-ae5b-a90e1825aef",
             "customerId": "1005944528",
-            "orderId": "123432123",
+            "orderId": "5120008002",
             "currencyCode": "USD",
             "creationDate": "2025-03-17T11:42:29Z",
             "status": "1000",
@@ -562,12 +608,48 @@ None.
                     "offerId": "65304479CA02A12",
                     "quantity": 15,
                     "status": "1000",
-                    "subscriptionId": "",
+                    "subscriptionId": "c3d4e5f6789012345678abcdef0123NA",
                     "currencyCode": "USD",
                     "flexDiscounts": [
                         {
                             "id": "55555555-313b-476c-9d0b-6a610d5b91e0",
-                            "code": "UPSELL_PROMO_123",
+                            "code": "DISCOUNT_123",
+                            "result": "SUCCESS"
+                        }
+                    ]
+                }
+            ],
+            "cancellingItems": [
+                {
+                    "offerId": "65322651CA02A12",
+                    "extLineItemNumber": 1,
+                    "quantity": 15,
+                    "subscriptionId": "abfb5a4cb14561879af7204c7daee1NA",
+                    "referenceLineItemNumber": 1
+                }
+            ]
+        },
+        {
+            "referenceOrderId": "5120008001",
+            "orderType": "RENEWAL",
+            "externalReferenceId": "ext-ref-renewal-003",
+            "customerId": "1005944528",
+            "orderId": "5120008003",
+            "currencyCode": "USD",
+            "creationDate": "2026-01-15T08:00:00Z",
+            "status": "1000",
+            "lineItems": [
+                {
+                    "extLineItemNumber": 1,
+                    "offerId": "80004567EA01A12",
+                    "quantity": 10,
+                    "status": "1000",
+                    "subscriptionId": "a1b2c3d4e5f6789012345678abcdefNA",
+                    "currencyCode": "USD",
+                    "flexDiscounts": [
+                        {
+                            "id": "66666666-aaaa-bbbb-cccc-666666666666",
+                            "code": "RENEWAL_DISC_789",
                             "result": "SUCCESS"
                         }
                     ]
