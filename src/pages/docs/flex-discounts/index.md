@@ -105,8 +105,8 @@ Introductory offers apply only to customers who are purchasing a product for the
 Flexible discounts may require the customer to meet 3-year commitment (3YC) criteria.
 
 - Customer must either be entering a 3YC commitment (new to 3YC) or be compliant with an active 3YC commitment (existing 3YC)  
-- The qualifying order quantity + existing quantity must meet or exceed the committed minimum purchase quantity (MPQ)  
-- Certain discounts require the MPQ to be greater than or equal to a configured discount MPQ threshold  
+- Certain discounts require the MPQ to be greater than or equal to a configured discount MPQ threshold
+- When applicable, the qualifying order quantity + existing quantity must meet or exceed the committed minimum purchase quantity (MPQ)
 - Eligibility may be scoped to:  
   - First commitment year (from start date to first anniversary)  
   - Current commitment year (annual eligibility window resets on first use)  
@@ -116,11 +116,12 @@ Flexible discounts may require the customer to meet 3-year commitment (3YC) crit
 
 **New to 3YC**
 
-- Customer must enter into a 3YC commitment on the qualifying order  
+- Customer must enter into a 3YC commitment on the qualifying order.
+- The customer must not have previously enrolled in a 3YC commitment.
 - Eligible based on configured scope:  
   - First year only  
   - Full commitment term  
-- Reusable within the defined eligibility window, if configured  
+- Reusable within the defined eligibility window, if applicable  
 
 **Existing 3YC**
 
@@ -160,7 +161,7 @@ Use the `discountLockEndDate` field and Preview Order APIs (for example, Preview
 
 ### Mid-term upgrade eligibility
 
-Mid-term upgrade, also known as anytime upgrade, scenarios apply to SWITCH_PLAN or CHANGE_PLAN orders.
+Mid-term upgrade, also known as anytime upgrade, scenarios apply to SWITCH orders.
 
 **Upgrade eligibility**
 
