@@ -9,7 +9,9 @@ You can use the following APIs to get details of available flexible discounts an
 - [Get Order](#get-order)
 - [Get Order History of a customer](#get-order-history-of-a-customer)
 - [Preview Renewal](#preview-renewal-with-flexible-discount-code)
+- [Preview Switch](#preview-switch)
 - [Apply flexible discounts when placing manual renewal orders](#apply-flexible-discounts-when-placing-manual-renewal-orders)
+- [Apply flexible discount in switch orders](#apply-a-switch-plan-with-flexible-discount)
 - [Create a subscription with flexible discount](#create-a-scheduled-subscription-with-flexible-discount)
 - [Get details of a specific subscription](#get-details-of-a-specific-subscription)
 - [Get details of all subscriptions of a customer](#get-details-of-all-subscriptions-of-a-customer)
@@ -247,7 +249,7 @@ See [Headers](../references/api-headers.md) section.
   "count": 3,
   "totalCount": 3,
   "flexDiscounts": [
-	{
+  {
       "id": "55555555-313b-476c-9d0b-6a610d5b91e0", // STANDARD - Fixed Discount of REUSABLE status
       "category": "STANDARD",
       "code": "BLACK_FRIDAY",
@@ -311,7 +313,7 @@ See [Headers](../references/api-headers.md) section.
       "description": "NEW YEAR - 20% off on all Products",
       "startDate": "2025-12-01T23:59:59Z",
       "endDate": "2026-12-31T23:59:59Z",
-	  "discountLockEndDate": "2027-03-01T23:59:59Z",
+      "discountLockEndDate": "2027-03-01T23:59:59Z",
       "status": "ACTIVE",
       "outcomes": [
         {
@@ -457,7 +459,7 @@ Same as the standard [Create Order](../order-management/create-order.md) request
 
 ## Get Order
 
-The [GET Order](../order-management/get-order.md) API response also includes the flexible discount applied to the order.
+The [GET Order](../order-management/get-order.md) API response also includes the flexible discount applied to both NEW and SWITCH orders.
 
 | Endpoint                                        | Method |
 |-------------------------------------------------|--------|
@@ -517,6 +519,7 @@ None.
     ],
     "links": { // As existing response fields } 
     },
+
 ```
 
 ### HTTP Status Codes
@@ -525,7 +528,7 @@ The same as the standard [Get Order API](../order-management/get-order.md).
 
 ## Get Order History of a Customer
 
-The `Get Order History` API retrieves past orders for a customer, including any applied flexible discounts.
+The `Get Order History` API retrieves past orders for a customer, including any applied flexible discounts. This API fetches details of both NEW and SWITCH orders.
 
 | Endpoint                             | Method |
 |--------------------------------------|--------|
@@ -546,49 +549,33 @@ None.
     "items": [
         {
             "referenceOrderId": "",
-            "orderType": "NEW",
-            "externalReferenceId": "759",
-            "customerId": "9876543210",
-            "orderId": "5120008001",
+            "orderType": "SWITCH",
+            "externalReferenceId": "a96ee8fe-c440-4d1c-ae5b-a90e1825aef",
+            "customerId": "1005944528",
+            "orderId": "123432123",
             "currencyCode": "USD",
-            "creationDate": "2019-05-02T22:49:54Z",
+            "creationDate": "2025-03-17T11:42:29Z",
             "status": "1000",
             "lineItems": [
                 {
                     "extLineItemNumber": 1,
-                    "offerId": "80004567CA01A12",
-                    "quantity": 1,
+                    "offerId": "65304479CA02A12",
+                    "quantity": 15,
                     "status": "1000",
                     "subscriptionId": "",
                     "currencyCode": "USD",
                     "flexDiscounts": [
                         {
                             "id": "55555555-313b-476c-9d0b-6a610d5b91e0",
-                            "code": "SUMMER_SALE_123",
-                            "result": "SUCCESS"
-                        }
-                    ]
-                },
-                {
-                    "extLineItemNumber": 2,
-                    "offerId": "80004561CA02A12",
-                    "quantity": 11,
-                    "status": "1000",
-                    "subscriptionId": "",
-                    "currencyCode": "USD",
-                    "flexDiscounts": [
-                        {
-                            "id": "55522355-313b-476c-9d0b-7a710f4h83s4",
-                            "code": "WINTER_SALE_123",
+                            "code": "UPSELL_PROMO_123",
                             "result": "SUCCESS"
                         }
                     ]
                 }
-            ],
-            "links": { // As existing response fields } 
-            }
-        ]
-    }
+            ]
+        }
+    ]
+}
 ```
 
 ### HTTP Status Codes
@@ -742,6 +729,105 @@ Use the `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `P
 }
 ```
 
+## Preview Switch
+
+Use the `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `PREVIEW_SWITCH` to manually preview the switch order, including the eligibility of the customer for the flexible discount code included in the request.
+
+**Request**
+
+The `flexDiscountCodes` parameter in `lineItems` array can be used to preview the eligibiity of the flexible discount codes to the items being switched, as shown in the following example:
+
+```json
+{
+    "orderType": "PREVIEW_SWITCH",
+    "currencyCode": "USD",
+    "lineItems": [
+        {
+            "extLineItemNumber": 1,
+            "offerId": "65322651CA02A12",
+            "quantity": 15,
+            "flexDiscountCodes": ["UPSELL_PROMO_123"]
+        }
+    ],
+    "cancellingItems": [
+        {
+            "extLineItemNumber": 1,
+            "referenceLineItemNumber": 1,
+            "subscriptionId": "abfb5a4cb14561879af7204c7daee1NA",
+            "quantity": 15
+        }
+    ]
+}
+```
+
+**Response**
+
+```json
+{
+    "referenceOrderId": "",
+    "externalReferenceId": "a96ee8fe-c440-4d1c-ae5b-a90e1825aef",
+    "orderId": "",
+    "customerId": "1005944528",
+    "currencyCode": "USD",
+    "orderType": "PREVIEW_SWITCH",
+    "status": "",
+    "pricingSummary": [
+        {
+            "totalLineItemPrice": 810.00,
+            "currencyCode": "USD"
+        }
+    ],
+    "lineItems": [
+        {
+            "extLineItemNumber": 1,
+            "offerId": "65304479CA02A12",
+            "quantity": 15,
+            "subscriptionId": "",
+            "proratedDays": 90,
+            "pricing": {
+                "partnerPrice": 365.00,
+                "discountedPartnerPrice": 295.65,
+                "netPartnerPrice": 81.00,
+                "lineItemPartnerPrice": 730.00
+            },
+            "flexDiscountCodes": ["UPSELL_PROMO_123"],
+            "flexDiscounts": [
+                {
+                    "id": "55555555-313b-476c-9d0b-6a610d5b91e0",
+                    "code": "UPSELL_PROMO_123",
+                    "result": "SUCCESS"
+                }
+            ]
+        }
+    ],
+    "cancellingItems": [
+        {
+            "offerId": "65322651CA02A12",
+            "quantity": 15,
+            "subscriptionId": "abfb5a4cb14561879af7204c7daee1NA",
+            "pricing": {
+                "partnerPrice": 300.00,
+                "discountedPartnerPrice": 0.00,
+                "netPartnerPrice": -300.00,
+                "lineItemPartnerPrice": 300.00
+            },
+            "referenceLineItemNumber": 1
+        }
+    ],
+    "creationDate": "2025-03-17T11:42:29Z"
+}
+```
+
+The response includes `flexDiscounts` at the `lineItems` level, showing applicability details for each code. The following table lists the flexible discount-related parameters in the response:
+
+| Parameter                       | Not Null | Data Type        | Description                                                                                                   | Included in response by default |
+|----------------------------------|----------|------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------|
+| lineItems[].flexDiscountCodes    | No       | Array of strings | Flexible discount codes that were applied to the line item.                                                    | Yes                           |
+| lineItems[].flexDiscounts        | No       | Object           | Details of the flexible discount applied to the line item.                                                     | Yes                           |
+| lineItems[].flexDiscounts[].id   | No       | String           | A unique identifier for the promotion. Used to retrieve or reference a specific flexible discount.             | Yes                           |
+| lineItems[].flexDiscounts[].code | No       | String           | The flexible discount code that was applied to the line item.                                                  | Yes                           |
+| lineItems[].flexDiscounts[].result | No     | String           | Indicates applicability result. SUCCESS means the flexible discount code was applied successfully.             | Yes                           |
+
 ## Apply flexible discounts when placing manual renewal orders
 
 You can apply a flexible discount to renewal orders, including late renewals, by specifying flexible discount codes at the line item level in the `Create Order` request. To do this, set `orderType` to `RENEWAL` and include `flexDiscountCodes` for the applicable line items.
@@ -803,12 +889,12 @@ The following sample request shows how to apply a flexible discount code to a Cr
 }
 ```
 
-## Apply flexible discounts on subscriptions
+## Apply flexible discounts on subscriptions and Switch plan
 
 - [Create Scheduled Subscription with flexible discount](#create-a-scheduled-subscription-with-flexible-discount)
+- [Apply a switch plan with flexible discount](#apply-a-switch-plan-with-flexible-discount)
 - [Update Subscription with a flexible discount code](#update-a-subscription-with-flexible-discount-code)
 - [Remove a flexible discount from a subscription](#remove-a-flexible-discount-from-a-subscription)
-
 
 ### Create a scheduled subscription with flexible discount
 
@@ -859,6 +945,83 @@ You can use the `POST /v3/customers/<customer-id>/subscriptions` API with `flexD
   }
 }
 ```
+
+### Apply a switch plan with flexible discount
+
+Use the `Create Order` API with orderType as `SWITCH` to switch from the current order to a new one. API with `flexDiscountCodes` in the request to create a subscription for a specific customer. For more information on Switch Orders, see [Create Switch Order](../order-management/order-scenarios.md#create-switch-order).
+
+|Endpoint|Method|
+|---|--|
+|`v3/customers/{customerId}/orders` | `POST`|
+
+**Request**
+
+Add `flexDiscountCodes` at the `lineItems` level to apply flexible discount codes to the items being switched.
+
+```json
+{
+    "orderType": "SWITCH",
+    "currencyCode": "USD",
+    "lineItems": [
+        {
+            "extLineItemNumber": 1,
+            "offerId": "65322651CA02A12",
+            "quantity": 15,
+            "flexDiscountCodes": ["UPSELL_PROMO_123"]
+        }
+    ],
+    "cancellingItems": [
+        {
+            "extLineItemNumber": 1,
+            "referenceLineItemNumber": 1,
+            "subscriptionId": "abfb5a4cb14561879af7204c7daee1NA",
+            "quantity": 15
+        }
+    ]
+}
+```
+
+**Response**
+
+```json
+{
+    "referenceOrderId": "",
+    "externalReferenceId": "a96ee8fe-c440-4d1c-ae5b-a90e1825aef",
+    "orderId": "123432123",
+    "customerId": "1005944528",
+    "currencyCode": "USD",
+    "orderType": "SWITCH",
+    "status": "",
+    "lineItems": [
+        {
+            "extLineItemNumber": 1,
+            "offerId": "65304479CA02A12",
+            "quantity": 15,
+            "subscriptionId": "",
+            "flexDiscountCodes": ["UPSELL_PROMO_123"],
+            "flexDiscounts": [
+                {
+                    "id": "55555555-313b-476c-9d0b-6a610d5b91e0",
+                    "code": "UPSELL_PROMO_123",
+                    "result": "SUCCESS"
+                }
+            ]
+        }
+    ],
+    "cancellingItems": [
+        {
+            "offerId": "65322651CA02A12",
+            "extLineItemNumber": 1,
+            "quantity": 15,
+            "subscriptionId": "abfb5a4cb14561879af7204c7daee1NA",
+            "referenceLineItemNumber": 1
+        }
+    ],
+    "creationDate": "2025-03-17T11:42:29Z"
+}
+```
+
+For details on the flexible discount codes parameters in the request, see [Preview Switch](#preview-switch) section.
 
 ### Get details of a specific subscription
 
