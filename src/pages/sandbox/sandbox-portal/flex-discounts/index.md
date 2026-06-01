@@ -10,6 +10,7 @@ You can explore and test the Flexible Discounts feature in the Sandbox environme
 - [Edit reusable flexible discounts](#edit-reusable-flexible-discounts)
 - [View flexible discounts applied to an Order](#view-flexible-discounts-applied-to-an-order)
 - [View flexible discounts applied to a subscription](#view-flexible-discounts-applied-to-a-subscription)
+- [Flexible discounts for 3YC customers](#)
 
 ### View the available flexible discounts
 
@@ -100,3 +101,9 @@ Points to note:
 - If no flexible discount is applied for renewal, the FlexDiscountCode field remains empty. For example:
 
   ![Flex Discount details in Subscription details](../image/flex_subscription.png)
+
+## Flexible discounts for 3YC and mid-term upgrades
+
+You can test 3YC and mid-term upgrade (also known as anytime upgrade) discounts in Sandbox. Unlike the discounts that were originally on the sandbox that always succeed or always fail, these discounts will have slight validations associated with them to ensure you are integrating with the new criteria correctly.
+
+Read more about the [3YC eligibility critera](../../../docs/flex-discounts/index.md#3-year-commitment-3yc-eligibility) and [mid-term eligibility criteria](../../../docs/flex-discounts/index.md#mid-term-upgrade-eligibility).

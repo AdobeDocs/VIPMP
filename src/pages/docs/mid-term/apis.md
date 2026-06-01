@@ -60,7 +60,7 @@ This API helps partners enable customers to upgrade their product subscriptions 
 | offer-id       | No       | Fetches all upgrade paths available for the specified offer.                                               |
 | subscription-id      | No       | See description corresponding to `customer-id`                                               |
 | customer-id     | No       | If `subscription-id` and `customer-id`  query parameters are provided: \<br /\> - Partners do not need to pass other fields. \<br /\> - By default, the country will be taken from the customer’s country, or from the deployment’s country if the subscription has deployment details unless explicitly overridden by the partner. \<br /\> - The customer segment will be same as customer market segment. \<br /\> - The language will default to MULT, unless explicitly overridden by the partner by passing the corresponding query parameter.                                              |
-| language       | Yes      | Language for which they want upgrade paths.                                                            |
+| language       | No      | Language for which they want upgrade paths.                                                            |
 | limit | No      | Specifies the maximum number of records (items) to return in a single response. Default value is 20. |
 | offset | No     | Specifies the starting position in the dataset from which to return results. Default value is 0. |
 
@@ -201,7 +201,7 @@ The newly introduced `Preview Switch` option in the `OrderType` parameter of the
 |currencyCode                      | Required                            | String (Enum)           | Currency code for order, must be supported by the partner.                      |
 | lineItems                         | Required                            | List     | Specifies the line items the customer intends to switch.                     |
 | lineItems.extLineItemNumber       | Required                            | String                   | Unique index for line item.                                                 |
-| lineItems.subscriptionId          | Required                            | String                   | Indicates which subscription customer is trying to switch.                  |
+| lineItems.subscriptionId          | Optional \<br /\>  This parameter is relevant in the request if an existing subscription for the product exists.                          | String                   | Indicates which subscription customer is trying to switch.                  |
 | lineItems.offerId                 | Required                            | String                   | Indicates which product customer is switching to                           |
 | lineItems.quantity                | Required                            | String                   | Quantity from subscription to be switched.                                  |
 | cancellingItems                   | Required for Switch type Order      | List | List of items the customer intends to cancel as part of the switch process.                                |
