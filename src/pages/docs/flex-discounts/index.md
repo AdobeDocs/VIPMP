@@ -29,7 +29,7 @@ Key advantages of flexible discounts include:
 
 - **Support for 3-year commitment (3YC) incentives:**
 
-  - Supports offers for customers who are new to 3YC (orders that make them 3YC-compliant) or existing 3YC customers, including cases where minimum purchase quantity (MPQ) thresholds are met. Promotions can be reused and applied to the first term, the current term, or the full 3YC commitment duration
+  - Supports offers for customers who are new to 3YC (orders that make them 3YC-compliant) or existing 3YC customers, including cases where minimum commit quantity (MCQ) thresholds are met. Promotions can be reused and applied to the first term, the current term, or for additional purchases and renewal for the three year commit duration.
 
 **How reusable and non-reusable discounts work:**
 
@@ -105,8 +105,8 @@ Introductory offers apply only to customers who are purchasing a product for the
 Flexible discounts may require the customer to meet 3-year commitment (3YC) criteria.
 
 - Customer must either be entering a 3YC commitment (new to 3YC) or be compliant with an active 3YC commitment (existing 3YC)  
-- Certain discounts require the MPQ to be greater than or equal to a configured discount MPQ threshold
-- When applicable, the qualifying order quantity + existing quantity must meet or exceed the committed minimum purchase quantity (MPQ)
+- Certain discounts require the MCQ to be greater than or equal to a configured discount MCQ threshold
+- When applicable, the qualifying order quantity + existing quantity must meet or exceed the committed minimum commit quantity (MCQ)
 - Eligibility may be scoped to:  
   - First commitment year (from start date to first anniversary)  
   - Current commitment year (annual eligibility window resets on first use)  
@@ -131,10 +131,10 @@ Flexible discounts may require the customer to meet 3-year commitment (3YC) crit
   - Remaining commitment term  
 - Reusable within the defined eligibility window, if configured  
 
-**MPQ threshold-based scenarios**
+**MCQ threshold-based scenarios**
 
 - Applies to both new and existing 3YC customers, depending on configuration  
-- The qualifying order quantity + existing quantity must meet MPQ requirements and the configured MPQ threshold  
+- The qualifying order quantity + existing quantity must meet MCQ requirements and the configured MCQ threshold  
 - Eligibility may be limited to:  
   - First year  
   - Current year  
@@ -154,10 +154,12 @@ Flexible discounts may require the customer to meet 3-year commitment (3YC) crit
 
 Use the `discountLockEndDate` field and Preview Order APIs (for example, Preview Renewal) to confirm discount behavior for a specific customer.
 
-  **Notes:**
+**Notes:**
 
-- “New to 3YC” refers to customers entering compliance with a 3YC commitment on the order, not customers adding seats to an existing subscription.
-- Customers who recommit after a prior 3YC term has ended are treated as existing 3YC customers, not new.
+- “New to 3YC” refers to customers who enter compliance with a 3YC commitment through a new order, not those who add seats to an existing subscription.
+- Customers who recommit after their previous 3YC term has ended are considered existing 3YC customers, not new 3YC customers. 
+
+For more information on the error codes returned in case the eligibility crieteria are not mer, see [Error codes specific to Flexible Disocunts](./error-codes.md).
 
 ### Mid-term upgrade eligibility
 

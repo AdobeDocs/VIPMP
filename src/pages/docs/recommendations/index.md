@@ -10,11 +10,11 @@ Adobe's recommendations are context-aware, tailored to the products the customer
 - Adobe Express for non-Adobe Express customers
 - Acrobat AI Assistant to Acrobat Pro customers
 
-These recommendations provide details of the product available for the customer in the upsell, cross-sell, and add-on motions.
+These recommendations provide details of products available to the customer for upsell, cross-sell, and add-on opportunities.
 
-In the VIP Marketplace, users can be either 'resellers' or 'end-customers,' depending on the partner's business strategy and marketplace design. A reseller places orders against the customer's business account, whereas the customer navigates the partner marketplace to find products to order against their business account.
+In the VIP Marketplace, users can be either 'resellers' or 'end customers', depending on the partner's business strategy and marketplace design. A reseller places orders against the customer's business account, whereas the customer navigates the partner marketplace to find products to order against their business account.
 
-Regardless of the user type, the journey remains the same, as the recommendations API focuses on customer-centric recommendations. For example, a partner can use the Preview Order API to list the recommendations, as illustrated in the following example:
+Regardless of the user type, the journey remains the same, as the Fetch Recommendations API focuses on customer-centric recommendations. For example, a partner can use the Preview Order API to list the recommendations, as illustrated in the following example:
 
 ![Sample Recommendations displayed in UI](../image/recomendation_UI.png)
 
@@ -32,7 +32,7 @@ Recommendations are grouped into the following categories:
 - **Cross-sell**  
     Recommends complementary products that extend the value of the customer’s existing products.
 
-- **Addon**  
+- **Add-on**  
     Recommends additional products or services that enhance the current product experience.
 
 These categories are designed to reflect the type of opportunity.
@@ -53,7 +53,7 @@ In the example above:
 
 - **Acrobat Pro** is the highest-priority upsell recommendation.
 - **Acrobat Studio** is a secondary upsell option.
-- **AIA** is the top (and only) addon recommendation.
+- **AIA** is the top (and only) add-on recommendation.
 
 ### Dynamic nature of recommendations
 
@@ -66,7 +66,7 @@ Recommendations are generated dynamically at runtime based on:
 
 As a result:
 
-- Partners should invoke the Recommendation API in real time for each customer interaction.
+- Partners should invoke the Fetch Recommendations API in real time for each customer interaction.
 - Partners should not cache or hardcode SKU mappings.
 - The set of recommendations and their ranking may change over time.
 
@@ -101,7 +101,7 @@ The following figure illustrates how recommendations are fetched to assist custo
 
 ## Overlay recommendations
 
-Adobe agents frequently engage directly with customers during overlay interactions to understand their needs and assess purchase intent. When an agent identifies a clear intent to purchase, a lead is generated on behalf of the customer and persisted within a Recommendation object. This lead is surfaced to the customer's assigned partner through the existing [Fetch Recommendations](./apis.md#fetch-recommendations) API.
+Adobe agents frequently engage directly with customers during overlay interactions to understand their needs and assess purchase intent. When an agent identifies a clear intent to purchase, an opportunity is generated on behalf of the customer and persisted within a Recommendation object. This opportunity is surfaced to the customer's assigned partner through the [Fetch Recommendations](./apis.md#fetch-recommendations) API.
 
 Overlay recommendations bridge the coordination gap between Adobe and partners by providing timely, actionable visibility into customer purchase intent. With this information, partners can proactively engage the customer, continue the conversation, and efficiently complete order placement.
 
@@ -111,9 +111,9 @@ Overlay recommendations bridge the coordination gap between Adobe and partners b
 |---|---|---|
 | Source | Generated algorithmically by the recommendation engine | Created by Adobe agents during overlay interactions |
 | Purpose | Suggest upsell, cross-sell, and add-on opportunities | Communicate customer purchase intent to partners |
-| Structure | `productRecommendations` with `upsells`, `crossSells`, `addOns` | `overlayRecommendations` with `new` and `renew` lead arrays |
+| Structure | `productRecommendations` with `upsells`, `crossSells`, `addOns` | `overlayRecommendations` with `new` and `renew` opportunity  arrays |
 | Lifecycle | Dynamic per request | Stateful: OPEN, consumed on order placement, or expired |
 
-Both types are returned together in the [Fetch Recommendations](./apis.md#fetch-recommendations) response, allowing partners to discover product recommendations and purchase-intent leads in a single API call.
+Both types are returned together in the [Fetch Recommendations](./apis.md#fetch-recommendations) response, allowing partners to discover product recommendations and purchase-intent opportunities in a single API call.
 
 Read more about [how to manage recommendations using APIs](apis.md).

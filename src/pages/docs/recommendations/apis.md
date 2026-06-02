@@ -128,7 +128,7 @@ The following response header, added to all responses, provides data to understa
         },
       },
     ],
-  }
+  },
   "overlayRecommendations": {
     "new": [
       {
@@ -169,15 +169,15 @@ The following response header, added to all responses, provides data to understa
 | source                 | Object                   | Indicates the source of the recommendation.                                                                                                                                                              |
 | sourceType             | String                   | Specifies the type of the source entity. Currently only `OFFER` is supported.                                                                                                                              |
 | offerIds               | String Array             | List of offer IDs that contributed to this recommendation.                                                                                                                                               |
-| overlayRecommendations | Object                   | Contains overlay recommendation leads created by Adobe agents during overlay interactions. Present only when leads exist for the customer. For more information, see [Overlay recommendations](./index.md#overlay-recommendations).                                                               |
-| new                    | Array of Leads           | List of leads representing new purchase intent identified during overlay interactions.                                                                                                                    |
-| renew                  | Array of Leads           | List of leads representing renewal intent identified during overlay interactions.                                                                                                                         |
-| createdAt              | String (ISO-8601)        | Timestamp when the lead was created.                                                                                                                                                                     |
-| expiresAt              | String (ISO-8601)        | Timestamp when the lead expires if not acted upon.                                                                                                                                                        |
-| status                 | String                   | Lead lifecycle state. Possible values: `OPEN` and `EXPIRED`.                                                                                                                                                                     |
-| items                  | Array of Items           | List of products and quantities in the lead.                                                                                                                                                             |
-| offerId                | String                   | Offer identifier (Part Number) for the lead item.                                                                                                                                                        |
-| quantity               | Integer                  | Number of units of the product in the lead.                                                                                                                                                              |
+| overlayRecommendations | Object                   | Contains overlay recommendation opportunities created by Adobe agents during overlay interactions. Present only when opportunities exist for the customer. For more information, see [Overlay recommendations](./index.md#overlay-recommendations).                                                               |
+| new                    | Array of opportunities           | List of opportunities representing new purchase intent identified during overlay interactions.                                                                                                                    |
+| renew                  | Array of opportunities           | List of opportunities representing renewal intent identified during overlay interactions.                                                                                                                         |
+| createdAt              | String (ISO-8601)        | Timestamp when the opportunity was created.                                                                                                                                                                     |
+| expiresAt              | String (ISO-8601)        | Timestamp when the opportunity expires if not acted upon.                                                                                                                                                        |
+| status                 | String                   | Opportunity lifecycle state. Possible values: `OPEN` and `EXPIRED`.                                                                                                                                                                     |
+| items                  | Array of Items           | List of products and quantities in the opportunity.                                                                                                                                                             |
+| offerId                | String                   | Offer identifier (Part Number) for the opportunity item.                                                                                                                                                        |
+| quantity               | Integer                  | Number of units of the product in the opportunity.                                                                                                                                                              |
 
 ### HTTP Status Codes
 

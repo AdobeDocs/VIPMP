@@ -724,6 +724,7 @@ The newly introduced `Preview Switch` option in the `OrderType` parameter of the
 | lineItems.offerId                 | Required                            | String                   | Indicates which product customer is switching to                           |
 | lineItems.quantity                | Required                            | String                   | Quantity from subscription to be switched.                                  |
 | lineItems.discountCode            | Optional                            | String                   | Discount code applied to the line item                                     |
+| lineItems.flexDiscountCodes            | Optional                            | String                   | Flexible discount codes applied to the items being switched.                                     |
 | cancellingItems                   | Required for Switch type Order      | List | List of items the customer intends to cancel as part of the switch process.                                |
 | cancellingItems.extLineItemNumber | Required                            | String                   | A unique identifier for the line item being canceled.                                      |
 | cancellingItems.referenceLineItemNumber | Required                     | String                   | Reference line item number of the item being canceled.                                 |
