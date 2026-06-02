@@ -11,9 +11,9 @@
 
 #### Overlay recommendations are now surfaced to partners in select regions
 
-Partners in certain regions can now view sales opportunities passed to them by Adobe representatives through the existing  [Fetch Recommendations](../recommendations/apis.md#fetch-recommendations) (`POST /v3/recommendations`) API. This is an enhancement available in certain regions. The API changes are backward compatible and non-breaking. Your region leads will communicate the opportunities applicable in your region.
+Partners in certain regions can now view sales opportunities passed to them by Adobe representatives through the existing  [Fetch Recommendations](../recommendations/apis.md#fetch-recommendations) (`POST /v3/recommendations`) API. This enhancement is currently limited to specific regions. The API updates are backward-compatible and non-breaking. Your region leads will communicate the opportunities applicable in your region.
 
-When an Adobe agent identifies purchase intent during an overlay interaction, an opportunity is created and returned in the recommendations response under a new `overlayRecommendations` field. Partners also receive an email notification when an opportunity is created.
+When an Adobe agent identifies purchase intent during an overlay interaction, an opportunity is created and returned in the recommendations response under a new `overlayRecommendations` object.
 
 **What changed?**
 
@@ -22,7 +22,7 @@ The `POST /v3/recommendations` endpoint now returns an `overlayRecommendations` 
 - **`new`**: Opportunities where the customer expressed intent to purchase new products.
 - **`renew`**: Opportunities where the customer expressed intent to renew existing subscriptions.
 
-Each opportunity includes `createdAt`, `expiresAt`, `status`, and an `items` array with `offerId` and `quantity`. Opportunities have a status of `OPEN` until they are consumed during order placement or automatically expired past their `expiresAt` date.
+Each opportunity includes `createdAt`, `expiresAt`, `status`, and an `items` array with `offerId` and `quantity`. Opportunities remain in an `OPEN` status until they are either consumed during order placement or automatically expired past their `expiresAt` date.
 
 For more information, see [Overlay recommendations](../recommendations/index.md#overlay-recommendations).
 
