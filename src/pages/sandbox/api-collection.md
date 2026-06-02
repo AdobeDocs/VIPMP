@@ -17,7 +17,7 @@ Having a valid access token is essential to get a successful response when makin
 You can interact with Sandbox using the preset calls available in the CPAPI collection. Read more about:
 
 - [Detailed API documentation information on all the API calls](../docs/index.md)
-- [CPAPI Collection](https://adobe.sharepoint.com/sites/VIPMarketplacePartners/SitePages/API-Materials.aspx)
+- [CPAPI Collection](https://developer.adobe.com/vipmp/technical-assets/)
 
 Additionally, you can use platforms other than Postman to interact with CPAPI.
 

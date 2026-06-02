@@ -7,6 +7,25 @@
 
 ## API changes
 
+### May 18, 2026
+
+#### Overlay recommendations are now surfaced to partners in select regions
+
+Partners in certain regions can now view sales opportunities passed to them by Adobe representatives through the existing  [Fetch Recommendations](../recommendations/apis.md#fetch-recommendations) (`POST /v3/recommendations`) API. This is an enhancement available in certain regions. The API changes are backward compatible and non-breaking. Your region leads will communicate the opportunities applicable in your region.
+
+When an Adobe agent identifies purchase intent during an overlay interaction, an opportunity is created and returned in the recommendations response under a new `overlayRecommendations` field. Partners also receive an email notification when an opportunity is created.
+
+**What changed?**
+
+The `POST /v3/recommendations` endpoint now returns an `overlayRecommendations` object alongside the existing `productRecommendations`. This object contains two arrays:
+
+- **`new`**: Opportunities where the customer expressed intent to purchase new products.
+- **`renew`**: Opportunities where the customer expressed intent to renew existing subscriptions.
+
+Each opportunity includes `createdAt`, `expiresAt`, `status`, and an `items` array with `offerId` and `quantity`. Opportunities have a status of `OPEN` until they are consumed during order placement or automatically expired past their `expiresAt` date.
+
+For more information, see [Overlay recommendations](../recommendations/index.md#overlay-recommendations).
+
 ### May 11, 2026
 
 #### Flexible discounts are now discoverable before their start date
@@ -58,7 +77,7 @@ In general, promotions and discounts are available only between their configured
 |------|----------------------------------|------------------|
 | Availability | Only between the discount start and end dates. | Between the start date and beyond the end date until the discount lock end date. |
 | Renewal usage | Not allowed after the discount end date. | Allowed if the discount was used at least once before the end date. |
-| Seat additions after the end date | Not supported. | Supported until the discount lock end date .|
+| Seat additions after the end date | Not supported. | Supported until the discount lock end date.|
 | Customer action required | Must opt in again with **Update Subscription** if applicable. | No additional opt-in required once applied. |
 
 For more information, see [Manage Flexible Discounts](../flex-discounts/index.md).
@@ -91,7 +110,7 @@ Facilitates the renewal of customer subscriptions before the Anniversary Date (A
 - **Auto-renew compatibility**  
   
   - Customers with auto-renewal enabled can still renew early. On the renewal date, any remaining quantities not covered by early renewals are automatically renewed.
-  - Early renewing customers are not expected to turn off their auto-renewal configuration. Adobe intelligently handles the auto renewals accordingly and subscription states and attributes are updated as part of the standard renewal cycle.
+  - Early renewing customers are not expected to turn off their auto-renewal configuration. Adobe intelligently handles the auto-renewals accordingly and subscription states and attributes are updated as part of the standard renewal cycle.
 
 For more information, see:
 
@@ -222,30 +241,26 @@ Partners can upgrade customer subscriptions during the active term, without wait
 
 **New capabilities**
 
-- [Upgrade path discovery](../mid-term/apis.md#discover-upgrade-path)
+- [Upgrade path discovery](../mid-term/apis.md#discover-upgrade-path) - 
   Partners can retrieve valid upgrade paths using the new [GET Offer Switch Paths](../mid-term/apis.md#discover-upgrade-path) API, filtered by market segment, country, and language.
 
-- [Preview switch order](../mid-term/apis.md#2-preview-switch-order)
+- [Preview switch order](../mid-term/apis.md#2-preview-switch-order) - 
   A new `orderType` value, **`PREVIEW_SWITCH`**, has been added to the **Create Order API**. This allows partners to generate upgrade quotes before placing a switch order.
 
-- [Switch order execution](../mid-term/apis.md#apply-switch-plan)
+- [Switch order execution](../mid-term/apis.md#apply-switch-plan) - 
   Partners can place upgrade orders using the `SWITCH` order type, specifying both the "From" and "To" product details. The API supports automatic user reassignment via the `reassign-users=true` query parameter.
 
-- [Upgrade reversion](../mid-term/apis.md#revert-switch-order)
-  Partners can revert a switch order within 14 days using the new `REVERT_SWITCH` and `PREVIEW_REVERT_SWITCH` order types. This restores the original subscription and de-provisions the upgraded product.
+- [Upgrade reversion](../mid-term/apis.md#revert-switch-order) - Partners can revert a switch order within 14 days using the new `REVERT_SWITCH` and `PREVIEW_REVERT_SWITCH` order types. This restores the original subscription and de-provisions the upgraded product.
 
-- [Partial and full upgrades](../mid-term/apis.md#discover-upgrade-path)
-  The system supports both full and partial upgrades, including seat expansions and product transitions (example: Acrobat Standard to Acrobat Pro).
+- [Partial and full upgrades](../mid-term/apis.md#discover-upgrade-path) -  The system supports both full and partial upgrades, including seat expansions and product transitions (example: Acrobat Standard to Acrobat Pro).
 
-- [Enhanced Error Handling](../mid-term/error-codes.md)
-
-  Several new error codes have been introduced to provide clear feedback for mid-term upgrade scenarios, including:
+- [Enhanced Error Handling](../mid-term/error-codes.md) -  Several new error codes have been introduced to provide clear feedback for mid-term upgrade scenarios, including:
 
   - 2149: Quantity mismatch
   - 2150: Switch path validity check failed
   - 2151: Quantity exceeded
   - 2152: Multiple line items not supported
-  - 2153: Line item and cancelling line item mismatch
+  - 2153: Line item and canceling line item mismatch
   - 2154: Upgrade not supported
   - 3115: Invalid subscription
 

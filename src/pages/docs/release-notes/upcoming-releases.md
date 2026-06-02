@@ -51,23 +51,6 @@ Partners can now present 3YC-specific promotional pricing to eligible customers 
 
 For more information, see [Manage Flexible Discounts](../flex-discounts/index.md).
 
-## Overlay recommendations are now available to partners
-
-**Expected release:** June 2026
-
-Partners can now view Adobe-identified customer purchase intent through the existing [Fetch Recommendations](../recommendations/apis.md#fetch-recommendations) (`POST /v3/recommendations`) API. When an Adobe agent identifies purchase intent during an overlay interaction, a lead is created and returned in the recommendations response under a new `overlayRecommendations` field. Partners also receive an email notification when a lead is created.
-
-**What changed?**
-
-The `POST /v3/recommendations` endpoint now returns an `overlayRecommendations` object alongside the existing `productRecommendations`. This object contains two arrays:
-
-- **`new`**: Leads where the customer expressed intent to purchase new products.
-- **`renew`**: Leads where the customer expressed intent to renew existing subscriptions.
-
-Each lead includes `createdAt`, `expiresAt`, `status`, and an `items` array with `offerId` and `quantity`. Leads have a status of `OPEN` until they are consumed during order placement or automatically expired past their `expiresAt` date.
-
-For more information, see [Overlay recommenations](../recommendations/index.md#overlay-recommendations).
-
 ## Churn and seat expansion propensity are now surfaced in the Recommendations API
 
 **Expected release:** June 2026

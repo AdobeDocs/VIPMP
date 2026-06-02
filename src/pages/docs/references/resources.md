@@ -192,6 +192,30 @@ Please see the Validations/Regular Expressions section for any regular expressio
 | crossSells             | Array of Recommendations| List of recommended products that complement the selected product by offering additional functionality or benefits. Example: Adobe Stock to Adobe Photoshop |
 | addOns                 | Array of Recommendations| List of recommended products to extend or enhance the functionality of a base product. These products are not standalone and must be used with the base product. Example: AI Assistant for Adobe Acrobat |
 
+#### overlayRecommendations object
+
+| **Parameter**          | **Type**                 | **Description**                                                                                                                                                                                          |
+|------------------------|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| overlayRecommendations | Object                   | Contains overlay recommendation opportunities created by Adobe agents during overlay interactions. Present only when opportunities exist for the customer. For more information, see [Overlay recommendations](./index.md#overlay-recommendations).                                                               |
+| new                    | Array of opportunities           | List of opportunities representing new purchase intent identified during overlay interactions.                                                                                                                    |
+| renew                  | Array of opportunities           | List of opportunities representing renewal intent identified during overlay interactions.                                                                                                                         |
+| createdAt              | String (ISO-8601)        | Timestamp when the opportunity was created.                                                                                                                                                                     |
+| expiresAt              | String (ISO-8601)        | Timestamp when the opportunity expires if not acted upon.                                                                                                                                                        |
+| status                 | String                   | Opportunity lifecycle state. Possible values: `OPEN` and `EXPIRED`.                                                                                                                                                                     |
+| items                  | Array of Items           | List of products and quantities in the opportunity.                                                                                                                                                             |
+| offerId                | String                   | Offer identifier (Part Number) for the opportunity item.                                                                                                                                                        |
+| quantity               | Integer                  | Number of units of the product in the opportunity.                                                                                                                                                              |
+
+#### flexibleDiscountCodes object
+
+| Parameter                       | Not Null | Data Type        | Description                                                                                                   | Included in response by default |
+|----------------------------------|----------|------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------|
+| lineItems[].flexDiscountCodes    | No       | Array of strings | Flexible discount codes that were applied to the line item.                                                    | Yes                           |
+| lineItems[].flexDiscounts        | No       | Object           | Details of the flexible discount applied to the line item.                                                     | Yes                           |
+| lineItems[].flexDiscounts[].id   | No       | String           | A unique identifier for the promotion. Used to retrieve or reference a specific flexible discount.             | Yes                           |
+| lineItems[].flexDiscounts[].code | No       | String           | The flexible discount code that was applied to the line item.                                                  | Yes                           |
+| lineItems[].flexDiscounts[].result | No     | String           | Indicates applicability result. SUCCESS means the flexible discount code was applied successfully.             | Yes                           |
+
 ### cancellingItems
 
 |Parameter|Not Null|Data Type|Description|Included in Response by Default|
