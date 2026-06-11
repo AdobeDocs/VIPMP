@@ -7,6 +7,28 @@
 
 ## API changes
 
+### June 09, 2026
+
+#### Closed discount details are now available when searching by code
+
+Partners can now use the the existing `GET /v3/flex-discounts` API to retrieve details for closed discounts when searching with a specific code shared with them.
+
+Closed discounts are typically shared by Customer Account Managers (CAMs) or Sales Agents and are intended for targeted scenarios such as customer retention or upgrades.
+
+**What changed?**
+
+When a partner calls `GET /v3/flex-discounts?flex-discount-code=<code>`:
+
+- If the code belongs to a closed discount, the API now returns discount details instead of an empty response. The response includes details such as:
+  - `code`
+  - `codeExpiryDate`
+  - `baseOfferIds`
+  - `outcomes`
+
+  Read more about [response for a request that uses a closed discount code](../flex-discounts/apis.md#response-sample-for-a-request-that-uses-a-closed-discount-code).
+
+For more information, see [Manage Flexible Discounts](../flex-discounts/index.md).
+
 ### May 18, 2026
 
 #### Overlay recommendations are now surfaced to partners in select regions
