@@ -7,6 +7,61 @@
 
 ## API changes
 
+### June 23, 2026
+
+#### Flexible discounts for Switch Orders (Mid-term upgrade discounts)
+
+Partners can now apply flexible discount codes when customers switch products mid-term using `POST /v3/customers/{customerId}/orders` with `orderType: SWITCH` or `PREVIEW_SWITCH`. This allows promotional pricing to be offered at the point of upgrade, instead of being limited to renewals.
+
+**What changed**
+
+The following APIs have been updated:
+
+- Preview Switch Order (`PREVIEW_SWITCH`): 
+  - Accepts `lineItems[].flexDiscountCodes` in the request.
+  - Returns `lineItems[].flexDiscounts` in the response, indicating whether each code was successfully applied.
+- Create Switch Order (`SWITCH`): 
+  - Accepts `lineItems[].flexDiscountCodes` in the request. 
+  - Returns `lineItems[].flexDiscounts` in the response.
+- Get Order (`GET /v3/customers/{customerId}/orders/{orderId}`): 
+  - Returns `lineItems[].flexDiscounts` for `SWITCH` orders, in addition to the existing behavior for other `orderTypes`, including `NEW` orders.
+- Get Order History (`GET /v3/customers/{customerId}/orders`):  
+  - Returns `lineItems[].flexDiscounts` for `SWITCH` orders in the order history list.
+
+**Important:** `flexDiscountCodes` apply only to `lineItems` (the target product items being switched to). Codes on `cancellingItems` (the source product being cancelled) are not accepted or returned.
+
+**Why it matters**
+
+  Partners can now incentivize customers to upgrade products during their active subscription term by applying promotional discounts at the time of the switch. Previously, flexible discounts were only available on new orders and renewals. This enables upsell campaigns where discount codes can be offered to customers making mid-term product upgrades.
+
+  **Action required**
+
+| Action                                   | Details                                                                                                                                         |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Add `flexDiscountCodes` to switch order requests | Include `lineItems[].flexDiscountCodes` (array of strings) in your `PREVIEW_SWITCH` and `SWITCH` order requests to apply a flexible discount. This field is optional. |
+| Check `flexDiscounts[].result` in the response   | Verify that `result: "SUCCESS"` is returned for each applied code before confirming the discount to the customer.                                |
+| Update `Get Order` and `Get Order History` API integrations | If your integration reads order details or history for `SWITCH` orders, expect the `lineItems[].flexDiscounts` field to now be present in responses. |
+| Use `Preview Switch Order` before placing the order | Call `PREVIEW_SWITCH` first to confirm discount applicability and see the discounted pricing before committing the order.                        |
+
+For more information, see [Manage Flexible Discounts](../flex-discounts/index.md).
+
+#### Flexible Discounts for 3-Year Commitments (3YC)
+
+Partners can discover and apply flexible discounts specifically designed for customers who are new to 3YC (orders that make them 3YC-compliant) or existing 3YC customers, including cases where minimum purchase quantity (MPQ) thresholds are met. Promotions can be reused and applied to the first term, the current term, or the full 3YC commitment duration.
+
+**Why it matters**
+
+Partners can now present 3YC-specific promotional pricing to eligible customers to incentivize new 3-year commitments or to reward existing 3YC subscribers. This removes the need for manual outreach to identify eligible customers.
+
+**Action required**
+
+| Action                                   | Details                                                                                                                                         |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Discover 3YC promotions through Get Flexible Discounts | Call `GET /v3/flex-discounts`.            |
+| Apply the discount code on the order      | Include the `flexDiscountCodes` in your `NEW` or `RENEWAL` order request. Eligibility is evaluated dynamically. |
+
+For more information, see [Manage Flexible Discounts](../flex-discounts/index.md).
+
 ### June 09, 2026
 
 #### Closed discount details are now available when searching by code
