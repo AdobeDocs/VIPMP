@@ -196,3 +196,5 @@ These REASON_CODE values are included in the `additionalDetails` array for 5117 
 | NOT_LGA PARTNER                | Partner country is not US/CA.                                                             |Reach out to support for assistance. |
 | INSUFFICIENT_LGA_MOQ           | MOQ is < 100 and ( Considering FRL SKU's presence)                                        |Reach out to support for assistance |
 | LGA_QTY_LEVEL_MISMATCH         | MOQ does not fall between respective level cap quantities.                                |Reach out to support for assistance. |
+| T&C_ACCEPTANCE_REQUIRED         | The customer has not accepted the VIP T&C                                |Login to the Admin Console and Accept the T&C |
+| VIP_CUSTOM_MIGRATION_BLOCK        | Not a traditional VIP Indirect contract, so migration is currently not supported.                                |This is not a traditional VIP Indirect contract, so migration is currently not supported. For any escalations or concerns, partners should reach out to their Account Manager for further assistance. |
