@@ -27,3 +27,9 @@ Partners can now identify at-risk customers and high-growth opportunities using 
 | No changes needed for existing fields | `productRecommendations` and `overlayRecommendations` are unchanged. Existing integrations continue to work without modification. |
 
 For more information, see [Propensity Intelligence](../recommendations/index.md#propensity-intelligence).
+
+### Testing Propensity Signals in sandbox
+
+A set of 13 predefined test seeds is configured in the Sandbox so you can exercise every combination of rating level and empty-array behavior during integration testing. Each seed returns a fixed response. 
+
+For more information, see [Testing Propensity Signals in sandbox](../../sandbox/sandbox-portal/recommendations/index.md#testing-propensity-signals-in-sandbox).
