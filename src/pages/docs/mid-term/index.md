@@ -29,7 +29,10 @@ You can use the [GET Offer Switch Paths](apis.md#1-retrieve-upgrade-paths) API t
   **Example:** Out of 100 seats, only 40 are switched to Acrobat Standard Enterprise, and the remaining 60 stay on the original product.
   If the upgrade path is marked `PARTIAL_ALLOWED`, the partner can perform either a partial or full upgrade.
 
-**Note:** After a full switch, only the new product renews. After a partial switch, both products renew. The subscription's anniversary date remains unchanged.
+**Note:** 
+
+- After a full switch, only the new product renews. After a partial switch, both products renew. The subscription's anniversary date remains unchanged.
+- If the partner has not explicitly set a specific renewal quantity, Adobe automatically sets the renewal quantity of the original subscription to its current value during any full or partial upgrade. This behavior ensures that partners do not need to manually update the renewal quantity after completing an upgrade transaction.
 
 ## Reassigning users
 

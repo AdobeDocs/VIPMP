@@ -23,7 +23,7 @@ See [Headers section](../references/api-headers.md).
 
 ### Request Body
 
-Here’s the sample request body:
+The following is a sample request body:
 
 ```json
 {
@@ -40,7 +40,8 @@ Here’s the sample request body:
     }
   ],
   "country": "JP",
-  "language": "MULT"
+  "language": "MULT",
+  "includePropensity": true
 }
 ```
 
@@ -52,9 +53,11 @@ The following table lists the request parameters and their corresponding descrip
 |-----------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
 | recommendationContext | String | The context in which recommendations are being requested. \<br /\> Values: \<br /\> - **GENERIC**: Fetches recommendations without any primary context, using all available information about a customer.\<br /\> - **ORDER_PREVIEW**: Fetches recommendations based on the products in the cart.\<br /\> - **RENEWAL_ORDER_PREVIEW**:  For AutoRenewal, it fetches recommendations based on Subscription Renewal preference. For ManualRenewal, it fetches the same recommendations as the **ORDER_PREVIEW** context. \<br /\> \<br /\> | No \<br /\> \<br /\> The default value is **GENERIC**. |
 | customerId            | String | Unique identifier for the customer for whom recommendations are being requested. This is a mandatory parameter.                                                                                                                                                                                                                                                                                                                                                                                                              | Yes                                                |
-| offers                | Object | List of offers for which recommendations are being fetched.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | No                                                 |
+| offers                | Object | List of offers for which recommendations are requested.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | No                                                 |
 | country               | String | The requested country for which recommendations should be fetched. If not provided, the customer's country will be used. See [available country codes](../references/supported-locales.md).                                                                                                                                                                                                                                                                                                                                      | No                                                 |
 | language              | String |The requested language for which recommendations should be fetched. Possible values are: \<br /\> - `EN` \<br /\> - `MULT`  \<br /\>**Note:** Use `EN` for Western Europe customers or global customers deploying in Europe. `MULT` is available for all other regions.                                                                                                                                                                                                                                                                | No                                                 |
+| No                                                 |
+| includePropensity              | String |Set `includePropensity: true` to include propensity data in the response. Omitting the field or setting it to `false` excludes the propensity data from the response. | No                                                 |
 
 #### Offers object
 
@@ -67,7 +70,7 @@ The following table lists the request parameters and their corresponding descrip
 
 ### Response Header
 
-The following response header, added to all responses, provides data to understand how recommendations are working: `x-recommendation-tracker-id: <Some String identifier>`. For more information, see [Provide recommendation tracking data to Adobe to improve future recommendations](#provide-tracking-data-to-adobe-to-get-improved-recommendations).
+The following response header, added to all responses, provides data to help understand how recommendations are working: `x-recommendation-tracker-id: <Some String identifier>`. For more information, see [Provide recommendation tracking data to Adobe to improve future recommendations](#provide-tracking-data-to-adobe-to-get-improved-recommendations).
 
 ### Response Body
 
@@ -77,57 +80,49 @@ The following response header, added to all responses, provides data to understa
     "upsells": [
       {
         "rank": 0,
-        "product": {
-          "baseOfferId": "30006208CA01A12"
-        },
-        "source": {
-          "sourceType": "OFFER",
-          "offerIds": [
-            "30005702CA01A12"
-          ],
-        },
+        "product": { 
+          "baseOfferId": "30006208CA01A12" 
+          },
+        "source": { 
+          "sourceType": "OFFER", 
+          "offerIds": ["30005702CA01A12"] 
+          }
       },
       {
         "rank": 1,
-        "product": {
-          "baseOfferId": "65304921CA01A12"
-        },
-        "source": {
-          "sourceType": "OFFER",
-          "offerIds": [
-            "30005702CA01A12"
-          ],
-        },
-      },
+        "product": { 
+          "baseOfferId": "65304921CA01A12" 
+          },
+        "source": { 
+          "sourceType": "OFFER", 
+          "offerIds": ["30005702CA01A12"] 
+          }
+      }
     ],
     "crossSells": [
       {
         "rank": 0,
-        "product": {
-          "baseOfferId": "30006208CA01A12"
-        },
-        "source": {
-          "sourceType": "OFFER",
-          "offerIds": [
-            "30005702CA01A12"
-          ],
-        },
-      },
+        "product": { 
+          "baseOfferId": "30006208CA01A12" 
+          },
+        "source": { 
+          "sourceType": "OFFER", 
+          "offerIds": ["30005702CA01A12"] 
+          }
+      }
     ],
     "addOns": [
       {
         "rank": 0,
-        "product": {
-          "baseOfferId": "65304921CA01A12"
-        },
-        "source": {
-          "sourceType": "OFFER",
-          "offerIds": [
-            "30005702CA01A12"
-          ],
-        },
-      },
-    ],
+        "product": { 
+          "baseOfferId": "65304921CA01A12" 
+          },
+        "source": { 
+          "sourceType": "OFFER", 
+          "offerIds": ["30005702CA01A12"] 
+          }
+      }
+    ]
   },
   "overlayRecommendations": {
     "new": [
@@ -136,8 +131,14 @@ The following response header, added to all responses, provides data to understa
         "expiresAt": "2026-02-27T08:15:35Z",
         "status": "OPEN",
         "items": [
-          { "offerId": "30006208CA01A12", "quantity": 25 },
-          { "offerId": "65318386CA02012", "quantity": 1 }
+          { 
+            "offerId": "30006208CA01A12", 
+            "quantity": 25 
+            },
+          { 
+            "offerId": "65318386CA02012", 
+            "quantity": 1 
+            }
         ]
       }
     ],
@@ -147,8 +148,77 @@ The following response header, added to all responses, provides data to understa
         "expiresAt": "2026-02-28T09:20:10Z",
         "status": "OPEN",
         "items": [
-          { "offerId": "30006208CA01A12", "quantity": 15 }
+          { 
+          "offerId": "30006208CA01A12", 
+          "quantity": 15 
+          }
         ]
+      }
+    ]
+  },
+  "propensity": {
+    "churn": [
+      {
+        "category": "creativeCloud",
+        "probability": "HIGH",
+        "refreshDate": "2026-06-02T00:00:00Z",
+        "reasons": [
+          { 
+            "reasonCode": "cc_units_yoy_growth", 
+            "description": "Year-over-year growth in CC seat units", 
+            "value": "3.0" 
+            },
+          { 
+            "reasonCode": "cc_deployment_rate", 
+            "description": "Percentage of CC seats deployed", "value": "100.0" 
+            },
+          { 
+            "reasonCode": "cc_auto_renewal_flag", 
+            "description": "Auto-renewal status for CC", 
+            "value": "Day0-No" 
+          },
+        ],
+        "additionalDetails": {}
+      },
+      {
+        "category": "documentCloud",
+        "probability": "LOW",
+        "refreshDate": "2026-06-02T00:00:00Z",
+        "reasons": [
+          { 
+            "reasonCode": "dc_units_yoy_growth", 
+            "description": "Year-over-year growth in DC seat units", 
+            "value": "12.0" },
+          { 
+            "reasonCode": "dc_deployment_rate", 
+            "description": "Percentage of DC seats deployed", "value": "85.0" 
+            },
+          { 
+            "reasonCode": "dc_auto_renewal_flag", 
+            "description": "Auto-renewal status for DC", 
+            "value": "Day0-Yes" 
+            },
+        ],
+        "additionalDetails": {}
+      }
+    ],
+    "seatExpansion": [
+      {
+        "category": "allOfferings",
+        "probability": "HIGH",
+        "refreshDate": "2026-05-27T00:00:00Z",
+        "reasons": [
+          { 
+            "reasonCode": "assigned_seat_count", 
+            "description": "Current number of assigned seats", "value": "190" 
+            },
+          { "reasonCode": "provisioned_seat_count", "description": "Number of provisioned seats", 
+          "value": "200" 
+          }
+        ],
+        "additionalDetails": {
+          "predictedAddonSize": 5
+        }
       }
     ]
   }
@@ -178,6 +248,32 @@ The following response header, added to all responses, provides data to understa
 | items                  | Array of Items           | List of products and quantities in the opportunity.                                                                                                                                                             |
 | offerId                | String                   | Offer identifier (Part Number) for the opportunity item.                                                                                                                                                        |
 | quantity               | Integer                  | Number of units of the product in the opportunity.                                                                                                                                                              |
+| propensity | Object | Container for the agent-driven behavioral propensity signals. Each signal type is exposed as a named key whose value is an array of predictions. For more information, see [Propensity Intelligence](./index.md#propensity-intelligence). |
+
+#### **Propensity Object**
+
+| **Parameter** | **Type** | **Description** |
+|---|---|---|
+| churn | Array of Prediction | Churn propensity predictions for the customer. A single signal type may produce multiple predictions (for example, separate Creative Cloud and Document Cloud entries). Returns an empty array `[]` if no data is available. |
+| seatExpansion | Array of Prediction | Seat expansion propensity predictions for the customer. Returns an empty array `[]` if no data is available. |
+
+**churn and seatExpansion arrays** - Applies to each entry in `churn` and `seatExpansion` of the `propensity` object
+
+| **Parameter** | **Type** | **Description** |
+|---|---|---|
+| category | String | Scope of this prediction. Possible values are: `creativeCloud`, `documentCloud`, or `allOfferings`. Only the entries relevant to the customer are included. When the underlying model does not provide a product-family breakdown, a single entry with `allOfferings` is returned. |
+| probability | String | Mapped propensity rating. Possible values are: `HIGH`, `MEDIUM`, or `LOW`. |
+| refreshDate | String (UTC ISO-8601) | Date when the propensity score was last refreshed, expressed as start-of-day UTC (for example, `2026-06-02T00:00:00Z`). |
+| reasons | Array of Reason | List of signals that contributed to the rating, ordered by relevance. May be an empty array if no reasons are available. |
+| additionalDetails | Object | Model-specific fields for this prediction. Returns an empty object `{}` when none apply. For example, `predictedAddonSize` (Integer) is included for `seatExpansion` to indicate the predicted number of additional seats the customer is likely to purchase. |
+
+**Reason Array** - Applies to each entry in `reasons` array of `propensity`
+
+| **Parameter** | **Type** | **Description** |
+|---|---|---|
+| reasonCode | String | A partner-friendly identifier for the reason signal. |
+| description | String | Human-readable description of the reason signal. |
+| value | String | Current value of the signal for the customer (for example, `"190"` for assigned seats). |
 
 ### HTTP Status Codes
 
