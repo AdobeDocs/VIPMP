@@ -186,9 +186,10 @@
     {
       "page": "/docs/flex-discounts/flex-discount-apis",
       "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "2/24/2026"
+      "lastUpdated": "6/24/2026"
     },
     {
       "page": "/docs/lga/",
@@ -254,14 +255,14 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "5/14/2026"
+      "lastUpdated": "6/24/2026"
     },
     {
       "page": "/docs/mid-term/apis",
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "6/1/2026"
+      "lastUpdated": "6/24/2026"
     },
     {
       "page": "/docs/mid-term/error-codes",
@@ -273,7 +274,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "4/21/2026"
+      "lastUpdated": "6/24/2026"
     },
     {
       "page": "/docs/migration/",
@@ -356,7 +357,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "6/2/2026"
+      "lastUpdated": "6/24/2026"
     },
     {
       "page": "/docs/recommendations/apis",
@@ -366,7 +367,7 @@
         "https://avatars.githubusercontent.com/u/81235708?v=4",
         "https://avatars.githubusercontent.com/u/173429592?v=4"
       ],
-      "lastUpdated": "6/2/2026"
+      "lastUpdated": "6/23/2026"
     },
     {
       "page": "/docs/recommendations/error-codes",
@@ -776,8 +777,10 @@
     },
     {
       "page": "/sandbox/sandbox-portal/recommendations/",
-      "avatars": [],
-      "lastUpdated": "2/7/2026"
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "6/23/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/reseller-management/",
