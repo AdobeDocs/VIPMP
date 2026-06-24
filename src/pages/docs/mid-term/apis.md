@@ -244,16 +244,19 @@ The newly introduced `Preview Switch` option in the `OrderType` parameter of the
     ],
     "cancellingItems":[
         {
+                "extLineItemNumber": 1,
+                "referenceLineItemNumber": 1,
                 "offerId": "65322651CA02A12",
                 "quantity": 15,
                 "subscriptionId": "abfb5a4cb14561879af7204c7daee1NA",
+                "status": "",
+                "currencyCode": "USD",
                 "pricing": {
                     "partnerPrice": 300.00,
                     "discountedPartnerPrice": 0.00,
                     "netPartnerPrice": -300.00,
                     "lineItemPartnerPrice": 300.00
                 },
-                "referenceLineItemNumber": 1,
         }
     ]
     "creationDate": "2025-03-17T11:42:29Z"
@@ -266,9 +269,12 @@ The `cancellingItems` object lists the switch plan with corresponding pricing de
 
 |Parameter|Not Null|Data Type|Description|Included in Response by Default|
 |--|--|--|--|--|
+| cancellingItems.extLineItemNumber              | YES      | String                   | Unique index for line item                          | Yes                              |
 | cancellingItems.offerId               | YES      | String                   | Part number of the item being canceled.                          | Yes                              |
 | cancellingItems.quantity              | YES      | Integer                  | Quantity being canceled.                                        | Yes                              |
 | cancellingItems.subscriptionId        | YES      | String                   | Subscription ID associated with the item being canceled.                             | Yes                              |
+| cancellingItems.status              | YES      | Integer                  | Indicates the status of the order                                        | Yes                              |
+| cancellingItems.currencyCode              | YES      | Integer                  | Currency code for this order                                        | Yes                              |
 | cancellingItems.pricing.partnerPrice | YES      | Decimal                  | Partner price of the item being canceled.                         | Yes                              |
 | cancellingItems.pricing.discountedPartnerPrice | YES | Decimal          | Partner price after applying discounts.                      | Yes                              |
 | cancellingItems.pricing.netPartnerPrice | YES    | Decimal                  | Net partner price of the item being canceled after discounts.                               | Yes                              |
@@ -280,7 +286,9 @@ The `cancellingItems` object lists the switch plan with corresponding pricing de
 
 Use the `Create Order` API with `orderType` as SWITCH to switch from the current order to a new one. Creating a switch order is functionally similar to a preview request, but it does not include pricing details in the response. Once placed, the order appears in the order history, and the same logic applies for tracking and managing orders.
 
-This API facilitates upgrade orders with "From" and "To" product details.
+This API facilitates upgrade orders with "lineItems" and "cancellingItems" product details.
+
+**Note:** If the partner has not explicitly set a specific renewal quantity, Adobe automatically sets the renewal quantity of the original subscription to its current value during any full or partial upgrade. This behavior ensures that partners do not need to manually update the renewal quantity after completing an upgrade transaction.
 
 #### Request
 

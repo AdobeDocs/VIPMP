@@ -331,7 +331,8 @@ Typical processing time: 2-8 minutes.
 - **Step 7:** Verify subscription changes.  
 GET `/v3/customers/{customerId}/subscriptions/{original-subscription-id}`  
 GET `/v3/customers/{customerId}/subscriptions/{new-subscription-id}`  
-Verify quantities updated correctly.
+
+Verify whether the quantities updated correctly.
 
 ### How long does a switch order take to process?
 
