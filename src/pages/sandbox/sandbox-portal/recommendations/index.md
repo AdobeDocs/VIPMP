@@ -22,40 +22,34 @@ Specific, hardcoded recommendations have been configured to facilitate integrati
 
 ## Testing Propensity Signals in Sandbox
 
-In addition to product recommendations, the Sandbox returns agent-driven propensity signals under the `propensity` object for the [Fetch Recommendations API](../../../docs/recommendations/apis.md#fetch-recommendations). Request them using the `signals` parameter (`"signals": ["churn", "seatExpansion"]`); when omitted, all available signals are returned.
+In addition to product recommendations, the Sandbox returns agent-driven propensity signals under the `propensity` object for the [Fetch Recommendations API](../../../docs/recommendations/apis.md#fetch-recommendations). You can request these signals using the `includePropensity: true` request parameter.
 
 Each signal type (`churn`, `seatExpansion`) is returned as an array of prediction objects. Every prediction shares a common shape — `category`, `probability`, `refreshDate`, `reasons`, and `additionalDetails`. The `category` field indicates the scope of the prediction; the Sandbox seeds currently use `"allOfferings"`.
 
-A set of 13 predefined test seeds is configured in the Sandbox so you can exercise every combination of rating level and empty-array behavior during integration testing. Each seed returns a fixed response, so results are deterministic and repeatable.
+**Note:**
 
-### How probabilities are mapped
-
-Each model produces a percentile score (0–100) that is mapped to a `HIGH` / `MEDIUM` / `LOW` rating using the following thresholds:
-
-| Signal | HIGH | MEDIUM | LOW |
-|---|---|---|---|
-| churn | ≥ 95.0 | ≥ 91.0 | < 91.0 |
-| seatExpansion | ≥ 91.0 | ≥ 81.0 | < 81.0 |
-
-**Note:** The churn model is bimodal — only scores ≥ 91 qualify as `MEDIUM` or above. The `refreshDate` is the score date normalized to start-of-day UTC (for example, `2026-05-14` becomes `2026-05-14T00:00:00Z`). Seeds use `score_date = 2026-05-14` throughout.
+- A set of 13 predefined test seeds is configured in the Sandbox so you can exercise every combination of rating level and empty-array behavior during integration testing. Each seed returns a fixed response, so results are deterministic and repeatable.
+- Each customer is assigned one of the seeded responses randomly for testing. Once assigned, the seeded response does not change.
 
 ### Available test seeds
 
+Each model produces a percentile score (0–100) that is mapped to a `HIGH` / `MEDIUM` / `LOW` rating
+
 | Index | Scenario | Churn | Seat Expansion |
 |---|---|---|---|
-| 0 | Both HIGH | **HIGH** | **HIGH** |
-| 1 | Churn HIGH + Expansion LOW | **HIGH** | LOW |
-| 2 | Churn LOW + Expansion HIGH | LOW | **HIGH** |
-| 3 | Both MEDIUM | **MEDIUM** | **MEDIUM** |
-| 4 | Both LOW | LOW | LOW |
-| 5 | Churn only HIGH | **HIGH** | — (empty array) |
-| 6 | Expansion only HIGH | — (empty array) | **HIGH** |
-| 7 | Churn MEDIUM + Expansion HIGH | **MEDIUM** | **HIGH** |
-| 8 | Churn HIGH + Expansion MEDIUM | **HIGH** | **MEDIUM** |
-| 9 | Both HIGH, large enterprise | **HIGH** | **HIGH** |
-| 10 | Churn only MEDIUM | **MEDIUM** | — (empty array) |
-| 11 | Expansion only LOW | — (empty array) | LOW |
-| 12 | Both HIGH, Acrobat + CC activity | **HIGH** | **HIGH** |
+| 1 | Both HIGH | **HIGH** | **HIGH** |
+| 2 | Churn HIGH + Expansion LOW | **HIGH** | LOW |
+| 3 | Churn LOW + Expansion HIGH | LOW | **HIGH** |
+| 4 | Both MEDIUM | **MEDIUM** | **MEDIUM** |
+| 5 | Both LOW | LOW | LOW |
+| 6 | Churn only HIGH | **HIGH** | — (empty array) |
+| 7 | Expansion only HIGH | — (empty array) | **HIGH** |
+| 8 | Churn MEDIUM + Expansion HIGH | **MEDIUM** | **HIGH** |
+| 9 | Churn HIGH + Expansion MEDIUM | **HIGH** | **MEDIUM** |
+| 10 | Both HIGH, large enterprise | **HIGH** | **HIGH** |
+| 11 | Churn only MEDIUM | **MEDIUM** | — (empty array) |
+| 12 | Expansion only LOW | — (empty array) | LOW |
+| 13 | Both HIGH, Acrobat + CC activity | **HIGH** | **HIGH** |
 
 ### Empty and unavailable signals
 
@@ -65,13 +59,13 @@ Each model produces a percentile score (0–100) that is mapped to a `HIGH` / `M
 | No seat expansion data for the customer | `"seatExpansion": []` |
 | Neither signal available | `"propensity": { "churn": [], "seatExpansion": [] }` |
 
-**Note:** `predictedAddonSize` (inside `additionalDetails` on a `seatExpansion` prediction) is only serialized when a prediction is available. When no prediction exists, the key is omitted from `additionalDetails` entirely — treat a missing key as "no prediction available."
+**Note:** `predictedAddonSize` inside `additionalDetails` on a `seatExpansion` predictio is serializedonly  when a prediction is available. When no prediction exists, the key is omitted entirely from `additionalDetails`.  Treat a missing key as "no prediction available."
 
 ### Seed-by-seed API output
 
 The following examples show the `propensity` node of the response for each seed.
 
-#### Index 0 — Both HIGH
+#### Index 1 — Both HIGH
 
 Churn **HIGH** · Seat Expansion **HIGH** (`predictedAddonSize` = 8)
 
@@ -107,7 +101,7 @@ Churn **HIGH** · Seat Expansion **HIGH** (`predictedAddonSize` = 8)
 }
 ```
 
-#### Index 1 — Churn HIGH + Expansion LOW
+#### Index 2 — Churn HIGH + Expansion LOW
 
 Churn **HIGH** · Seat Expansion **LOW** (`predictedAddonSize` = 2)
 
@@ -140,7 +134,7 @@ Churn **HIGH** · Seat Expansion **LOW** (`predictedAddonSize` = 2)
 }
 ```
 
-#### Index 2 — Churn LOW + Expansion HIGH
+#### Index 3 — Churn LOW + Expansion HIGH
 
 Churn **LOW** · Seat Expansion **HIGH** (`predictedAddonSize` = 6)
 
@@ -174,7 +168,7 @@ Churn **LOW** · Seat Expansion **HIGH** (`predictedAddonSize` = 6)
 }
 ```
 
-#### Index 3 — Both MEDIUM
+#### Index 4 — Both MEDIUM
 
 Churn **MEDIUM** · Seat Expansion **MEDIUM** (`predictedAddonSize` = 3)
 
@@ -207,7 +201,7 @@ Churn **MEDIUM** · Seat Expansion **MEDIUM** (`predictedAddonSize` = 3)
 }
 ```
 
-#### Index 4 — Both LOW
+#### Index 5 — Both LOW
 
 Churn **LOW** · Seat Expansion **LOW** (`predictedAddonSize` = 1)
 
@@ -239,7 +233,7 @@ Churn **LOW** · Seat Expansion **LOW** (`predictedAddonSize` = 1)
 }
 ```
 
-#### Index 5 — Churn only HIGH
+#### Index 6 — Churn only HIGH
 
 Churn **HIGH** · Seat Expansion: no data → empty array
 
@@ -262,7 +256,7 @@ Churn **HIGH** · Seat Expansion: no data → empty array
 }
 ```
 
-#### Index 6 — Expansion only HIGH
+#### Index 7 — Expansion only HIGH
 
 Churn: no data → empty array · Seat Expansion **HIGH** (`predictedAddonSize` = 10)
 
@@ -286,7 +280,7 @@ Churn: no data → empty array · Seat Expansion **HIGH** (`predictedAddonSize` 
 }
 ```
 
-#### Index 7 — Churn MEDIUM + Expansion HIGH
+#### Index 8 — Churn MEDIUM + Expansion HIGH
 
 Churn **MEDIUM** · Seat Expansion **HIGH** (`predictedAddonSize` = 7)
 
@@ -320,7 +314,7 @@ Churn **MEDIUM** · Seat Expansion **HIGH** (`predictedAddonSize` = 7)
 }
 ```
 
-#### Index 8 — Churn HIGH + Expansion MEDIUM
+#### Index 9 — Churn HIGH + Expansion MEDIUM
 
 Churn **HIGH** · Seat Expansion **MEDIUM** (`predictedAddonSize` = 3)
 
@@ -354,7 +348,7 @@ Churn **HIGH** · Seat Expansion **MEDIUM** (`predictedAddonSize` = 3)
 }
 ```
 
-#### Index 9 — Both HIGH, large enterprise
+#### Index 10 — Both HIGH, large enterprise
 
 Churn **HIGH** · Seat Expansion **HIGH** (`predictedAddonSize` = 15)
 
@@ -390,7 +384,7 @@ Churn **HIGH** · Seat Expansion **HIGH** (`predictedAddonSize` = 15)
 }
 ```
 
-#### Index 10 — Churn only MEDIUM
+#### Index 11 — Churn only MEDIUM
 
 Churn **MEDIUM** · Seat Expansion: no data → empty array
 
@@ -412,7 +406,7 @@ Churn **MEDIUM** · Seat Expansion: no data → empty array
 }
 ```
 
-#### Index 11 — Expansion only LOW
+#### Index 12 — Expansion only LOW
 
 Churn: no data → empty array · Seat Expansion **LOW** (`predictedAddonSize` = 1)
 
@@ -433,7 +427,7 @@ Churn: no data → empty array · Seat Expansion **LOW** (`predictedAddonSize` =
 }
 ```
 
-#### Index 12 — Both HIGH, Acrobat + CC activity
+#### Index 13 — Both HIGH, Acrobat + CC activity
 
 Churn **HIGH** · Seat Expansion **HIGH** (`predictedAddonSize` = 5)
 
