@@ -5,6 +5,19 @@
 
 **Important:** This section lists only features that are currently available in production. For planned enhancements and upcoming changes, see [Upcoming releases](./upcoming-releases.md).
 
+## AI kit
+
+### June 26, 2026
+
+The Adobe Commerce Partnerships AI Kit enables both technical and non-technical audiences to understand how a VIP Marketplace feature can look like on a partner’s marketplace platform.
+
+The kit includes:
+
+- Visual representations of VIP Marketplace features.
+- Tools that allow technical users to prompt an LLM of their choice to visualize features and generate the corresponding integration code.
+
+For more information, refer to the [Adobe Commerce Partnerships AI KIT Git repository](https://github.com/adobe/adobe-commerce-partnerships-ai-kit).
+
 ## API changes
 
 ### June 23, 2026

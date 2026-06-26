@@ -1,6 +1,8 @@
 
 # Manage Flexible Discounts using APIs
 
+### **NEW!** [AI Kit for 3YC Open Discounts](https://github.com/adobe/adobe-commerce-partnerships-ai-kit)
+
 You can use the following APIs to get details of available flexible discounts and apply them while placing an order or creating or modifying a subscription:
 
 - [Get Flexible Discounts](#get-flexible-discounts)
