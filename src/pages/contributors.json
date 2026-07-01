@@ -180,8 +180,10 @@
     },
     {
       "page": "/docs/flex-discounts/error-codes",
-      "avatars": [],
-      "lastUpdated": "2/7/2026"
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "7/1/2026"
     },
     {
       "page": "/docs/flex-discounts/flex-discount-apis",
@@ -398,7 +400,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "6/23/2026"
+      "lastUpdated": "7/1/2026"
     },
     {
       "page": "/docs/references/idempotency",
