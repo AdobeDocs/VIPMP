@@ -40,7 +40,7 @@ Enterprise and Team customers of Acrobat Pro in the commerce, government, and ed
 
 ## High Growth Offer workflows
 
-Customers can opt for an MOQ offer either at the anniversary or mid-term. Purchases made on the anniversary date apply to the next term, while mid-term purchases apply to the current term. All MOQ offer purchases on the anniversary date must be completed within the purchase window from AD-7 to AD-3.
+Customers can opt for an MOQ offer either at the anniversary or mid-term. Purchases made on the anniversary date apply to the next term, while mid-term purchases apply to the current term. All MOQ offer purchases on the anniversary date must be completed within the purchase window from AD-30 to AD-3.
 
 The APIs required to obtain MOQ offers differ depending on various scenarios. The High Growth Offer workflow for these scenarios and the corresponding APIs are shown in the following figure:
 
