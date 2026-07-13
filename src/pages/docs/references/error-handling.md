@@ -168,6 +168,7 @@ These REASON_CODE values are included in the `additionalDetails` array for 2141 
 | `INELIGIBLE_COMMITMENT_STATUS_OR_PERCENT_SEATS` | Customer is not in eligible 3YC status or not migrating the required percentage of seats for this discount. | Verify that the customer is in the required commitment status and that the number of seats being migrated meets the minimum percentage required for the discount. |
 | `INELIGIBLE_COMMITMENT_STATUS` | Customer is not in eligible 3YC status required for this discount. | Verify that the customer account is in the required commitment status before applying the discount. |
 | `INELIGIBLE_COMMITMENT_STATUS_OR_COMMIT_QUANTITY` | Customer is not in eligible 3YC status or does not meet the minimum commit quantity required for this discount. | Verify that the customer is in the required commitment status and that the committed license quantity meets the minimum requirement for the discount. |
+| `INELIGIBLE_COMMITMENT_STATUS_OR_NOT_ELIGIBLE` | Customer is not in eligible 3YC status required for this discount or is not qualified to use the discount. | Verify that the customer account is in the required commitment status before applying the discount and that the customer is eligible to use the discount. |
 | `SEAT_UPGRADE_PERCENTAGE_NOT_MET` | The number of seats being upgraded does not meet the minimum percentage required for this discount. | Verify that the number of seats being upgraded meets the minimum percentage required for the discount before applying the discount code. |
 
 Example for error code 2141:
