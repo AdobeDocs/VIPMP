@@ -68,13 +68,13 @@ None.
 }
 ```
 
-See [Order resource](../references/resources.md#order-top-level-resource) for descriptons corresponding to each parameter included in the response.
+See [Order resource](../references/resources.md#order-top-level-resource) for descriptions corresponding to each parameter included in the response.
 
 **remainingQuantity**
 
-The `remainingQuantity` parameter is included at the lineItem level for `NEW` and `RENEWAL` orders. It indicates the quantity available after the returns and mid-term switch plan cancellations against the same line item.
+The `remainingQuantity` parameter is included at the lineItem level for `NEW` and `RENEWAL` orders. It indicates the quantity available after any returns and mid-term switch plan cancellations against the same line item.
 
-This field is not  present on `RETURN` order responses. For orders placed before this field was introduced, `remainingQuantity` is populated the first time the order is read, rather than backfilled in advance. See [Return or cancellation of order](order-scenarios.md#return-or-cancellation-of-order) for how it's used to validate a return request.
+This field is not  present on `RETURN` order responses. For orders placed before this field was introduced, `remainingQuantity` is populated the first time the order is read, rather than backfilled in advance. See [Return or cancellation of order](order-scenarios.md#return-or-cancellation-of-order) for how it is used to validate a return request.
 
 ### HTTP status codes
 

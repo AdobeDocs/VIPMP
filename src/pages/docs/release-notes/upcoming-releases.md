@@ -10,8 +10,8 @@ Partners can now return a portion of an eligible line item quantity from a NEW o
 
 The following enhancements support partial quantity returns for eligible orders:
 
-- The newly introduced  `remainingQuantity` parameter on the Order resource indicates the quantity that is still available for return in NEW and RENEWAL orders. The [Get Order Details](../order-management/get-order.md) and [Get Ordr History](../order-management/get-order.md#get-the-order-history-of-a-customer) APIs return this parameter. The value is initially set to the line item's quantity and decreases after each return or mid-term Switch Plan cancellation associated with that line item.
-- You can now submit a return request for any quantity that is less than or equal to the line item's `remainingQuantity`. The request and response schema of a `RETURN` order remains unchanged.
+- The newly introduced  `remainingQuantity` parameter on the Order resource indicates the quantity that is still available for return in NEW and RENEWAL orders. The [Get Order Details](../order-management/get-order.md) and [Get Order History](../order-management/get-order.md#get-the-order-history-of-a-customer) APIs return this parameter. The value is initially set to the line item's quantity and decreases after each return or mid-term Switch Plan cancellation associated with that line item.
+- You can now submit a return request for any quantity that is less than or equal to the line item's `remainingQuantity`. The request and response schemas of a `RETURN` order remains unchanged.
 - You can submit multiple partial returns against the same line item. Each return request is validated against the line item's current `remainingQuantity`.
 - Partial quantity returns are not supported for Switch Plan orders, Stock Credit Packs, Acrobat license packs, MOQ offers, or consumables such as Sign transactions.
 - Licenses associated with a returned quantity are deprovisioned immediately after the return order is completed.
@@ -36,7 +36,7 @@ Review the following updates to ensure that your integration supports partial qu
 
 ### Sandbox changes
 
-The Order details also displays the remaining quantity available for return. For more information, see [Cancel an order in Sandbox](../../sandbox/sandbox-portal/order-management/cancel-order.md).
+The Order details also display the remaining quantity available for return. For more information, see [Cancel an order in Sandbox](../../sandbox/sandbox-portal/order-management/cancel-order.md).
 
 ## Churn and seat expansion propensity are now surfaced in the Recommendations API
 
@@ -60,7 +60,7 @@ Partners can now identify at-risk customers and high-growth opportunities using 
 
 | Action | Details |
 |---|---|
-| Parse the new `propensity` object | It appear at the same level as `productRecommendations`. Handle three states: absent (feature not enabled), empty `{}` (data unavailable), and populated (data available). |
+| Parse the new `propensity` object | It appears at the same level as `productRecommendations`. Handle three states: absent (feature not enabled), empty `{}` (data unavailable), and populated (data available). |
 | Do not equate `{}` with LOW | An empty object means no data. Treat it as unknown, not low risk. |
 | No changes needed for existing fields | `productRecommendations` and `overlayRecommendations` are unchanged. Existing integrations continue to work without modification. |
 

@@ -9,14 +9,14 @@ Ensure that you are aware of the following before creating an order:
 - `orderType` is required in the Create Order request.
   - Possible values are: NEW, RETURN, PREVIEW, PREVIEW_RENEWAL, or RENEWAL
   - See [Order Scenarios](./order-scenarios.md) for request and response samples for each order type.
-- `subscriptionId` is mandatory in lineitems for:
+- `subscriptionId` is mandatory in lineItems for:
   - `orderType` RENEWAL
-  - `orderType` PREVIEW_RENEWAL if lineitems are present
+  - `orderType` PREVIEW_RENEWAL if lineItems are present
 - `referenceOrderId` is required for RETURN orders and should not be included for other order types.
 - For `RETURN` orders that reference a `NEW` or `RENEWAL` order, you can now return a quantity that is less than the original line item quantity, within 14 days of the original order. The requested quantity is validated against the line item’s current `remainingQuantity` value on the original order. See [Return or cancellation of order](order-scenarios.md#return-or-cancellation-of-order) for details on eligibility, exclusions, and error codes.
-- `currencyCode` should now be sent at the lineItem-level instead of order level.
-  - For backwards compatibility, `currencyCode` can still be sent at the order level.
-- The `discountCode` is applicable only to High Volume Discount customers who have migrated from VIP to VIP MP. You can use the discount code only if their discount level in VIP is between 17 and 22.
+- `currencyCode` should now be sent at the lineItem level instead of  the order level.
+  - For backward compatibility, `currencyCode` can still be sent at the order level.
+- The `discountCode` is applicable only to High Volume Discount customers who have migrated from VIP to VIP Marketplace. You can use the discount code only if their discount level in VIP is between 17 and 22.
 - `flexDiscountCodes` can be used in the request to apply Flexible Discounts for customers who meet the eligibility criteria. For additional details, see [Managing Flexible Discounts](../flex-discounts/apis.md).
 
 ## Request header
@@ -30,7 +30,7 @@ Ensure that you are aware of the following before creating an order:
 | Authorization    | **Required**. Authorization token in the form `Bearer <token>`                                                                                                                                                                   |
 | X-Api-Key        | **Required**. The API Key for your integration                                                                                                                                                                                   |
 
-## Request Body
+## Reques body
 
 Order resource without read-only fields:
 
@@ -53,7 +53,7 @@ Order resource without read-only fields:
 }
 ```
 
-## Response body
+## Response
 
 ```json
 {

@@ -79,15 +79,15 @@ This section lists the sample requests and responses of an order with `orderType
 - `referenceOrderId` must be a valid, returnable order.
   - Eligible source order types: `NEW` or `RENEWAL`, including auto-renewal and early renewal orders, placed within the last 14 days.
   - **Not eligible:** 
-    - The return or cancellation of `SWITCH` orders are not supported using `orderType` as `RETURN`. Use [`REVERT_SWITCH`](#order-scenarios-corresponding-to-mid-term-upgrade) instead. 
+    - The return or cancellation of `SWITCH` orders is not supported using `orderType` as `RETURN`. Use [`REVERT_SWITCH`](#order-scenarios-corresponding-to-mid-term-upgrade) instead. 
     - Stock Credit Packs, or SCP, Acrobat license packs, MOQ offers, and consumables, such as Sign transactions, are also not eligible.
 - Line items being returned must match `extLineItemNumber`, `offerId`, and quantity of the original order:
-  - Line items can be cancelled independently in the same or different RETURN order.
+  - Line items can be canceled independently in the same or different RETURN order.
   - Partial line item cancellations are allowed. See [Partial return considerations](#partial-returns) for details.
   - The `quantity` parameter indicates the quantity being returned. The value can be equal to or less than the quantity owned.
 - Same 1000 | 1002 | 1004 statuses.
-- As line items from an order get cancelled, the line item status on the original order changes from 1000 to 1008.
-  - When all line items for an order are cancelled, the status changes to 1008 for the original order.
+- As line items from an order get canceled, the line item status on the original order changes from 1000 to 1008.
+  - When all line items for an order are canceled, the status changes to 1008 for the original order.
 
 ### Sample request
 
@@ -187,7 +187,7 @@ The return response is the same as a standard return. The credit is calculated u
 }
 ```
 
-The `remainingQuantity` drops from 70 to 60. Each request is checked against the current value. Licenses covered by the returned quantity are de-provisioned immediately once the return is accepted.
+The `remainingQuantity` drops from 70 to 60. Each request is checked against the current value. Licenses covered by the returned quantity are deprovisioned immediately once the return is accepted.
 
 #### **Validation and errors**
 
@@ -382,7 +382,7 @@ Pricing data is sourced directly from Adobe’s systems, reflecting official pri
 | totalLineItemPartnerPrice               | Sum of all line item prices in the order.                 |
 | currencyCode                 | Currency used for pricing. This is specified in ISO 4217 currency code. Example, USD and EUR.                                    |
 
-For complete set of request and response parameter descriptions, refer to [Order resource](../references/resources.md#order-top-level-resource).
+For the complete set of request and response parameter descriptions, refer to [Order resource](../references/resources.md#order-top-level-resource).
 
 #### Sample request and response for HVD customers
 
@@ -797,13 +797,13 @@ The newly introduced `Preview Switch` option in the `OrderType` parameter of the
 
 |Parameter|Required|Data Type|Description|
 |--|--|--|--|
-|externalReferenceId|Not Required|String|This is used to link the order with partner passed id|
+|externalReferenceId|Not Required|String|This is used to link the order with a partner-passed ID|
 |referenceOrderId|Optional(Required for revert switch)|String|Original order id of switch order, in case of revert |
-|orderType|Required|String (Enum)|Indicates the order type customer is trying to place. Possible values corresponding to the mid-term upgrade: PREVIEW_SWITCH or SWITCH|
+|orderType|Required|String (Enum)|Indicates the order type the customer is trying to place. Possible values corresponding to the mid-term upgrade: PREVIEW_SWITCH or SWITCH|
 |currencyCode                      | Required                            | String (Enum)           | Currency code for order, must be supported by the partner.                      |
 | lineItems                         | Required                            | List     | Specifies the line items the customer intends to switch.                     |
 | lineItems.extLineItemNumber       | Required                            | String                   | Unique index for line item.                                                 |
-| lineItems.subscriptionId          | Required                            | String                   | Indicates which subscription customer is trying to switch.                  |
+| lineItems.subscriptionId          | Required                            | String                   | Indicates which subscription the customer is trying to switch.                  |
 | lineItems.offerId                 | Required                            | String                   | Indicates which product customer is switching to                           |
 | lineItems.quantity                | Required                            | String                   | Quantity from subscription to be switched.                                  |
 | lineItems.discountCode            | Optional                            | String                   | Discount code applied to the line item                                     |
