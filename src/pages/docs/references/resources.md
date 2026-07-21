@@ -166,6 +166,7 @@ Please see the Validations/Regular Expressions section for any regular expressio
 |status (read only)| String | Status code of the line item | 4 characters|
 |currencyCode | String | Currency code applicable for the offer | 3 characters|
 |proratedDays | Integer |  The number of days for which order will be invoiced. This applies in the case of mid-term purchases.| |
+|remainingQuantity | Integer |  The quantity available after the returns and mid-term switch plan cancellations against the same line item.| |
 | flexDiscounts        | Object | Details of the flexible discount applied to that lineItem             | |
 | flexDiscounts[].id  | String | A unique identifier for the flexible discount. Used to retrieve or reference a specific flexible discount.          | |
 | flexDiscounts[].code  | String | The flexible discount code that was applied to that lineItem          | |

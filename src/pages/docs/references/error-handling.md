@@ -69,7 +69,7 @@ Some error responses will include additionalDetails, an array of strings with mo
 |2117 | Cancellation window has closed | Cancel Order | 400|
 |2118 | Order has already been cancelled | Cancel Order | 400|
 |2119 | Too many line items| Preview Order, Create Order |400|
-|2120 | Line item quantity out of range| Preview Order, Create Order |400|
+|2120 | Line item quantity out of range \<br /\>\<br /\> Reason: Requested cancel quantity exceeds remaining quantity | Preview Order, Create Order |400|
 |2121 | Duplicate line item numbers| Preview Order, Create Order|400|
 |2122 | Line item Offer ID is invalid |Preview Order, Create Order| 400|
 |2123 | extLineItemNumber out of range |Preview Order, Create Order| 400|
@@ -77,6 +77,7 @@ Some error responses will include additionalDetails, an array of strings with mo
 |2125| Distributor not allowed to sell in the currency for the region |Preview Order, Create Order| 400|
 |2125| Distributor not allowed to sell in the currency for the region |Preview Order, Create Order| 400|
 |2126| externalReferenceId exceeds maximum character limit | Create Order, Create Reseller, Create Customer|400|
+|2127| Order cancellation is not allowed \<br /\>\<br /\> Reason: Requested cancel quantity exceeds remaining quantity | Create Order|400|
 |2128 | Currency is not valid for Offer ID |Preview Order, Create Order| 400|
 |2129| Customer is not eligible to purchase Offer ID| Create Order | 400|
 |2130| Line item Offer ID does not match original order| Create Return Order (V3) | 400|
@@ -147,17 +148,27 @@ Some error responses will include additionalDetails, an array of strings with mo
 |5136 |INVALID_COUNTRY \<br /\> \<br /\>Not allowed to fetch Recommendations for Country  `<code>` |Fetch Recommendations \<br /\>Get Order \<br /\>Preview Order |400 |
 |5137|INVALID_LANGUAGE \<br /\> \<br /\>Not allowed to fetch Recommendations for language `<Code>` |Fetch Recommendations \<br /\>Get Order \<br /\>Preview Order | 400 |
 
+## 2127 Ineligible order cancellation
+
+These reason code values are included in the `additionalDetails` array for 2127 errors.
+
+| REASON_CODE                                            | Description                                                                                                                                                         | Action Required                                                                                                                                      |
+|--------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SWITCH_ORDER_CANCELLATION_NOT_ALLOWED                  | Referenced order is a SWITCH order. Partial quantity returns are not supported for Switch Plan orders.                                                              | Use `REVERT_SWITCH` instead.                                                                                                                         |
+| THREE_YEAR_COMMIT                                      | Return would reduce the committed product-family quantity below the minimum commit quantity                                                                         | Modify the return quantity so that the remaining quantity does not fall below the minimum committed quantity.                                        |
+| PARTIAL_CANCELLATION_NOT_ALLOWED_FOR_SCP_OR_CONSUMABLE | Partial quantity returns are not supported for Switch Plan orders, Stock Credit Packs, Acrobat license packs, MOQ offers, or consumables such as Sign transactions. | Remove  Switch Plan orders, Stock Credit Packs, Acrobat license packs, MOQ offers, or consumables such as Sign transactions from the partial return. |
+
 ## 2129 Ineligible Purchase REASON_CODE List
 
 These REASON_CODE values are included in the `additionalDetails` array for 2129 errors.
 
-|REASON_CODE | Description | Action Required|
-|----| --- | -- |
-|INELIGIBLE_SWITCH| The order includes products that are incompatible with each other or with a product the customer already has. |Try removing the incompatible line item and placing the order again |
-|INELIGIBLE_ADD_ON| Customer is attempting to purchase an add-on product without the base product.| Try placing the order again with the base product included.|
-|INELIGIBLE_CONSUMED| RETURN order only: customer is attempting to return a consumable product that has already been consumed. |Order cannot be returned if the transactions are consumed. |
-|INELIGIBLE_MARKET_SEGMENT| The order includes an item that belongs to a market segment that either the reseller or the customer do not belong to.| Ensure the correct offer is used for the customer and reseller’s market segment.|
-|CUSTOMER_NOT_ELIGIBLE_FOR_PURCHASE| Customer is purchasing the offer multiple times in the same term.| Retry order placement with a qualifying product.|
+| REASON_CODE                        | Description                                                                                                            | Action Required                                                                  |
+|------------------------------------|------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| INELIGIBLE_SWITCH                  | The order includes products that are incompatible with each other or with a product the customer already has.          | Try removing the incompatible line item and placing the order again              |
+| INELIGIBLE_ADD_ON                  | Customer is attempting to purchase an add-on product without the base product.                                         | Try placing the order again with the base product included.                      |
+| INELIGIBLE_CONSUMED                | RETURN order only: customer is attempting to return a consumable product that has already been consumed.               | Order cannot be returned if the transactions are consumed.                       |
+| INELIGIBLE_MARKET_SEGMENT          | The order includes an item that belongs to a market segment that either the reseller or the customer do not belong to. | Ensure the correct offer is used for the customer and reseller’s market segment. |
+| CUSTOMER_NOT_ELIGIBLE_FOR_PURCHASE | Customer is purchasing the offer multiple times in the same term.                                                      | Retry order placement with a qualifying product.                                 |
 
 ## 2141 Ineligible Flexible Discounts REASON_CODE list
 

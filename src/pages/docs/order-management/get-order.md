@@ -42,11 +42,20 @@ None.
     {
       "extLineItemNumber": 4,
       "offerId": "80004567EA01A12",
-      "quantity": 1,
+      "quantity": 70,
       "subscriptionId": "86756309",
       "status": "1000",
       "currencyCode": "USD",
-      "deploymentId": "12345"
+      "deploymentId": "12345",
+      "remainingQuantity": 60
+    },
+    {
+      "extLineItemNumber": 5,
+      "offerId": "65304479CA01A12",
+      "quantity": 50,
+      "subscriptionId": "9245678",
+      "status": "1000",
+      "remainingQuantity": 50
     }
   ],
   "links": {
@@ -58,6 +67,14 @@ None.
   }
 }
 ```
+
+See [Order resource](../references/resources.md#order-top-level-resource) for descriptons corresponding to each parameter included in the response.
+
+**remainingQuantity**
+
+The `remainingQuantity` parameter is included at the lineItem level for `NEW` and `RENEWAL` orders. It indicates the quantity available after the returns and mid-term switch plan cancellations against the same line item.
+
+This field is not  present on `RETURN` order responses. For orders placed before this field was introduced, `remainingQuantity` is populated the first time the order is read, rather than backfilled in advance. See [Return or cancellation of order](order-scenarios.md#return-or-cancellation-of-order) for how it's used to validate a return request.
 
 ### HTTP status codes
 
@@ -160,7 +177,8 @@ The `promotions` array indicates the promotions applied to the Order. For exampl
        "quantity": 1, 
        "status": "1002", 
        "subscriptionId": "", 
-       "currencyCode": "USD", 
+       "currencyCode": "USD",
+       "remainingQuantity": 1,
        "promotions": [ 
                   { 
                       "code": "SUMMER_SALE_123", 
@@ -174,7 +192,8 @@ The `promotions` array indicates the promotions applied to the Order. For exampl
        "quantity": 11, 
        "status": "1002", 
        "subscriptionId": "", 
-       "currencyCode": "USD", 
+       "currencyCode": "USD",
+       "remainingQuantity": 10, 
        "promotions": [ 
                   { 
                       "code": "WINTER_SALE_123", 
@@ -258,6 +277,7 @@ The pricing data is returned only when:
       "subscriptionId": "", 
       "status": "", 
       "currencyCode": "USD",
+      "remainingQuantity": 10,
       "proratedDays" : 90,
       "pricing": {
             "partnerPrice": 365.00,              
@@ -328,6 +348,7 @@ For complete set of request and response parameter descriptions, refer to [Order
                     "subscriptionId": "cc92f750c3455ea60250bf20e7814dNA",
                     "status": "1000",
                     "currencyCode": "USD",
+                    "remainingQuantity": 2500,
                     "pricing": {
                             "partnerPrice": 365.00,              
                             "discountedPartnerPrice": 365.00,  

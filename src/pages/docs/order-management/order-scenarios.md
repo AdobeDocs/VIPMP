@@ -71,14 +71,20 @@ This section lists the sample requests and responses of an order with `orderType
 
 ## Return or cancellation of order
 
+This section lists the sample requests and responses of an order with `orderType` - RETURN.
+
 **Notes:**
 
 - `referenceOrderId` is the order that is being returned.
 - `referenceOrderId` must be a valid, returnable order.
-  - Either NEW or RENEWAL.
+  - Eligible source order types: `NEW` or `RENEWAL`, including auto-renewal and early renewal orders, placed within the last 14 days.
+  - **Not eligible:** 
+    - The return or cancellation of `SWITCH` orders are not supported using `orderType` as `RETURN`. Use [`REVERT_SWITCH`](#order-scenarios-corresponding-to-mid-term-upgrade) instead. 
+    - Stock Credit Packs, or SCP, Acrobat license packs, MOQ offers, and consumables, such as Sign transactions, are also not eligible.
 - Line items being returned must match `extLineItemNumber`, `offerId`, and quantity of the original order:
   - Line items can be cancelled independently in the same or different RETURN order.
-  - No partial line item cancellations.
+  - Partial line item cancellations are allowed. See [Partial return considerations](#partial-returns) for details.
+  - The `quantity` parameter indicates the quantity being returned. The value can be equal to or less than the quantity owned.
 - Same 1000 | 1002 | 1004 statuses.
 - As line items from an order get cancelled, the line item status on the original order changes from 1000 to 1008.
   - When all line items for an order are cancelled, the status changes to 1008 for the original order.
@@ -129,6 +135,83 @@ This section lists the sample requests and responses of an order with `orderType
   "links": { ... }
 }
 ```
+
+### Partial returns
+
+Partial quantity returns are supported for eligible `NEW` and `RENEWAL` orders within the return window. You can return part of a line item, and you can submit multiple partial returns against the same line item. Each request is validated against the line item’s current `remainingQuantity` value.
+
+For example, if a line item starts with a quantity of 70 and you return 10, the `remainingQuantity` becomes 60. If you later return 5 more, the `remainingQuantity` becomes 55. Returning the full original quantity in a single request is still supported.
+
+**Sample request**
+
+```json
+{
+  "referenceOrderId": "0123456789",
+  "orderType": "RETURN",
+  "externalReferenceId": "759",
+  "currencyCode": "USD",
+  "lineItems": [
+    {
+      "extLineItemNumber": 4,
+      "offerId": "80004567EA01A12",
+      "quantity": 10,
+      "currencyCode": "USD",
+      "deploymentId": "12345"
+    }
+  ]
+}
+```
+
+The return response is the same as a standard return. The credit is calculated using the pricing from the original order. To confirm the updated returnable quantity, call [Get order details](get-order.md) for the *original* order:
+
+**Request:** `GET /v3/customers/9876543210/orders/0123456789`
+
+**Response:**
+
+```json
+{
+  "orderId": "0123456789",
+  "orderType": "RENEWAL",
+  "status": "1000",
+  "lineItems": [
+    {
+      "extLineItemNumber": 4,
+      "offerId": "80004567EA01A12",
+      "quantity": 70,
+      "subscriptionId": "a4f1c2d0-0001",
+      "status": "1000",
+      "remainingQuantity": 60
+    }
+  ],
+  "links": {}
+}
+```
+
+The `remainingQuantity` drops from 70 to 60. Each request is checked against the current value. Licenses covered by the returned quantity are de-provisioned immediately once the return is accepted.
+
+#### **Validation and errors**
+
+A RETURN request against a NEW or RENEWAL line item is rejected with HTTP 422, if it does not meet the required conditions. The original order remains unchanged.
+
+| Scenario | Condition | Error code |
+|---|---|---|
+| Return exceeds remaining quantity | Requested quantity is greater than the current **remainingQuantity** | **RETURN_QTY_EXCEEDS_REMAINING** |
+| Minimum Order Quantity offer | Offer is flagged as MOQ | **RETURN_NOT_SUPPORTED_MOQ_SKU** |
+| Switch Plan order | Referenced order is a **SWITCH** order. Use **REVERT_SWITCH** instead. | **RETURN_NOT_SUPPORTED_SWITCH_ORDER** |
+| Three-Year Commit minimum | Return would reduce the committed product-family quantity below the minimum commit quantity | **RETURN_VIOLATES_3YC_MCQ** |
+
+Each rejection response uses the same structure.
+
+```json
+{
+  "code": "RETURN_QTY_EXCEEDS_REMAINING",
+  "message": "Requested return quantity 60 exceeds remaining returnable quantity 55 for line item 4 (offer 80004567EA01A12)."
+}
+```
+
+#### **Switch Plan interaction**
+
+If a later Switch Plan moves licenses off the original line item, the original line item’s `remainingQuantity` decreases by the switched amount. For example, if a NEW order line item has a quantity of 100 and a Switch Plan moves 20 licenses to a new product, the original line item’s `remainingQuantity` becomes 80. The partner can return up to 80 units against the original order. Returning more than 80 is rejected with `RETURN_QTY_EXCEEDS_REMAINING`.
 
 ## Preview an order
 

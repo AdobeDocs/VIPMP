@@ -8,10 +8,12 @@ Ensure that you are aware of the following before creating an order:
 
 - `orderType` is required in the Create Order request.
   - Possible values are: NEW, RETURN, PREVIEW, PREVIEW_RENEWAL, or RENEWAL
+  - See [Order Scenarios](./order-scenarios.md) for request and response samples for each order type.
 - `subscriptionId` is mandatory in lineitems for:
   - `orderType` RENEWAL
   - `orderType` PREVIEW_RENEWAL if lineitems are present
 - `referenceOrderId` is required for RETURN orders and should not be included for other order types.
+- For `RETURN` orders that reference a `NEW` or `RENEWAL` order, you can now return a quantity that is less than the original line item quantity, within 14 days of the original order. The requested quantity is validated against the line item’s current `remainingQuantity` value on the original order. See [Return or cancellation of order](order-scenarios.md#return-or-cancellation-of-order) for details on eligibility, exclusions, and error codes.
 - `currencyCode` should now be sent at the lineItem-level instead of order level.
   - For backwards compatibility, `currencyCode` can still be sent at the order level.
 - The `discountCode` is applicable only to High Volume Discount customers who have migrated from VIP to VIP MP. You can use the discount code only if their discount level in VIP is between 17 and 22.
@@ -84,6 +86,11 @@ Order resource without read-only fields:
   }
 }
 ```
+
+**Notes:**
+
+- See [Order Scenarios](./order-scenarios.md) for request and response samples for each order type.
+- See [Order resource](../references/resources.md#order-top-level-resource) for descriptions for each request and response parameter.
 
 ## HTTP status codes
 
