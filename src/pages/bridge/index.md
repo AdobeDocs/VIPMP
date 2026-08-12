@@ -8,19 +8,19 @@ Everything the Bridge does is powered by the same Commerce Partner APIs describe
 - Serves as a fail-safe for revenue continuity, helping you continue transactions if your own platform integration is temporarily unavailable.
 - Provides a standardized reference implementation for the API-driven workflows described in this documentation.
 
-## Who can use the Bridge
+## Who can access and use the Bridge
 
-The Bridge is available to distributors and platinum partner organizations. Adobe enables access at the organization level. Individual users within your organization are then assigned by your own Admin Console administrators. See [Getting started](./getting-started.md) for the full access process.
+The Bridge is available only to distributor and platinum partner organizations. Adobe enables access at the organization level, and individual users are then assigned access by their organization's Admin Console administrators.
 
-## Where to sign in
+**Important:** You must be granted Bridge access before you can sign in. Accessing the URL alone does not provide access to the application. See [Getting started](./getting-started.md) for the complete access process.
 
-Use the following production URL to access the Bridge:
+After your organization administrator grants you access to the Bridge, sign in using the following production URL:
 
-| Environment | URL                                                                            |
-|-------------|--------------------------------------------------------------------------------|
-| Production  | [https://bridge.marketplace.adobe.com/](https://bridge.marketplace.adobe.com/) |
+| Environment | URL |
+|-------------|-----|
+| Production | https://bridge.marketplace.adobe.com/ |
 
-Sign-in uses your normal Adobe ID, or IMS, credentials, which are the same credentials used elsewhere in the VIP Marketplace ecosystem.
+Sign in using your Adobe ID, or IMS, credentials, which are the same credentials used elsewhere in the VIP Marketplace ecosystem.
 
 ## What you can do in the Bridge
 
