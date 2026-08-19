@@ -8,7 +8,7 @@ Partners can now see churn risk and seat expansion signals for each customer thr
 
 **What changed?**
 
-Setting the request parameter `includePropensity` to `true` fetches  `churn` and `seatExpansion` arrays. Each contains a `probability` rating (`HIGH`, `MEDIUM`, or `LOW`), a `refreshDate`, and a `reasons` array with up to seven leading indicators ordered by relevance. 
+Set the request parameter `includePropensity` to ["churn"], ["seatExpansion"], or `["churn", "seatExpansion"]` to retrieve the corresponding `churn` and `seatExpansion` propensity signals. Each contains a `probability` rating (`HIGH`, `MEDIUM`, or `LOW`), a `refreshDate`, and a `reasons` array with up to seven leading indicators ordered by relevance.
 
 Seat expansion also includes `predictedAddonSize` with the expected number of additional seats.
 
