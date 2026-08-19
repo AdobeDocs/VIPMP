@@ -41,7 +41,7 @@ The following is a sample request body:
   ],
   "country": "JP",
   "language": "MULT",
-  "includePropensity": true
+  "includePropensity": ["churn", "seatExpansion"]
 }
 ```
 
@@ -57,7 +57,7 @@ The following table lists the request parameters and their corresponding descrip
 | country               | String | The requested country for which recommendations should be fetched. If not provided, the customer's country will be used. See [available country codes](../references/supported-locales.md).                                                                                                                                                                                                                                                                                                                                      | No                                                 |
 | language              | String |The requested language for which recommendations should be fetched. Possible values are: \<br /\> - `EN` \<br /\> - `MULT`  \<br /\>**Note:** Use `EN` for Western Europe customers or global customers deploying in Europe. `MULT` is available for all other regions.                                                                                                                                                                                                                                                                | No                                                 |
 | No                                                 |
-| includePropensity              | String |Set `includePropensity: true` to include propensity data in the response. Omitting the field or setting it to `false` excludes the propensity data from the response. | No                                                 |
+| includePropensity              | Array of Strings |Set propensity types to include propensity data in the response. Possible values are: `[]`,  `["churn"]`, `["seatExpansion"]`,  and `["churn", "seatExpansion"]`. Omitting the field or sending an empty array excludes the propensity data from the response. | No                                                 |
 
 #### Offers object
 
@@ -163,19 +163,16 @@ The following response header, added to all responses, provides data to help und
         "probability": "HIGH",
         "refreshDate": "2026-06-02T00:00:00Z",
         "reasons": [
-          { 
-            "reasonCode": "cc_units_yoy_growth", 
-            "description": "Year-over-year growth in CC seat units", 
-            "value": "3.0" 
+          {
+            "reasonCode": "units_yoy_growth",
+            "description": "Year-over-year growth in CC seat units",
+            "value": "3.0"
             },
-          { 
-            "reasonCode": "cc_deployment_rate", 
-            "description": "Percentage of CC seats deployed", "value": "100.0" 
-            },
-          { 
-            "reasonCode": "cc_auto_renewal_flag", 
-            "description": "Auto-renewal status for CC", 
-            "value": "Day0-No" 
+        
+          {
+            "reasonCode": "engagement_rate",
+            "description": "<Description>",
+            "value": "High"
           },
         ],
         "additionalDetails": {}
@@ -186,15 +183,15 @@ The following response header, added to all responses, provides data to help und
         "refreshDate": "2026-06-02T00:00:00Z",
         "reasons": [
           { 
-            "reasonCode": "dc_units_yoy_growth", 
+            "reasonCode": "units_yoy_growth", 
             "description": "Year-over-year growth in DC seat units", 
             "value": "12.0" },
           { 
-            "reasonCode": "dc_deployment_rate", 
+            "reasonCode": "deployment_rate", 
             "description": "Percentage of DC seats deployed", "value": "85.0" 
             },
           { 
-            "reasonCode": "dc_auto_renewal_flag", 
+            "reasonCode": "auto_renewal_flag", 
             "description": "Auto-renewal status for DC", 
             "value": "Day0-Yes" 
             },
@@ -271,7 +268,7 @@ The following response header, added to all responses, provides data to help und
 
 | **Parameter** | **Type** | **Description** |
 |---|---|---|
-| reasonCode | String | A partner-friendly identifier for the reason signal. |
+| reasonCode | String | A partner-friendly identifier for the reason signal. Reason codes indicate the primary drivers of the signal. However, a customer with a high churn risk may still have reason codes that appear healthy because other predictive factors are not exposed. This behaviour is expected and should not be cause for concern. |
 | description | String | Human-readable description of the reason signal. |
 | value | String | Current value of the signal for the customer (for example, `"190"` for assigned seats). |
 
