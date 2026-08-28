@@ -1,7 +1,7 @@
 {
-  "total": 139,
+  "total": 142,
   "offset": 0,
-  "limit": 139,
+  "limit": 142,
   "data": [
     {
       "page": "/",
@@ -64,7 +64,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "8/6/2026"
+      "lastUpdated": "8/28/2026"
     },
     {
       "page": "/docs/",
@@ -478,7 +478,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "8/14/2026"
+      "lastUpdated": "8/28/2026"
     },
     {
       "page": "/docs/release-notes/fy24",
@@ -661,8 +661,10 @@
     },
     {
       "page": "/sandbox/sandbox-portal/",
-      "avatars": [],
-      "lastUpdated": "2/6/2026"
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "8/28/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/3yc-management/",
@@ -761,6 +763,27 @@
       "page": "/sandbox/sandbox-portal/migrate-hvd-customers/migrate-hvd-customers",
       "avatars": [],
       "lastUpdated": "2/6/2026"
+    },
+    {
+      "page": "/sandbox/sandbox-portal/monitor-sandbox-health/",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "8/28/2026"
+    },
+    {
+      "page": "/sandbox/sandbox-portal/monitor-sandbox-health/banner",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "8/28/2026"
+    },
+    {
+      "page": "/sandbox/sandbox-portal/monitor-sandbox-health/health-check",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "8/28/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/operations",
