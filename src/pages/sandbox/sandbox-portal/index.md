@@ -8,3 +8,4 @@ You can use the Sandbox Portal for the following functions:
 - [Order Management](order-management/index.md)
 - [Subscription Management](subscription-management/index.md)
 - [Transfer of memberships](transfer-memberships/index.md)
+- [Monitor Sandbox health](monitor-sandbox-health/index.md)

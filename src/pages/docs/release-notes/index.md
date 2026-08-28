@@ -548,6 +548,32 @@ Read more about [Mid-term upgrades](../mid-term/index.md).
 
 ## Sandbox changes
 
+### August 25, 2026
+
+#### Sandbox health check API and portal status banners
+
+Partners can verify Sandbox availability before running integration tests using a new health check API, and can see planned maintenance, known issues, and partial service disruptions communicated directly in the Sandbox Portal through a new status banner.
+
+**What's included**
+
+- **Health check API:** Query `GET /v1/health` to confirm whether VIP Marketplace Sandbox and its underlying business components, customer management, order management, subscription management, and the Sandbox Partner Portal backend, are healthy before sending customer, order, or subscription requests. See [Health check API](../../sandbox/sandbox-portal/monitor-sandbox-health/health-check.md).
+- **Automatic Service Unavailable message:** The Sandbox Portal now performs a health check when it loads and displays a full-page Service Unavailable message if the backend is unreachable, instead of loading partial or inconsistent content.
+- **Sandbox maintenance and outage banner:** Administrators can publish a banner at the top of the Sandbox Portal to communicate planned maintenance windows, known issues, or partial service disruptions, using **Info**, **Warning**, or **Critical** severity levels.
+
+**Why it matters**
+
+Partners can confirm Sandbox availability before running batch integration tests or automate monitoring and alerting on repeated 503 responses, rather than discovering an outage mid-test. The Portal banner also gives partners visibility into ongoing maintenance or known issues without needing to check a separate status page.
+
+**Action required**
+
+| Action | Details |
+|---|---|
+| Call `/v1/health` before bulk operations | Poll the endpoint before sending a batch of customer, order, or subscription requests, not before every individual call. |
+| Respect the minimum poll interval | Use a minimum polling interval of 30 to 60 seconds. Avoid repeated calls during a service disruption. |
+| Handle component-level `DOWN` states | Pause requests to the affected business area (customer, order, or subscription management) until it reports `UP` again. |
+
+For more information, see [Monitor Sandbox health](../../sandbox/sandbox-portal/monitor-sandbox-health/index.md), [Health check API](../../sandbox/sandbox-portal/monitor-sandbox-health/health-check.md), and [Banners](../../sandbox/sandbox-portal/monitor-sandbox-health/banner.md).
+
 ### July 27, 2026
 
 Support for closed discounts in the Sandbox portal:
