@@ -25,7 +25,7 @@ description: Includes documentation, sample price list and reconciliation files,
 
 | For                               | Go to                                                                                                                                                  |
 |-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commerce Partner API collection   | [Adobe Commerce Partner API V3.postman_collection](https://raw.githubusercontent.com/AdobeDocs/VIPMP/refs/heads/main/static/documents/postman-environment-files/Adobe%20Commerce%20Partner%20API%20V3.postman_collection.json) |
+| Commerce Partner API collection   | [Adobe Commerce Partner API V6 Postman Collection](../../../static/Adobe%20Commerce%20Partner%20API%20V6.postman_collection.json) |
 | Test distributor environment file | [Anonymous Test Distributor.postman_environment](https://raw.githubusercontent.com/AdobeDocs/VIPMP/refs/heads/main/static/documents/postman-environment-files/Anonymous%20Test%20Distributor.postman_environment.json)         |
 
 ### Sample VIP MP emails sent by Adobe

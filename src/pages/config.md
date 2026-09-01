@@ -9,7 +9,7 @@
     - [API Use Cases](/docs/index.md)
     - [The Bridge](bridge/index.md)
     - [Sandbox User Guide](sandbox/index.md)
-    - [AI Kit](https://github.com/adobe/adobe-commerce-partnerships-ai-kit)
+    - [AI Kit](/ai-kit/index.md)
 
 - subPages:
     - [Introduction](/docs/index.md)
@@ -140,3 +140,7 @@
         - [Other API tools](sandbox/sandbox-portal/other-apis/index.md)
         - [Error codes](sandbox/error-codes.md)
         - [Sandbox support](sandbox/sandbox-support.md)
+    - [AI Kit](/ai-kit/index.md)
+        - [Overview](/ai-kit/index.md)
+        - [Quick start guide](/ai-kit/quick-start.md)
+        - [Available features](/ai-kit/available-features.md)

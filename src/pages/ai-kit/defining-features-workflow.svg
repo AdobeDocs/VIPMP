@@ -1,0 +1,77 @@
+<svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <rect x="0" y="0" width="1200" height="460" fill="#FFFFFF"/>
+
+  <!-- Card 1: Experience Card -->
+  <g>
+    <rect x="40" y="60" width="340" height="300" rx="8" fill="#FFFFFF" stroke="#E1E1E1" stroke-width="1.5"/>
+    <rect x="40" y="60" width="340" height="6" rx="3" fill="#FA0F00"/>
+    <g transform="translate(70,95)">
+      <circle cx="20" cy="20" r="20" fill="#FDEAE8"/>
+      <rect x="10" y="10" width="20" height="20" rx="2" fill="none" stroke="#FA0F00" stroke-width="2.2"/>
+      <line x1="14" y1="16" x2="26" y2="16" stroke="#FA0F00" stroke-width="2"/>
+      <line x1="14" y1="21" x2="26" y2="21" stroke="#FA0F00" stroke-width="2"/>
+      <line x1="14" y1="26" x2="22" y2="26" stroke="#FA0F00" stroke-width="2"/>
+    </g>
+    <text x="130" y="112" font-size="14" font-weight="700" fill="#FA0F00" letter-spacing="0.5">STEP 1</text>
+    <text x="70" y="150" font-size="19" font-weight="700" fill="#1D1D1D">Define with an</text>
+    <text x="70" y="174" font-size="19" font-weight="700" fill="#1D1D1D">Experience Card</text>
+    <text x="70" y="208" font-size="14" fill="#5B5B5B">A lightweight Markdown spec</text>
+    <text x="70" y="230" font-size="14" fill="#5B5B5B">that captures business intent,</text>
+    <text x="70" y="252" font-size="14" fill="#5B5B5B">requirements, and expected</text>
+    <text x="70" y="274" font-size="14" fill="#5B5B5B">behavior.</text>
+    <text x="70" y="330" font-size="12.5" font-weight="600" fill="#8A8A8A">OUTPUT: Experience Card (.md)</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <g stroke="#C7C7C7" stroke-width="2" fill="none">
+    <line x1="384" y1="210" x2="410" y2="210"/>
+    <polyline points="404,202 418,210 404,218"/>
+  </g>
+
+  <!-- Card 2: Skills -->
+  <g>
+    <rect x="430" y="60" width="340" height="300" rx="8" fill="#FFFFFF" stroke="#E1E1E1" stroke-width="1.5"/>
+    <rect x="430" y="60" width="340" height="6" rx="3" fill="#FA0F00"/>
+    <g transform="translate(460,95)">
+      <circle cx="20" cy="20" r="20" fill="#FDEAE8"/>
+      <polygon points="22,9 11,23 18,23 16,31 29,16 21,16 23,9" fill="#FA0F00"/>
+    </g>
+    <text x="520" y="112" font-size="14" font-weight="700" fill="#FA0F00" letter-spacing="0.5">STEP 2</text>
+    <text x="460" y="150" font-size="19" font-weight="700" fill="#1D1D1D">Generate the code</text>
+    <text x="460" y="174" font-size="19" font-weight="700" fill="#1D1D1D">with Skills</text>
+    <text x="460" y="208" font-size="14" fill="#5B5B5B">Reads the Experience Card</text>
+    <text x="460" y="230" font-size="14" fill="#5B5B5B">and API docs to generate:</text>
+    <text x="460" y="255" font-size="13.5" fill="#5B5B5B">&#8226; A low-level design and plan</text>
+    <text x="460" y="277" font-size="13.5" fill="#5B5B5B">&#8226; Scaffolded reference-app code</text>
+    <text x="460" y="330" font-size="12.5" font-weight="600" fill="#8A8A8A">OUTPUT: LLD + scaffolded code</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g stroke="#C7C7C7" stroke-width="2" fill="none">
+    <line x1="774" y1="210" x2="800" y2="210"/>
+    <polyline points="794,202 808,210 794,218"/>
+  </g>
+
+  <!-- Card 3: Integration -->
+  <g>
+    <rect x="820" y="60" width="340" height="300" rx="8" fill="#FFFFFF" stroke="#E1E1E1" stroke-width="1.5"/>
+    <rect x="820" y="60" width="340" height="6" rx="3" fill="#FA0F00"/>
+    <g transform="translate(850,95)">
+      <circle cx="20" cy="20" r="20" fill="#FDEAE8"/>
+      <circle cx="16" cy="20" r="8" fill="none" stroke="#FA0F00" stroke-width="2.2"/>
+      <circle cx="26" cy="20" r="8" fill="none" stroke="#FA0F00" stroke-width="2.2"/>
+    </g>
+    <text x="910" y="112" font-size="14" font-weight="700" fill="#FA0F00" letter-spacing="0.5">STEP 3</text>
+    <text x="850" y="150" font-size="19" font-weight="700" fill="#1D1D1D">Integrate with</text>
+    <text x="850" y="174" font-size="19" font-weight="700" fill="#1D1D1D">Commerce Partner APIs</text>
+    <text x="850" y="208" font-size="14" fill="#5B5B5B">The reference app and</text>
+    <text x="850" y="230" font-size="14" fill="#5B5B5B">generated code call Adobe's</text>
+    <text x="850" y="252" font-size="14" fill="#5B5B5B">Commerce Partner APIs directly,</text>
+    <text x="850" y="274" font-size="14" fill="#5B5B5B">producing working features.</text>
+    <text x="850" y="330" font-size="12.5" font-weight="600" fill="#8A8A8A">RESULT: working integration</text>
+  </g>
+
+  <!-- Bottom caption -->
+  <line x1="40" y1="400" x2="1160" y2="400" stroke="#EDEDED" stroke-width="1"/>
+  <text x="600" y="432" font-size="14" fill="#5B5B5B" text-anchor="middle">Every generated feature calls Adobe's Commerce Partner APIs directly. No mocks, no conceptual examples.</text>
+</svg>

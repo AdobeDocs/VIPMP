@@ -38,8 +38,6 @@ Examples:
 
 ![alt text](image.png)
 
-![alt text](<Screenshot 2026-08-28 153258.png>)
-
 The banner uses one of the following severity levels:
 
 

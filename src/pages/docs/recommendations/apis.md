@@ -186,15 +186,6 @@ The following response header, added to all responses, provides data to help und
             "reasonCode": "units_yoy_growth", 
             "description": "Year-over-year growth in DC seat units", 
             "value": "12.0" },
-          { 
-            "reasonCode": "deployment_rate", 
-            "description": "Percentage of DC seats deployed", "value": "85.0" 
-            },
-          { 
-            "reasonCode": "auto_renewal_flag", 
-            "description": "Auto-renewal status for DC", 
-            "value": "Day0-Yes" 
-            },
         ],
         "additionalDetails": {}
       }
@@ -245,7 +236,7 @@ The following response header, added to all responses, provides data to help und
 | items                  | Array of Items           | List of products and quantities in the opportunity.                                                                                                                                                             |
 | offerId                | String                   | Offer identifier (Part Number) for the opportunity item.                                                                                                                                                        |
 | quantity               | Integer                  | Number of units of the product in the opportunity.                                                                                                                                                              |
-| propensity | Object | Container for the agent-driven behavioral propensity signals. Each signal type is exposed as a named key whose value is an array of predictions. For more information, see [Propensity Intelligence](./index.md#propensity-intelligence). |
+| propensity | Object | Container for the AI model-driven behavioral propensity signals. Each signal type is exposed as an array of predictions. For more information, see [Propensity Intelligence](./index.md#propensity-intelligence). |
 
 #### **Propensity Object**
 
@@ -260,15 +251,16 @@ The following response header, added to all responses, provides data to help und
 |---|---|---|
 | category | String | Scope of this prediction. Possible values are: `creativeCloud`, `documentCloud`, or `allOfferings`. Only the entries relevant to the customer are included. When the underlying model does not provide a product-family breakdown, a single entry with `allOfferings` is returned. |
 | probability | String | Mapped propensity rating. Possible values are: `HIGH`, `MEDIUM`, or `LOW`. |
-| refreshDate | String (UTC ISO-8601) | Date when the propensity score was last refreshed, expressed as start-of-day UTC (for example, `2026-06-02T00:00:00Z`). |
+| refreshDate | String (UTC ISO-8601) | Date when the propensity score was last refreshed, expressed as start-of-day UTC (for example, `2026-06-02T00:00:00Z`). Refresh frequency varies by model type, with `churn` data typically refreshed monthly and `seatExpansion` data typically refreshed weekly. |
 | reasons | Array of Reason | List of signals that contributed to the rating, ordered by relevance. May be an empty array if no reasons are available. |
-| additionalDetails | Object | Model-specific fields for this prediction. Returns an empty object `{}` when none apply. For example, `predictedAddonSize` (Integer) is included for `seatExpansion` to indicate the predicted number of additional seats the customer is likely to purchase. |
+| additionalDetails | Object | Model-specific fields for this prediction. Returns an empty object `{}` when none apply. |
+| additionalDetails.predictedAddonSize | Integer | Indicates the predicted number of additional seats the customer is likely to purchase. |
 
 **Reason Array** - Applies to each entry in `reasons` array of `propensity`
 
 | **Parameter** | **Type** | **Description** |
 |---|---|---|
-| reasonCode | String | A partner-friendly identifier for the reason signal. Reason codes indicate the primary drivers of the signal. However, a customer with a high churn risk may still have reason codes that appear healthy because other predictive factors are not exposed. This behaviour is expected and should not be cause for concern. |
+| reasonCode | String | A partner-friendly identifier for the reason signal. Reason codes indicate the primary drivers of the signal. However, a customer with a high churn risk may still have reason codes that appear healthy because some predictive factors are not exposed. This behavior is expected and is not a cause for concern. |
 | description | String | Human-readable description of the reason signal. |
 | value | String | Current value of the signal for the customer (for example, `"190"` for assigned seats). |
 

@@ -116,7 +116,12 @@ The `reasons` array may contain fewer than seven entries, or be empty. The array
 
 ### Refresh date
 
-Each propensity object includes a `refreshDate` field in UTC ISO-8601 format, indicating when the underlying model last scored the customer. Each model type may refresh on a different cadence, typically weekly.
+Each propensity object includes a `refreshDate` field in UTC ISO-8601 format that indicates when the customer was last scored by the underlying model. Refresh frequency varies by model type:
+
+- `churn` data is typically refreshed monthly
+- `seatExpansion` data is typically refreshed weekly
+
+**Note:** Refreshes may occasionally occur earlier than expected due to model updates or data corrections. This is expected and does not indicate an error.
 
 ### Availability and error handling
 
@@ -133,8 +138,7 @@ In all cases, `productRecommendations` and `overlayRecommendations` remain unaff
 
 - Use `churn.probability: HIGH` to trigger proactive retention workflows such as early renewal outreach or customer success engagement.
 - Use `seatExpansion.probability: HIGH` along with `predictedAddonSize` to prioritize expansion conversations with appropriate sizing context.
-- The `reasons` array provides transparency into what signals drive the rating. Use this information to tailor messaging, for example, by highlighting low deployment ratios to a customer with high churn risk.
-- Propensity ratings and reasons are advisory signals, not guarantees of customer behavior.
+- The `reasons` array provides transparency into what signals drive the rating. Reason codes indicate the primary drivers of the signal. However, a customer with a high churn risk may still have reason codes that appear healthy because some predictive factors are not exposed. This behavior is expected and is not a cause for concern.
 
 ## Overlay recommendations
 

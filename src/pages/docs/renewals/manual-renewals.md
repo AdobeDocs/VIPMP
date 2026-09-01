@@ -39,6 +39,7 @@ Early renewal allows partners to renew subscriptions before the AD and introduce
 - The first early renewal can include either existing products or new products.
 - One Order can contain either  existing products upto existing current quantities or a combination of new products with additional seats of existing products beyond current quantity.
 - New seat addition in an early renewal order for existing products (subsequent orders) can only be executed after early renewing all the existing quantities of that product.
+- After the first successful Early Renewal, only RENEWAL orders are allowed until the Renewal Date, which is essentially when the current term ends. The Anniversary Date is updated during the initial Early Renewal, and any additional orders during the current renewal cycle must also follow the Early Renewal flow. If a restricted order type is submitted during this period, error code 3131 is returned.
 - EOL SKUs can be early renewed only for 3YC customers.
 - EOS SKUs cannot be early renewed.
 

@@ -1,0 +1,74 @@
+<svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <rect x="0" y="0" width="1200" height="460" fill="#FFFFFF"/>
+
+  <!-- Card 1: Visualize -->
+  <g>
+    <rect x="40" y="60" width="340" height="300" rx="8" fill="#FFFFFF" stroke="#E1E1E1" stroke-width="1.5"/>
+    <rect x="40" y="60" width="340" height="6" rx="3" fill="#FA0F00"/>
+    <g transform="translate(70,95)">
+      <circle cx="20" cy="20" r="20" fill="#FDEAE8"/>
+      <ellipse cx="20" cy="20" rx="12" ry="7" fill="none" stroke="#FA0F00" stroke-width="2.5"/>
+      <circle cx="20" cy="20" r="3.2" fill="#FA0F00"/>
+    </g>
+    <text x="130" y="112" font-size="14" font-weight="700" fill="#FA0F00" letter-spacing="0.5">1 &#183; VISUALIZE</text>
+    <text x="70" y="150" font-size="19" font-weight="700" fill="#1D1D1D">See it before</text>
+    <text x="70" y="174" font-size="19" font-weight="700" fill="#1D1D1D">you build it</text>
+    <text x="70" y="208" font-size="14" fill="#5B5B5B">Hand an Experience Card to</text>
+    <text x="70" y="230" font-size="14" fill="#5B5B5B">any AI agent for a working,</text>
+    <text x="70" y="252" font-size="14" fill="#5B5B5B">clickable prototype. No code,</text>
+    <text x="70" y="274" font-size="14" fill="#5B5B5B">nothing to install.</text>
+    <text x="70" y="330" font-size="12.5" font-weight="600" fill="#8A8A8A">NEED: an AI agent</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <g stroke="#C7C7C7" stroke-width="2" fill="none">
+    <line x1="384" y1="210" x2="410" y2="210"/>
+    <polyline points="404,202 418,210 404,218"/>
+  </g>
+
+  <!-- Card 2: Try -->
+  <g>
+    <rect x="430" y="60" width="340" height="300" rx="8" fill="#FFFFFF" stroke="#E1E1E1" stroke-width="1.5"/>
+    <rect x="430" y="60" width="340" height="6" rx="3" fill="#FA0F00"/>
+    <g transform="translate(460,95)">
+      <circle cx="20" cy="20" r="20" fill="#FDEAE8"/>
+      <polygon points="15,12 30,20 15,28" fill="#FA0F00"/>
+    </g>
+    <text x="520" y="112" font-size="14" font-weight="700" fill="#FA0F00" letter-spacing="0.5">2 &#183; TRY</text>
+    <text x="460" y="150" font-size="19" font-weight="700" fill="#1D1D1D">Run it on Adobe's</text>
+    <text x="460" y="174" font-size="19" font-weight="700" fill="#1D1D1D">reference app</text>
+    <text x="460" y="208" font-size="14" fill="#5B5B5B">Generate working feature</text>
+    <text x="460" y="230" font-size="14" fill="#5B5B5B">code against Adobe's</text>
+    <text x="460" y="252" font-size="14" fill="#5B5B5B">reference app in minutes,</text>
+    <text x="460" y="274" font-size="14" fill="#5B5B5B">risk-free.</text>
+    <text x="460" y="330" font-size="12.5" font-weight="600" fill="#8A8A8A">NEED: Node.js, Git, cloned repos</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g stroke="#C7C7C7" stroke-width="2" fill="none">
+    <line x1="774" y1="210" x2="800" y2="210"/>
+    <polyline points="794,202 808,210 794,218"/>
+  </g>
+
+  <!-- Card 3: Build -->
+  <g>
+    <rect x="820" y="60" width="340" height="300" rx="8" fill="#FFFFFF" stroke="#E1E1E1" stroke-width="1.5"/>
+    <rect x="820" y="60" width="340" height="6" rx="3" fill="#FA0F00"/>
+    <g transform="translate(850,95)">
+      <circle cx="20" cy="20" r="20" fill="#FDEAE8"/>
+      <path d="M11,20 L17,26 L29,13" fill="none" stroke="#FA0F00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <text x="910" y="112" font-size="14" font-weight="700" fill="#FA0F00" letter-spacing="0.5">3 &#183; BUILD</text>
+    <text x="850" y="150" font-size="19" font-weight="700" fill="#1D1D1D">Ship it in your</text>
+    <text x="850" y="174" font-size="19" font-weight="700" fill="#1D1D1D">own codebase</text>
+    <text x="850" y="208" font-size="14" fill="#5B5B5B">Use Skills to generate</text>
+    <text x="850" y="230" font-size="14" fill="#5B5B5B">experience-complete code</text>
+    <text x="850" y="252" font-size="14" fill="#5B5B5B">directly in your project,</text>
+    <text x="850" y="274" font-size="14" fill="#5B5B5B">ready to customize.</text>
+    <text x="850" y="330" font-size="12.5" font-weight="600" fill="#8A8A8A">NEED: your own codebase, Skills</text>
+  </g>
+
+  <!-- Bottom caption -->
+  <line x1="40" y1="400" x2="1160" y2="400" stroke="#EDEDED" stroke-width="1"/>
+  <text x="600" y="432" font-size="14" fill="#5B5B5B" text-anchor="middle">Stop at any stage, or continue all the way to production code.</text>
+</svg>

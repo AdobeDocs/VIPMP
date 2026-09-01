@@ -1,0 +1,9 @@
+# Available features
+
+Explore the available AI Kit features and their accompanying visual walkthroughs. Use the GIF, MP4, or PDF resources to review the end-to-end user experience before implementation.
+
+| Feature | Release date | Formats |
+| --- | --- | --- |
+| Flexible Discounts for Three-Year Commit customers | June 26, 2026 | [GIF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/flexible-discounts/reference-files/visuals/3YC%20Discount%20Walkthrough.gif) · [MP4](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/flexible-discounts/reference-files/visuals/3YC%20Discount%20Walkthrough.mp4) · [PDF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/flexible-discounts/reference-files/visuals/3YC%20Discount%20Walkthrough.pdf) |
+| Anytime Upgrade | August 5, 2026 | [GIF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/anytimeUpgrade/reference-files/visuals/Anytime-Upgrade-Walkthrough.gif) · [MP4](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/anytimeUpgrade/reference-files/visuals/Anytime-Upgrade-Walkthrough.mp4) · [PDF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/anytimeUpgrade/reference-files/visuals/Anytime-Upgrade-Walkthrough.pdf) |
+| Early Renewal | August 5, 2026 | [GIF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/early-renewal/reference-files/visuals/Early-Renewal-Walkthrough.gif) · [MP4](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/early-renewal/reference-files/visuals/Early-Renewal-Walkthrough.mp4) · [PDF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/early-renewal/reference-files/visuals/Early-Renewal-Walkthrough.pdf) |
