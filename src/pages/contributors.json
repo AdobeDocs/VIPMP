@@ -1,7 +1,7 @@
 {
-  "total": 142,
+  "total": 145,
   "offset": 0,
-  "limit": 142,
+  "limit": 145,
   "data": [
     {
       "page": "/",
@@ -13,6 +13,27 @@
         "https://avatars.githubusercontent.com/u/14320591?v=4"
       ],
       "lastUpdated": "4/21/2026"
+    },
+    {
+      "page": "/ai-kit/",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "9/1/2026"
+    },
+    {
+      "page": "/ai-kit/available-features",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "9/1/2026"
+    },
+    {
+      "page": "/ai-kit/quick-start",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "9/1/2026"
     },
     {
       "page": "/api/",
@@ -64,7 +85,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "8/28/2026"
+      "lastUpdated": "9/1/2026"
     },
     {
       "page": "/docs/",
@@ -394,7 +415,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "6/24/2026"
+      "lastUpdated": "9/1/2026"
     },
     {
       "page": "/docs/recommendations/apis",
@@ -404,7 +425,7 @@
         "https://avatars.githubusercontent.com/u/81235708?v=4",
         "https://avatars.githubusercontent.com/u/173429592?v=4"
       ],
-      "lastUpdated": "8/19/2026"
+      "lastUpdated": "9/1/2026"
     },
     {
       "page": "/docs/recommendations/error-codes",
@@ -514,7 +535,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "4/15/2026"
+      "lastUpdated": "9/1/2026"
     },
     {
       "page": "/docs/renewals/overview",
@@ -776,7 +797,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "8/28/2026"
+      "lastUpdated": "9/1/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/monitor-sandbox-health/health-check",
@@ -924,7 +945,7 @@
         "https://avatars.githubusercontent.com/u/115529590?v=4",
         "https://avatars.githubusercontent.com/u/719818?v=4"
       ],
-      "lastUpdated": "6/1/2026"
+      "lastUpdated": "9/1/2026"
     }
   ],
   ":type": "sheet"
