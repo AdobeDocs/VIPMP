@@ -48,7 +48,6 @@ The following market segment workflows are available:
 2. Set market segment for customers
 
    - Customer market segment can be set as part of a create or update request.
-   - A customer’s market segments can only be changed if the customer has no active subscriptions.
    - All existing customers with no market segment will be initialized to COM.
    - API endpoints for managing this workflow:
      - [POST Create Customer API](../customer-account/create-customer-account.md)

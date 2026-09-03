@@ -29,7 +29,6 @@ Ensure that you are aware of the following before updating a customer account:
 - Do not alter values for the mandatory fields such as `companyName, country,` and `region`. Otherwise, an error is returned.
 - The `contacts` section specifies the admins for the customer's account.
   - Any contacts that are removed will remain admins. To remove admins, a customer admin must use the Adobe Admin Console.
-- Customer market segment can be changed if the customer has no active subscriptions.
 - Reseller must be enabled for the new market segment.
 - Customer `externalReferenceId` may now be changed.
 - Use either `commitmentRequest` or `recommitmentRequest` in the request to:
