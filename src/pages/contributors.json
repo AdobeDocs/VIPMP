@@ -181,7 +181,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "4/21/2026"
+      "lastUpdated": "9/3/2026"
     },
     {
       "page": "/docs/customer-account/three-year-commit",
@@ -195,7 +195,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "4/21/2026"
+      "lastUpdated": "9/3/2026"
     },
     {
       "page": "/docs/deployment-management/",
@@ -305,8 +305,10 @@
     },
     {
       "page": "/docs/market-segments/",
-      "avatars": [],
-      "lastUpdated": "2/7/2026"
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "9/3/2026"
     },
     {
       "page": "/docs/mid-term/",
