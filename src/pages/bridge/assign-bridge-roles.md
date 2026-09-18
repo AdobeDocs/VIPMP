@@ -7,12 +7,15 @@ Bridge access is based on assigned roles. Only an Admin Console administrator fo
 
 ## Bridge roles
 
-| Role              | Access                                |
-|-------------------|---------------------------------------|
-| **Bridge Admin**  | Full read-write access to the Bridge. |
-| **Bridge Viewer** | Read-only access to the Bridge.       |
+| Role                      | Access                                                                          |
+|---------------------------|----------------------------------------------------------------------------------|
+| **Bridge Admin**         | Full read-write access to the Bridge.                                            |
+| **Bridge Viewer**        | Read-only access to the Bridge.                                                   |
+| **Marketplace Assistant** | Access to Marketplace Assistant within the Bridge. See [Marketplace Assistant](./marketplace-assistant/index.md). |
 
 Only users assigned the **Bridge Admin** or **Bridge Viewer** role can sign in to the Bridge. These roles are managed by Adobe and cannot be deleted by administrators.
+
+The **Marketplace Assistant** role is assigned in addition to Bridge Admin or Bridge Viewer. It does not grant sign-in access to the Bridge on its own.
 
 ## Make user part of the organization
 
@@ -31,13 +34,13 @@ Only users assigned the **Bridge Admin** or **Bridge Viewer** role can sign in t
 
 2. From the top navigation bar, select **Users**.
 
-   ![alt text](image-13.png)
+   ![Marketplace Assistant role listed in the Admin Console Roles page](<marketplace-assistant/Screenshot 2026-08-28 143521.png>)
 
 3. Select the role that you want to assign to the user.
 
    ![alt text](image-14.png)
 
-   You can assign either the **Bridge Admin** or **Bridge Viewer** role.
+   You can assign the **Bridge Admin**, **Bridge Viewer**, or **Marketplace Assistant** role.
 
 4. Select **Add users**. The **Add users to this role** dialog box appears.
 

@@ -26,9 +26,16 @@ Sign in using your Adobe ID, or IMS, credentials, which are the same credentials
 
 The Bridge covers a growing subset of the workflows available through the Commerce Partner APIs, including reseller and customer management, catalog browsing, cart and checkout, Three-Year Commit (3YC) enrollment, mid-term changes, and flexible discounts. Some capabilities are currently API-only and are not yet exposed in the Bridge UI. See [Supported features](./supported-features.md) for the current breakdown, including the UI path for each supported feature.
 
+## Marketplace Assistant
+
+Marketplace Assistant is an AI-powered conversational assistant built into the Bridge. It answers questions about customer accounts, pricing, and renewals using the Commerce Partner APIs and Adobe's product documentation, and identifies the source of each response so you can verify it before acting.
+
+Marketplace Assistant requires the **Marketplace Assistant** user role in addition to standard Bridge access. See [Marketplace Assistant](./marketplace-assistant/index.md) for details.
+
 ## Next steps
 
 Use the following resources to continue:
 
 - [Getting started](./getting-started.md): Learn how your organization and users get access, and how to sign in.
 - [Supported features](./supported-features.md): Review what you can do in the Bridge today, and what still requires direct API integration.
+- [Marketplace Assistant](./marketplace-assistant/index.md): Ask questions about customer accounts, pricing, and renewals using a conversational AI assistant built into the Bridge.

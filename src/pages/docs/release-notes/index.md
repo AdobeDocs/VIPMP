@@ -5,6 +5,27 @@
 
 **Important:** This section lists only features that are currently available in production. For planned enhancements and upcoming changes, see [Upcoming releases](./upcoming-releases.md).
 
+## Marketplace Assistant (Beta) is now available
+
+### September 17, 2026
+
+Marketplace Assistant, an AI-powered conversational assistant built into the Bridge, is now available to partners with Bridge access. Marketplace Assistant answers questions about customer accounts, pricing, and renewals using the Adobe VIP Marketplace APIs and Adobe's product documentation, and identifies the source of each response so you can verify it before acting.
+
+**What's included**
+
+- **Customer data:** Account details, order history, and subscription status for a specific customer, including 3YC status, discount programs, and Linked Membership.
+- **Price list:** Pricing, SKU discovery, and discount eligibility, including Three-Year Commit (3YC) pricing.
+- **Renewals:** Upcoming renewal status, auto-renewal risk, and why a renewal did not complete.
+- **VIP Marketplace product knowledge:** General questions about VIP Marketplace features, terms, and processes, answered from Adobe's documentation and knowledge base.
+
+**Important:** Marketplace Assistant responses are AI-generated and may contain inaccuracies. Always verify responses against official Adobe program guides and APIs before acting on them.
+
+**Access**
+
+Marketplace Assistant is available only to partners who already have access to the Bridge. To use it, your organization's Admin Console administrator must assign the Marketplace Assistant user role to your account. No further setup is required after the role is assigned.
+
+For more information, see [Marketplace Assistant (Beta)](../../bridge/marketplace-assistant/index.md), [Getting started](../../bridge/marketplace-assistant/getting-started.md), and [Supported features](../../bridge/marketplace-assistant/supported-features.md).
+
 ## Partial quantity returns for VIP Marketplace orders
 
 ### August 13, 2026
