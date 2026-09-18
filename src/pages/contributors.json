@@ -1,7 +1,7 @@
 {
-  "total": 145,
+  "total": 149,
   "offset": 0,
-  "limit": 145,
+  "limit": 149,
   "data": [
     {
       "page": "/",
@@ -49,14 +49,14 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "8/12/2026"
+      "lastUpdated": "9/17/2026"
     },
     {
       "page": "/bridge/assign-bridge-roles",
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "8/10/2026"
+      "lastUpdated": "9/17/2026"
     },
     {
       "page": "/bridge/getting-started",
@@ -64,6 +64,27 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
       "lastUpdated": "8/6/2026"
+    },
+    {
+      "page": "/bridge/marketplace-assistant/",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "9/17/2026"
+    },
+    {
+      "page": "/bridge/marketplace-assistant/getting-started",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "9/17/2026"
+    },
+    {
+      "page": "/bridge/marketplace-assistant/supported-features",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "9/17/2026"
     },
     {
       "page": "/bridge/sign-in",
@@ -85,7 +106,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "9/1/2026"
+      "lastUpdated": "9/17/2026"
     },
     {
       "page": "/docs/",
@@ -501,7 +522,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "8/28/2026"
+      "lastUpdated": "9/17/2026"
     },
     {
       "page": "/docs/release-notes/fy24",
@@ -655,6 +676,13 @@
         "https://avatars.githubusercontent.com/u/719818?v=4"
       ],
       "lastUpdated": "2/19/2025"
+    },
+    {
+      "page": "/marketplace-assistant/supported-features",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "9/17/2026"
     },
     {
       "page": "/sandbox/",
