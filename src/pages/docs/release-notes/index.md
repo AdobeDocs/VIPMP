@@ -5,6 +5,17 @@
 
 **Important:** This section lists only features that are currently available in production. For planned enhancements and upcoming changes, see [Upcoming releases](./upcoming-releases.md).
 
+## The Bridge and AI Kit now support partial quantity returns
+
+### September 25, 2026
+
+Partners can now use AI Kit and The Bridge UI to return a portion of an eligible line item quantity from a NEW or RENEWAL order within 14 days of the order date. 
+
+For more information:
+
+- AI Kit: [GIF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/partial-returns/reference-files/visuals/Partial-Return-Walkthrough.gif), [MP4](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/partial-returns/reference-files/visuals/Partial-Return-Walkthrough.mp4), [PDF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/partial-returns/reference-files/visuals/Partial-Return-Walkthrough.pdf).
+- Bridge: [Supported fetures](../../bridge/supported-features.md#product-catalog-and-ordering)
+
 ## Marketplace Assistant (Beta) is now available
 
 ### September 17, 2026

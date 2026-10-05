@@ -70,7 +70,7 @@ This video covers topics such as finding resellers and customers, viewing custom
 | Add a product to the cart                                                                                 | **Catalog** > select product > **Buy**                                                            |
 | Start a new order for an existing customer                                                                | Cart > **Add customer details** > find existing customer by reseller and customer name or ID      |
 | Place an order                                                                                             | Checkout > **Review details** > **Place Order**                                                   |
-| Return an order                                                                                            | Customer page > **Purchase History** tab > select order > **Return**                              |
+| Full or partial return of an order                                                                                            | Customer page > **Purchase History** tab > select order > **Return**                              |
 
 **Watch video on ordering additional and new product licenses:** 
 
