@@ -13,6 +13,7 @@ Ensure that you are aware of the following before updating the auto-renewal conf
 - The `autoRenewal` preferences can only be updated for an active subscription.
 - The `autoRenewal` object is only evaluated at the renewal time, which is defined in the `cotermDate` parameter.
 - If the `renewalQuantity` is higher than `currentQuantity` at the renewal time, then the additional licenses will be included in renewal. If it is lower, then licenses will be removed at renewal.
+- If the desired `autoRenewal` preference is to return to the default behavior without explicit renewal quantity, the `renewalQuantity` variable must be set to ‘null’.
 - The `flexDiscountCodes` parameter indicates the flexible discounts applicable for the subscription. For more information, see [Update a subscription with flexible discount codes](#update-a-subscription-with-flexible-discount-code) and [Remove flexible discount from a subscription](#remove-a-flexible-discount-from-a-subscription).
 
 - The following three states are possible for autorenewal:
