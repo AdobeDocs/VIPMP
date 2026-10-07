@@ -30,14 +30,14 @@ The UI displays a list of current discounts, including the following details:
 - Option to filter flexible discounts applicable for renewal or for new purchases.
 - Name and description of the discount.
 - Discount `code` to identify the discount. Use this code to apply the discounted price.
-- `category` of the discount. Possible values are: `STANDARD` and `INTRO`.
+- `category` of the discount. The existing Sandbox UI documents `STANDARD` and `INTRO`. Use the API with `categories=DEAL_REGISTRATION` to discover Instant Deal Registration opportunities.
 - Start and end date of discount.
 - Status of the discount.
 - Offer IDs the discount applies to.
 - Type and value of the discount. A discount can be either a fixed discount, a percentage discount, or a fixed price. For example, if the `type` is **FIXED DISCOUNT** and `value` is **20**, and `currency` is **USD**, this means a flat discount of $20 on the offer price.
 - Discount lock end date for reusable flexible discounts. This date determines the date until a reusable flexible discount can continue to be used after its end date.
 
-You can use the discount code while placing an order using the Create Order API.
+You can use the discount code while placing an order using the Create Order API. This instruction applies to code-based flexible discounts only. Adobe Instant Deal Registration has no partner-visible code or ID and is applied automatically by Adobe.
 
 **Note:** In the Sandbox environment, Flexible Discounts that include the term "FAILURE" in both the `name` and the `code` are specifically intended for validating failure scenarios. These codes are designed to always fail when used in PREVIEW and NEW order flows. All other discount codes can be used to validate successful application scenarios. Example:
 

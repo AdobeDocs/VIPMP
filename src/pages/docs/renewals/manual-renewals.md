@@ -78,6 +78,7 @@ Simulate a renewal to validate eligibility, pricing, and offers before placing t
 - If the intention is to renew a new offer, then it is optional.
   - Optionally, in this case, `deploymentId` and `currency` can be included as valid properties.
 - The order request will be rejected if a subscriptionId is found for the offerId included in the request.
+- Adobe evaluates Instant Deal Registration automatically and independently of flexible discount codes.
 
 **Request**
 
@@ -131,6 +132,8 @@ Simulate a renewal to validate eligibility, pricing, and offers before placing t
      ]
      }
   ```
+
+Preview Renewal includes `isDealRegistered` only when Instant Deal Registration was auto-injected for a line item. If absent, Instant Deal Registration was not injected or evaluated; `false` means qualification failed; and `true` means qualification passed. Amount fields are omitted when the value is `false`. With `fetch-price=true`, qualifying line items include `earnedDealRegPerUnit` and `earnedDealRegAmount` in `pricing`, and `pricingSummary` includes `totalEarnedDealRegAmount`. These deal registration amounts do not reduce existing partner-price fields.
 
 #### 2. Create renewal order
 

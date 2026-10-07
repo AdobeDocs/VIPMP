@@ -14,6 +14,13 @@ The Preview and Get Order APIs return a defined subset of pricing fields, includ
 - `netPartnerPrice`
 - `lineItemPartnerPrice`
 - `pricingSummary`
+- `isDealRegistered` when Instant Deal Registration was auto-injected for the line item
+- `earnedDealRegPerUnit` and `earnedDealRegAmount` for qualifying line items
+- `totalEarnedDealRegAmount` in the pricing summary
+
+Adobe Instant Deal Registration amounts are additive and separate from flexible discounts. They do not reduce `discountedPartnerPrice`, `lineItemPartnerPrice`, or `totalLineItemPartnerPrice`. Adobe evaluates eligible line items automatically, independently of whether a flexible discount code is supplied; partners never send or receive an Instant Deal Registration code or ID.
+
+On Return orders, `earnedDealRegPerUnit`, `earnedDealRegAmount`, and `totalEarnedDealRegAmount` are not represented as negative values.
 
 The functionality allows partners to:
 
@@ -140,6 +147,8 @@ Partners can retrieve the pricing details in the `Preview Order` and `Preview Re
 | discountedPartnerPrice | Unit price after applying discount. \<br /\>                                                                                                          |
 | netPartnerPrice        | Prorated unit price after discount.                                                                                                                 |
 | lineItemPartnerPrice   | Prorated price of the item after discount and before tax. This is the price that the partner needs to pay to Adobe for this item.                   |
+| earnedDealRegPerUnit | Deal registration amount per unit. Included only for a qualifying line item when `fetch-price=true`. |
+| earnedDealRegAmount | Total deal registration amount for the line item: `earnedDealRegPerUnit` multiplied by quantity. Included only for a qualifying line item when `fetch-price=true`. |
 
 **Note:** The `proratedDays` parameter in the response specifies the number of days for which the order will be invoiced. This parameter appears only when the `fetch-price` parameter is set to `true` in the request.
 
@@ -148,6 +157,7 @@ Partners can retrieve the pricing details in the `Preview Order` and `Preview Re
 | Field                     | Description                                                                                    |
 |---------------------------|------------------------------------------------------------------------------------------------|
 | totalLineItemPartnerPrice | Sum of all line item prices in the order.                                                      |
+| totalEarnedDealRegAmount      | Sum of `earnedDealRegAmount` across qualifying line items when `fetch-price=true`. |
 | currencyCode              | Currency used for pricing. This is specified in ISO 4217 currency code. Examples: USD and EUR. |
 
 For complete set of request and response parameter descriptions, refer to [Order resource](../references/resources.md#order-top-level-resource).

@@ -204,6 +204,12 @@ Follow the steps illustrated in the figure below to apply flexible discounts and
 
 ![Partner integration process](../image/flex_7.png)
 
+## Adobe Instant Deal Registration opportunities
+
+The Flexible Discounts API is one discovery surface for [Adobe Instant Deal Registration](../instant-deal-registration/index.md), a separate automatically applied, codeless reseller credit. Request `categories=DEAL_REGISTRATION` explicitly because these entries are not included in the default category set. They contain descriptive details, validity dates, status, qualification criteria, and outcomes, but no partner-visible `code` or `id`.
+
+Do not submit an Instant Deal Registration identifier with a flexible discount code. Adobe evaluates and applies the credit independently during order processing.
+
 ## What's next?
 
 Read more about:
@@ -211,3 +217,4 @@ Read more about:
 - [Managing Flexible Discounts using APIs](./apis.md)
 - [Error codes specific to Flexible Discounts](./error-codes.md)
 - [How to test flexible discounts in Sandbox](../../sandbox/sandbox-portal/flex-discounts/index.md)
+- [Adobe Instant Deal Registration](../instant-deal-registration/index.md)

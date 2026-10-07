@@ -18,6 +18,8 @@ Ensure that you are aware of the following before creating an order:
   - For backward compatibility, `currencyCode` can still be sent at the order level.
 - The `discountCode` is applicable only to High Volume Discount customers who have migrated from VIP to VIP Marketplace. You can use the discount code only if their discount level in VIP is between 17 and 22.
 - `flexDiscountCodes` can be used in the request to apply Flexible Discounts for customers who meet the eligibility criteria. For additional details, see [Managing Flexible Discounts](../flex-discounts/apis.md).
+- Do not send an Adobe Instant Deal Registration code or ID. Adobe evaluates eligible line items automatically, independently of whether `flexDiscountCodes` is present.
+  - When `fetch-price=true`, a qualifying response line item includes `earnedDealRegPerUnit` and `earnedDealRegAmount` in `pricing`, and `pricingSummary` includes `totalEarnedDealRegAmount`. These deal registration amounts remain separate from existing partner-price fields.
 
 ## Request header
 
@@ -91,6 +93,7 @@ Order resource without read-only fields:
 
 - See [Order Scenarios](./order-scenarios.md) for request and response samples for each order type.
 - See [Order resource](../references/resources.md#order-top-level-resource) for descriptions for each request and response parameter.
+- `isDealRegistered` is included only when Instant Deal Registration was auto-injected for a line item. If the field is absent, Instant Deal Registration was not injected or evaluated. A value of `false` means qualification failed; `true` means qualification passed. No amount fields are returned when the value is `false`.
 
 ## HTTP status codes
 

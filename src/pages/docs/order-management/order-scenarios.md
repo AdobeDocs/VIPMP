@@ -162,7 +162,11 @@ For example, if a line item starts with a quantity of 70 and you return 10, the 
 }
 ```
 
-The return response is the same as a standard return. The credit is calculated using the pricing from the original order. To confirm the updated returnable quantity, call [Get order details](get-order.md) for the *original* order:
+The return response is the same as a standard return. The Adobe Instant Deal Registration amount applied to the original transaction is reversed using the original order pricing. To confirm the updated returnable quantity, call [Get order details](get-order.md) for the *original* order:
+
+Adobe Instant Deal Registration is evaluated without a partner-supplied code or ID. On a Return response, `isDealRegistered` is present only when Instant Deal Registration was auto-injected for the line item. If absent, Instant Deal Registration was not injected or evaluated; `false` means qualification failed; and `true` means qualification passed. When `fetch-price=true`, qualifying return line items include the separately reported deal registration amount fields.
+
+Adobe Instant Deal Registration amount fields on Return orders are not represented as negative values.
 
 **Request:** `GET /v3/customers/9876543210/orders/0123456789`
 
@@ -243,6 +247,10 @@ Pricing data is sourced directly from Adobe’s systems, reflecting official pri
 - Prices returned in the `Preview Order` and `Preview Renewal` calls are an estimate based on the request made at that date and time. Orders placed at a later date and time may not result in the same return amount.
 - Pricing returned via this API is pricing between Adobe and the direct partner. Any pricing presented to end customers is set by end customer’s reseller.
 - Pricing details are unavailable in `Preview Order` and `Preview Renewal` scenarios for global sales involving multiple currencies.
+- Adobe Instant Deal Registration is evaluated automatically and independently of flexible discount codes. Partners must not include a code or ID in the request.
+- `isDealRegistered` is present only when Instant Deal Registration was auto-injected for a line item. If absent, Instant Deal Registration was not injected or evaluated; `false` means qualification failed; and `true` means qualification passed. Amount fields are omitted when the value is `false`.
+- For a qualifying line item when `fetch-price=true`, `pricing.earnedDealRegPerUnit` is the deal registration amount per unit and `pricing.earnedDealRegAmount` is that amount multiplied by quantity. `pricingSummary.totalEarnedDealRegAmount` aggregates qualifying line-item amounts.
+- Adobe Instant Deal Registration amounts are additive and separate from flexible discounts. They do not reduce `discountedPartnerPrice`, `lineItemPartnerPrice`, or `totalLineItemPartnerPrice`.
 
 ### Usage instructions for Preview Order API
 
@@ -372,6 +380,8 @@ Pricing data is sourced directly from Adobe’s systems, reflecting official pri
 | discountedPartnerPrice     | Unit price after applying discount. \<br /\> |
 | netPartnerPrice                 | Prorated unit price after discount. |
 | lineItemPartnerPrice      | Prorated price of item after discount and before tax. This is the price partner needs to pay to Adobe for this item.  |
+| earnedDealRegPerUnit   | Deal registration amount per unit. Included only for a qualifying line item when `fetch-price=true`. |
+| earnedDealRegAmount    | Total deal registration amount for the line item: `earnedDealRegPerUnit` multiplied by quantity. Included only for a qualifying line item when `fetch-price=true`. |
 
 **Note:** The `proratedDays` parameter in the response specifies the number of days for which the order will be invoiced. This parameter appears only when the `fetch-price` parameter is set to `true` in the request. It is relevant for mid-term purchases.
 
@@ -380,7 +390,46 @@ Pricing data is sourced directly from Adobe’s systems, reflecting official pri
 | Field                       | Description                                                                 |
 |----------------------------|-----------------------------------------------------------------------------|
 | totalLineItemPartnerPrice               | Sum of all line item prices in the order.                 |
+| totalEarnedDealRegAmount                    | Sum of `earnedDealRegAmount` across qualifying line items when `fetch-price=true`. |
 | currencyCode                 | Currency used for pricing. This is specified in ISO 4217 currency code. Example, USD and EUR.                                    |
+
+#### Adobe Instant Deal Registration example
+
+The following example shows a qualifying line item with both a flexible discount and a separately reported deal registration amount:
+
+```json
+{
+  "orderId": "5120008001",
+  "orderType": "NEW",
+  "status": "1000",
+  "lineItems": [
+    {
+      "extLineItemNumber": 1,
+      "offerId": "65304578CA01A12",
+      "quantity": 20,
+      "isDealRegistered": true,
+      "pricing": {
+        "partnerPrice": 209.76,
+        "discountedPartnerPrice": 169.90,
+        "lineItemPartnerPrice": 3398.00,
+        "earnedDealRegPerUnit": 20.98,
+        "earnedDealRegAmount": 419.60
+      },
+      "flexDiscounts": [
+        {
+          "code": "BLACK_FRIDAY",
+          "result": "SUCCESS"
+        }
+      ]
+    }
+  ],
+  "pricingSummary": {
+    "totalLineItemPartnerPrice": 3398.00,
+    "totalEarnedDealRegAmount": 419.60,
+    "currencyCode": "USD"
+  }
+}
+```
 
 For the complete set of request and response parameter descriptions, refer to [Order resource](../references/resources.md#order-top-level-resource).
 
@@ -479,6 +528,7 @@ A few of the benefits of previewing a renewal order include:
 - Include the query parameter `fetch-price=true` to retrieve pricing details. 
 - Pricing details are not available in Preview Order and Preview Renewal scenarios for global sales involving multiple currencies.
 - `proratedDays` in the response indicates the number of days for which the order will be invoiced. This applies in the case of mid-term purchases. 
+- Adobe Instant Deal Registration follows the same response behavior described for [Preview Order](#preview-an-order), including line-item application status and separate deal registration amounts when `fetch-price=true`.
 
 ### Sample request
 

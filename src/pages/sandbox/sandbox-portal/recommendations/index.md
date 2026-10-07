@@ -10,6 +10,12 @@ No updates have been made to the Sandbox UI, as recommendations will be delivere
 
 Specific, hardcoded recommendations have been configured to facilitate integration and functional testing of the recommendations feature. These predefined rules are as follows:
 
+### Adobe Instant Deal Registration recommendations
+
+Call the standalone Recommendations API with `includeDealRegistrations` set to `true`; omitting it or setting it to `false` excludes `discounts.dealRegistrations`. Responses do not expose a code or ID.
+
+For the predefined scenarios and expected order outcomes, see [Test Adobe Instant Deal Registration in Sandbox](../instant-deal-registration/index.md).
+
 **Note:** In production, recommendations will be context-aware and based on the customer's entitlements (products owned), and products that are already owned are not recommended.
 
 | APIs                    | Context         | Rules for showing recommendations in sandbox                                                                                                                                                                                                 | Comments                                                                 |

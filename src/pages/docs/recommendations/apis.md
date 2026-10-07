@@ -41,6 +41,7 @@ The following is a sample request body:
   ],
   "country": "JP",
   "language": "MULT",
+  "includeDealRegistrations": false,
   "includePropensity": ["churn", "seatExpansion"]
 }
 ```
@@ -56,7 +57,7 @@ The following table lists the request parameters and their corresponding descrip
 | offers                | Object | List of offers for which recommendations are requested.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | No                                                 |
 | country               | String | The requested country for which recommendations should be fetched. If not provided, the customer's country will be used. See [available country codes](../references/supported-locales.md).                                                                                                                                                                                                                                                                                                                                      | No                                                 |
 | language              | String |The requested language for which recommendations should be fetched. Possible values are: \<br /\> - `EN` \<br /\> - `MULT`  \<br /\>**Note:** Use `EN` for Western Europe customers or global customers deploying in Europe. `MULT` is available for all other regions.                                                                                                                                                                                                                                                                | No                                                 |
-| No                                                 |
+| includeDealRegistrations    | Boolean | Set to `true` to include Adobe Instant Deal Registration opportunities in the response. The default is `false`. For `GENERIC`, opportunities associated with offers currently held by the customer are returned. For `ORDER_PREVIEW` and `RENEWAL_ORDER_PREVIEW`, offers in the request are evaluated. Opportunities associated with products already owned by the customer are returned first. | No |
 | includePropensity              | Array of Strings |Set propensity types to include propensity data in the response. Possible values are: `[]`,  `["churn"]`, `["seatExpansion"]`,  and `["churn", "seatExpansion"]`. Omitting the field or sending an empty array excludes the propensity data from the response. | No                                                 |
 
 #### Offers object
@@ -74,8 +75,37 @@ The following response header, added to all responses, provides data to help und
 
 ### Response Body
 
+When `includeDealRegistrations` is `true`, the response includes Adobe Instant Deal Registration opportunities in `discounts.dealRegistrations`. These entries use the same discovery fields as the Flexible Discounts API, but do not contain a code or ID.
+
+For the end-to-end capability and order response behavior, see [Adobe Instant Deal Registration](../instant-deal-registration/index.md).
+
 ```json
 {
+  "discounts": {
+    "dealRegistrations": [
+      {
+        "category": "DEAL_REGISTRATION",
+        "name": "Acrobat Pro Q1 Deal Registration",
+        "description": "10% deal registration for qualifying partners on Acrobat Pro orders",
+        "startDate": "2026-01-01T00:00:00Z",
+        "endDate": "2026-04-10T23:59:59Z",
+        "status": "ACTIVE",
+        "qualification": {
+          "baseOfferIds": ["65304578CA01A12"]
+        },
+        "outcomes": [
+          {
+            "type": "PERCENTAGE_DISCOUNT",
+            "discountValues": [
+              {
+                "value": 10
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "productRecommendations": {
     "upsells": [
       {
@@ -237,6 +267,23 @@ The following response header, added to all responses, provides data to help und
 | offerId                | String                   | Offer identifier (Part Number) for the opportunity item.                                                                                                                                                        |
 | quantity               | Integer                  | Number of units of the product in the opportunity.                                                                                                                                                              |
 | propensity | Object | Container for the AI model-driven behavioral propensity signals. Each signal type is exposed as an array of predictions. For more information, see [Propensity Intelligence](./index.md#propensity-intelligence). |
+| discounts | Object | Contains discount recommendations. Included when a requested discount recommendation type is available. |
+| discounts.dealRegistrations | Array of Adobe Instant Deal Registration opportunities | Included only when `includeDealRegistrations` is `true`. Opportunities associated with products already owned by the customer are returned first. |
+
+#### Adobe Instant Deal Registration object
+
+| **Parameter** | **Type** | **Description** |
+|---|---|---|
+| category | String | Always `DEAL_REGISTRATION`. This is the only partner-visible identifier for the entry. |
+| name | String | Display name of the Adobe Instant Deal Registration opportunity. |
+| description | String | Display description of the Adobe Instant Deal Registration opportunity. |
+| startDate | String (ISO-8601) | Start of the availability window. |
+| endDate | String (ISO-8601) | End of the availability window. |
+| status | String | `ACTIVE` or `EXPIRED`. |
+| qualification.baseOfferIds | Array of Strings | Offer IDs to which Adobe Instant Deal Registration applies. |
+| outcomes | Array of Objects | Deal registration outcomes. Each outcome contains `type` and `discountValues`. |
+
+The Adobe Instant Deal Registration object does not include `code` or `id`.
 
 #### **Propensity Object**
 

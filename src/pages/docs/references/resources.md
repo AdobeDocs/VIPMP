@@ -167,6 +167,7 @@ Please see the Validations/Regular Expressions section for any regular expressio
 |currencyCode | String | Currency code applicable for the offer | 3 characters|
 |proratedDays | Integer |  The number of days for which order will be invoiced. This applies in the case of mid-term purchases.| |
 |remainingQuantity | Integer |  The quantity available after the returns and mid-term switch plan cancellations against the same line item.| |
+| isDealRegistered (read only) | Boolean | Included only when Instant Deal Registration was auto-injected for the line item. If absent, Instant Deal Registration was not injected or evaluated. A value of `false` means qualification failed; `true` means qualification passed. | |
 | flexDiscounts        | Object | Details of the flexible discount applied to that lineItem             | |
 | flexDiscounts[].id  | String | A unique identifier for the flexible discount. Used to retrieve or reference a specific flexible discount.          | |
 | flexDiscounts[].code  | String | The flexible discount code that was applied to that lineItem          | |
@@ -175,13 +176,16 @@ Please see the Validations/Regular Expressions section for any regular expressio
 | pricing[].partnerPrice                |Integer | Non-prorated full-term unit price for the given offer, including any applicable volume discounts, but before applying flexible discounts and taxes.| |
 | pricing[].discountedPartnerPrice     |Integer  | Unit price after applying discount. \<br /\> | |
 | pricing[].netPartnerPrice             | Integer    | Prorated unit price after discount. | |
-| pricing[].lineItemPrice   | Integer   | Prorated price of item after discount and before tax. This is the price partner need to pay to Adobe for this item.  | |
+| pricing[].lineItemPartnerPrice   | Integer   | Prorated price of item after discount and before tax. This is the price partner needs to pay to Adobe for this item. Adobe Instant Deal Registration amounts do not reduce this field. | |
+| pricing[].earnedDealRegPerUnit | Number | Deal registration amount per unit. Included for a qualifying line item when `fetch-price=true`. | |
+| pricing[].earnedDealRegAmount | Number | Total deal registration amount for the line item (`earnedDealRegPerUnit` multiplied by quantity). Included for a qualifying line item when `fetch-price=true`. | |
 
 ### pricingSummary
 
 | Field                       | Description                                                                 |
 |----------------------------|-----------------------------------------------------------------------------|
-| totalLineItemPrice               | Sum of all line item prices in the order.                 |
+| totalLineItemPartnerPrice        | Sum of all line item partner prices in the order. Adobe Instant Deal Registration amounts do not reduce this field. |
+| totalEarnedDealRegAmount            | Sum of `earnedDealRegAmount` across qualifying line items when `fetch-price=true`. |
 | currencyCode                 | Currency used for pricing. This is specified in ISO 4217 currency code. Examples: USD and EUR.                                    |
 
 ### recommendations

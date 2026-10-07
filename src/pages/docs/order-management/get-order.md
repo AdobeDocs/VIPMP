@@ -70,6 +70,11 @@ None.
 
 See [Order resource](../references/resources.md#order-top-level-resource) for descriptions corresponding to each parameter included in the response.
 
+`isDealRegistered` is included only when Instant Deal Registration was auto-injected for a line item:
+- If `isDealRegistered` is absent, Instant Deal Registration was not injected or evaluated for the line item.
+- If `isDealRegistered` is `false`, deal registration was attempted but qualification failed.
+- If `isDealRegistered` is `true`, deal registration was attempted and qualification passed.
+
 **remainingQuantity**
 
 The `remainingQuantity` parameter is included at the lineItem level for `NEW` and `RENEWAL` orders. It indicates the quantity available after any returns and mid-term switch plan cancellations against the same line item.
@@ -114,7 +119,7 @@ The request body is the same as mentioned in the [previous endpoint](#request-he
 
 | Parameters              | Values                           | Default                 | Description                                                                                |
 |--------------------|----------------------------------|-------------------------|--------------------------------------------------------------------------------------------|
-| order-type         | NEW, TRANSFER, or RENEWAL        | All                     |                                                                                            |
+| order-type         | NEW, TRANSFER, RENEWAL, SWITCH, or REVERT_SWITCH      | All                     |     When order-type is set to SWITCH or REVERT_SWITCH, the response includes orders of both types: SWITCH and REVERT_SWITCH.                                                                                       |
 | reseller-id        | Valid reseller IDs               | All                     | Regardless of reseller id, only orders for the partner making the request will be returned. |
 | status             | 1000, 1002, 1004, or 1026           | All                     |                                                                                            |
 | reference-order-id | Valid order IDs                  | All                     |                                                                                            |
@@ -240,6 +245,11 @@ The Preview and Get Order APIs return a defined subset of pricing fields, includ
 - `netPartnerPrice`
 - `lineItemPartnerPrice`
 - `pricingSummary`
+- `isDealRegistered` when Instant Deal Registration was auto-injected for the line item
+- `earnedDealRegPerUnit` and `earnedDealRegAmount` for qualifying line items
+- `totalEarnedDealRegAmount` in the pricing summary
+
+Adobe Instant Deal Registration amounts are additive and separate from flexible discounts. They do not reduce `discountedPartnerPrice`, `lineItemPartnerPrice`, or `totalLineItemPartnerPrice`.
 
 **Usage instructions:**
 
@@ -304,6 +314,8 @@ The pricing data is returned only when:
 | discountedPartnerPrice | Unit price after applying discount. \<br /\>                                                                                                          |
 | netPartnerPrice        | Prorated unit price after discount.                                                                                                                 |
 | lineItemPartnerPrice   | Prorated price of the item after discount and before tax. This is the price that the partner needs to pay to Adobe for this item.                   |
+| earnedDealRegPerUnit | Deal registration amount per unit. Included only for a qualifying line item when `fetch-price=true`. |
+| earnedDealRegAmount | Total deal registration amount for the line item: `earnedDealRegPerUnit` multiplied by quantity. Included only for a qualifying line item when `fetch-price=true`. |
 
 **Note:** The `proratedDays` parameter in the response specifies the number of days for which the order will be invoiced. This parameter appears only when the `fetch-price` parameter is set to `true` in the request.
 
@@ -312,6 +324,7 @@ The pricing data is returned only when:
 | Field                     | Description                                                                                    |
 |---------------------------|------------------------------------------------------------------------------------------------|
 | totalLineItemPartnerPrice | Sum of all line item prices in the order.                                                      |
+| totalEarnedDealRegAmount      | Sum of `earnedDealRegAmount` across qualifying line items when `fetch-price=true`. |
 | currencyCode              | Currency used for pricing. This is specified in ISO 4217 currency code. Examples: USD and EUR. |
 
 For complete set of request and response parameter descriptions, refer to [Order resource](../references/resources.md#order-top-level-resource).
