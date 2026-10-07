@@ -1,7 +1,7 @@
 {
-  "total": 149,
+  "total": 152,
   "offset": 0,
-  "limit": 149,
+  "limit": 152,
   "data": [
     {
       "page": "/",
@@ -106,7 +106,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "9/17/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/",
@@ -245,7 +245,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "6/2/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/flex-discounts/apis",
@@ -253,7 +253,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "6/26/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/flex-discounts/error-codes",
@@ -269,6 +269,20 @@
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
       "lastUpdated": "6/24/2026"
+    },
+    {
+      "page": "/docs/instant-deal-registration/",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "10/7/2026"
+    },
+    {
+      "page": "/docs/instant-deal-registration/apis",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/lga/",
@@ -403,7 +417,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "7/21/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/order-management/get-order",
@@ -411,19 +425,21 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "7/21/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/order-management/invoice",
-      "avatars": [],
-      "lastUpdated": "2/7/2026"
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/order-management/order-scenarios",
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "7/21/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/order-management/update-order",
@@ -438,7 +454,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "9/1/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/recommendations/apis",
@@ -448,7 +464,7 @@
         "https://avatars.githubusercontent.com/u/81235708?v=4",
         "https://avatars.githubusercontent.com/u/173429592?v=4"
       ],
-      "lastUpdated": "9/1/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/recommendations/error-codes",
@@ -496,7 +512,7 @@
         "https://avatars.githubusercontent.com/u/115529590?v=4",
         "https://avatars.githubusercontent.com/u/719818?v=4"
       ],
-      "lastUpdated": "7/21/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/references/status-codes",
@@ -535,7 +551,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "8/19/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/renewals/auto-renewals",
@@ -558,7 +574,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "9/1/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/renewals/overview",
@@ -630,9 +646,10 @@
     {
       "page": "/docs/resources/workflows",
       "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "2/6/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/docs/subscription-management/",
@@ -779,12 +796,19 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "8/5/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/high-growth-offer/high-growth",
       "avatars": [],
       "lastUpdated": "2/6/2026"
+    },
+    {
+      "page": "/sandbox/sandbox-portal/instant-deal-registration/",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/lga/",
@@ -838,8 +862,10 @@
     },
     {
       "page": "/sandbox/sandbox-portal/operations",
-      "avatars": [],
-      "lastUpdated": "2/6/2026"
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/order-management/",
@@ -893,7 +919,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "8/19/2026"
+      "lastUpdated": "10/7/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/reseller-management/",
