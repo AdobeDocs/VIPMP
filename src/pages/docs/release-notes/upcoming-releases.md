@@ -4,7 +4,7 @@
 
 **Expected release:** November 2026
 
-Adobe Instant Deal Registration is an automatically applied, codeless reseller credits, removing the need for a manual registration step on qualifying orders. There is no code to request, submit, or track. Partners see the intant deal registration amount directly in any qualifying orders and can view information on the deal through two discovery APIs.
+Adobe Instant Deal Registration is an automatically applied, codeless reseller credits, removing the need for a manual registration step on qualifying orders. There is no code to request, submit, or track. Partners see the intant deal registration amount directly in any qualifying orders and can view information on the deal through two discovery APIs. For more information see, [Adobe Instant Deal Registration overview](../instant-deal-registration/index.md).
 
 **What changed?**
 
@@ -12,6 +12,8 @@ Adobe Instant Deal Registration is an automatically applied, codeless reseller c
 - The [Recommendations](../recommendations/apis.md#fetch-recommendations) API introduces the `includeDealRegistrations` request parameter. The value defaults to `false`. When set to true, the response includes a `discounts.dealRegistrations` section and prioritizes opportunities whose eligible products intersect with products already owned by the customer.
 - Preview Order, Create Order, Get Order, Get Order History, Preview Renewal, and Return responses include `isDealRegistered` when Instant Deal Registration was auto-injected for a line item. The field value indicates whether the deal registration amount was successfully applied.
 - For requests with `fetch-price=true`, qualifying line items include per-unit `earnedDealRegPerUnit` and line item-total `earnedDealRegAmount`; `pricingSummary` includes the aggregated `totalEarnedDealRegAmount`.
+
+For more information, see [Discover and verify Adobe Instant Deal Registration using APIs](../instant-deal-registration/apis.md).
 
 **Why it matters**
 
@@ -34,7 +36,7 @@ Sandbox provides predefined scenarios that simulate both qualifying and non-qual
 
 ## Account screening introduces new Sanctioned and Screening statuses
 
-**Expected release:** September 2026
+**Expected release:** October 2026
 
 Partners can now view account screening progress while reseller, customer, and deploy-to accounts are checked against sanctions and watchlists before they are allowed to transact.
 
