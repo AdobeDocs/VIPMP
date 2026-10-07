@@ -10,7 +10,7 @@ Instant Deal Registration:
 
 ## How it works
 
-1. A partner can discover Instant Deal Registration opportunities using the Get Flexible Discounts API or the Recommendations API.
+1. A partner can discover Instant Deal Registration opportunities using the [Get Flexible Discounts](../flex-discounts/apis.md#get-flexible-discounts) API or the [Fetch Recommendations](../recommendations/apis.md#fetch-recommendations) API.
 2. The partner previews or places an order through the existing order workflow. No registration request, code, or identifier is required.
 3. Adobe evaluates eligible line items automatically at order time.
 4. If a line item qualifies, Adobe applies the deal registration amount and reports it separately from the partner-price values.

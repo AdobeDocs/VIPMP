@@ -4,7 +4,7 @@ Adobe Instant Deal Registration uses existing discovery and order APIs. There is
 
 ## Discover using the Recommendations API
 
-Set `includeDealRegistrations` to `true` on `POST /v3/recommendations`. The default is `false`.
+Set `includeDealRegistrations` to `true` in the request body of `POST /v3/recommendations` to discover the Instant Deal Registration opportunities. The default is `false`.
 
 ```json
 {
@@ -92,7 +92,7 @@ A sample response is as follows:
 }
 ```
 
-An Instant Deal Registration entry contains the following fields:
+**Note:** The Instant Deal Registration details returned in the response use the same structure and fields as flexible discount details.
 
 The entry does not contain `code` or `id`. For the complete endpoint contract, see [Get Flexible Discounts](../flex-discounts/apis.md#get-flexible-discounts).
 
@@ -114,15 +114,6 @@ Instant Deal Registration applies independently of `flexDiscountCodes`. A partne
 ## Understand Instant Deal Registration response fields
 
 Adobe evaluates and applies an eligible deal without a code or ID, regardless of whether the order request contains a flexible discount code. The following fields can appear in Preview Order, Create Order, Get Order, Get Order History, Preview Renewal, and Return responses:
-
-| Field | Availability | Description |
-|---|---|---|
-| `lineItems[].isDealRegistered` | `isDealRegistered` is included only when Instant Deal Registration was auto-injected for a line item: \<br /\> - `isDealRegistered` does not return: Instant Deal Registration was not injected or evaluated for the line item. \<br /\> - `isDealRegistered` returns and is `false`: Deal registration was attempted but qualification failed. \<br /\> - `isDealRegistered` returns `true`: Deal registration was attempted and qualification passes. |
-| `lineItems[].pricing.earnedDealRegPerUnit` | Qualifying lines when `fetch-price=true` | Deal registration amount per unit. |
-| `lineItems[].pricing.earnedDealRegAmount` | Qualifying line items when `fetch-price=true` | Total deal registration amount for the line item: `earnedDealRegPerUnit` multiplied by quantity. |
-| `pricingSummary.totalEarnedDealRegAmount` | When `fetch-price=true` and at least one line item qualifies | Sum of `earnedDealRegAmount` across qualifying line items. |
-
-**Note:** When `isDealRegistered` is `false`, the amount fields are omitted. If `isDealRegistered` is absent, Instant Deal Registration was not applied to the line item.
 
 ```json
 {
@@ -157,5 +148,18 @@ Adobe evaluates and applies an eligible deal without a code or ID, regardless of
   }
 }
 ```
+
+The following table identifies the parameters that are applicable in the Instant Deal Registration context:
+
+| Field | Availability | Description |
+|---|---|---|
+| `lineItems[].isDealRegistered` | `isDealRegistered` is included only when Instant Deal Registration was auto-injected for a line item: \<br /\> - `isDealRegistered` does not return: Instant Deal Registration was not injected or evaluated for the line item. \<br /\> - `isDealRegistered` returns and is `false`: Deal registration was attempted but qualification failed. \<br /\> - `isDealRegistered` returns `true`: Deal registration was attempted and qualification passes. |
+| `lineItems[].pricing.earnedDealRegPerUnit` | Qualifying lines when `fetch-price=true` | Deal registration amount per unit. |
+| `lineItems[].pricing.earnedDealRegAmount` | Qualifying line items when `fetch-price=true` | Total deal registration amount for the line item: `earnedDealRegPerUnit` multiplied by quantity. |
+| `pricingSummary.totalEarnedDealRegAmount` | When `fetch-price=true` and at least one line item qualifies | Sum of `earnedDealRegAmount` across qualifying line items. |
+
+**Note:** When `isDealRegistered` is `false`, the amount fields are omitted. If `isDealRegistered` is absent, Instant Deal Registration was not applied to the line item.
+
+
 
 The deal registration amount is additive and remains separate from `lineItemPartnerPrice`, `discountedPartnerPrice`, and `totalLineItemPartnerPrice`. On Return orders, `earnedDealRegPerUnit`, `earnedDealRegAmount`, and `totalEarnedDealRegAmount` are not represented as negative values.

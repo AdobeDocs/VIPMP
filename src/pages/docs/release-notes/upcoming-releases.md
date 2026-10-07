@@ -4,27 +4,27 @@
 
 **Expected release:** November 2026
 
-Adobe Instant Deal Registration is an automatically applied, codeless reseller credits, removing the need for a manual registration step on qualifying orders. There is no code to request, submit, or track. Partners see the credit directly in any qualifying orders and can view information on the deal through two discovery APIs.
+Adobe Instant Deal Registration is an automatically applied, codeless reseller credits, removing the need for a manual registration step on qualifying orders. There is no code to request, submit, or track. Partners see the intant deal registration amount directly in any qualifying orders and can view information on the deal through two discovery APIs.
 
 **What changed?**
 
-- The [Flexible Discounts](../flex-discounts/apis.md#get-flexible-discounts) API introduces a `DEAL_REGISTRATION` discovery category that provides descriptive details, validity dates, status, qualification criteria, and credit outcomes without exposing a credit code or identifier. Partners must explicitly request this category during discovery.
+- The [Flexible Discounts](../flex-discounts/apis.md#get-flexible-discounts) API introduces a `DEAL_REGISTRATION` discovery category that provides descriptive details, validity dates, status, qualification criteria, and instant deal registration outcomes without exposing a code or identifier. Partners must explicitly request this category during discovery.
 - The [Recommendations](../recommendations/apis.md#fetch-recommendations) API introduces the `includeDealRegistrations` request parameter. The value defaults to `false`. When set to true, the response includes a `discounts.dealRegistrations` section and prioritizes opportunities whose eligible products intersect with products already owned by the customer.
-- Preview Order, Create Order, Get Order, Get Order History, Preview Renewal, and Return responses include `isDealRegistered` when Instant Deal Registration was auto-injected for a line. The field value indicates whether the credit was successfully applied.
-- For requests with `fetch-price=true`, qualifying line items include per-unit `earnedDealRegPerUnit` and line-total `earnedDealRegAmount`; `pricingSummary` includes the aggregated `totalEarnedDealRegAmount`.
+- Preview Order, Create Order, Get Order, Get Order History, Preview Renewal, and Return responses include `isDealRegistered` when Instant Deal Registration was auto-injected for a line item. The field value indicates whether the deal registration amount was successfully applied.
+- For requests with `fetch-price=true`, qualifying line items include per-unit `earnedDealRegPerUnit` and line item-total `earnedDealRegAmount`; `pricingSummary` includes the aggregated `totalEarnedDealRegAmount`.
 
 **Why it matters**
 
-Partners can identify Instant Deal Registration opportunities early using Order Preview, Get Recommendations, or by querying the Flexible Discounts API, and see the credit applied automatically the moment a qualifying order is placed.
+Partners can identify Instant Deal Registration opportunities in advance through Order Preview, Get Recommendations, or the Flexible Discounts API. When a qualifying order is placed, the applicable deal registration amount is applied automatically and is reflected immediately in the order results.
 
-Unlike a traditional deal registration rebate, the credit appears as an upfront line item in the recon file, reported separately from `lineItemPartnerPrice`, `discountedPartnerPrice`, and `totalLineItemPartnerPrice`.
+Unlike a traditional deal registration rebate, the deal registration amount appears as an upfront line item in the recon file, reported separately from `lineItemPartnerPrice`, `discountedPartnerPrice`, and `totalLineItemPartnerPrice`.
 
 **Partner actions**
 
 | Action | Details |
 |---|---|
-| Parse the line-level application result | If `isDealRegistered` is `true`, the credit was applied. If it is `false`, Instant Deal Registration was not applied to the line. |
-| Keep credits separate from partner price | Treat `earnedDealRegPerUnit`, `earnedDealRegAmount`, and `totalEarnedDealRegAmount` as credits, not reductions to existing partner-price fields. |
+| Parse the line item-level application result | If `isDealRegistered` is `true`, the deal registration amount was applied. If it is `false`, Instant Deal Registration was not applied to the line item. |
+| Keep deal registration amounts separate from partner price | Treat `earnedDealRegPerUnit`, `earnedDealRegAmount`, and `totalEarnedDealRegAmount` as credits, not reductions to existing partner-price fields. |
 | Update recommendation requests where needed | Set `includeDealRegistrations` to `true` only when Adobe Instant Deal Registration recommendations are required. Never expect or submit a code or ID. |
 | Test affected API surfaces | Validate discovery and application of instant deal registration in APIs such as Flexible Discount, Recommendations, Preview Order, Create Order, Get Order, Get Order History, Preview Renewal, and Return in Sandbox. |
 
