@@ -24,6 +24,15 @@ The end date of a 3YC term depends on when the customer opts into the agreement 
 
 This distinction ensures fair benefit distribution while aligning with the annual contract renewal process.
 
+### Extended-term customers and 3YC enrollment
+
+Extended-term customers, created with a `cotermDate` more than one year in the future as described in [Create Customer Account](create-customer-account.md) cannot enroll in 3YC until they enter the final year of their extended term.
+
+- **Within the last year of the term** (from one year before the anniversary date through the anniversary date): A 3YC enrollment request automatically converts the customer from an extended-term customer to a standard commitment and creates the 3YC clause in a single operation. No separate action is required.
+- **More than one year before the anniversary date**: The 3YC enrollment request is rejected, and the customer remains an extended-term customer.
+
+Use the [PATCH Update Customer API](update-customer-account.md) with a `commitmentRequest` to enroll an extended-term customer once the customer is within the final year of the term.
+
 ## 3YC Workflows
 
 Customers can enroll in 3YC through one of three workflows. In all cases, customers must accept the commitment terms (minimum quantities and end date) in the Adobe Admin Console before receiving discounts.
@@ -31,7 +40,7 @@ Customers can enroll in 3YC through one of three workflows. In all cases, custom
 1. New Customer: Partners can set the requested minimum quantities during customer creation. Once the account becomes active, this triggers the 3YC customer acceptance workflow. API endpoints:
    - [POST Create Customer API](create-customer-account.md)
    - [GET Customer API](get-customer-account.md)
-2. Existing Customer: Partners can update existing customers (with or without an active 3YC) with new requested minimum quantities. This triggers the 3YC customer acceptance workflow once the update is processed. API endpoints:
+2. Existing Customer: Partners can update existing customers (with or without an active 3YC) with new requested minimum quantities. This triggers the 3YC customer acceptance workflow once the update is processed. Extended-term customers can only enroll in 3YC once they reach the last year of their term; see [Extended-term customers and 3YC enrollment](#extended-term-customers-and-3yc-enrollment) for details. API endpoints:
    - [PATCH Update Customer API](update-customer-account.md)
    - [GET Customer API](get-customer-account.md)
 

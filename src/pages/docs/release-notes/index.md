@@ -5,6 +5,66 @@
 
 **Important:** This section lists only features that are currently available in production. For planned enhancements and upcoming changes, see [Upcoming releases](./upcoming-releases.md).
 
+## Account screening introduces new Sanctioned and Screening statuses
+
+### October 07, 2026
+
+Partners can now view account screening progress while reseller, customer, and deploy-to accounts are checked against sanctions and watchlists before they are allowed to transact.
+
+**What changed?**
+
+Account creation now includes an asynchronous sanctions screening process. Two new status codes have been added:
+
+| Status | Meaning |
+|---|---|
+| 1023 (Screening) | The account is awaiting a screening adjudication decision. |
+| 1022 (Sanctioned) | The account has been identified as a sanctioned party and is blocked from transacting. |
+
+These statuses apply to Reseller Account, Customer Account, and Deployment resources.
+
+Status 1002 (Pending) remains unchanged but now indicates that sanctions screening has been successfully completed and the account is progressing through the remaining account creation checks.
+
+**Why it matters**
+
+Previously, sanctions screening occurred only after order submission, often leading to cancellations and manual remediation. Screening accounts before they can transact gives partners visibility into accounts under review or blocked due to sanctions, reducing uncertainty and eliminating most post-order cleanup.
+
+**Action required**
+
+| Action | Details |
+|---|---|
+| Handle the new status codes | Update polling and account status logic to recognize 1023 (Screening) and 1022 (Sanctioned) alongside existing Active, Inactive, and Pending statuses. |
+| Expect delays before an account is usable | Orders, 3YC enrollment, and other actions that require an active account remain unavailable while an account is being screened, just as they are for any account that has not yet reached Active status. |
+| No action needed for existing Active or Inactive accounts | The new statuses apply only to accounts undergoing creation or re-screening. |
+
+For more information, see [Account screening statuses](../customer-account/create-customer-account.md#account-screening-statuses) and [Status codes and error handling](../references/error-handling.md).
+
+## Extended-term customers can now enroll in 3YC during their last term year
+
+### October 07, 2026
+
+Partners can now enroll eligible extended-term customers in a Three-Year Commitment (3YC) during the final year of the customer's extended term.
+
+**What changed?**
+
+| Timing of 3YC enrollment request | Behavior |
+|---|---|
+| Within the final year of the extended term (from one year before the anniversary date through the anniversary date) | The customer is automatically converted from an extended-term to a regular commitment, and the 3YC clause is created as part of the same request. |
+| More than one year before the anniversary date | The request is rejected with the existing validation error. The customer remains on an extended term. No change to current behavior. |
+
+**Why it matters**
+
+Partners can now enroll eligible extended-term customers in 3YC as soon as they enter the qualifying window.
+
+**Action required**
+
+| Action | Details |
+|---|---|
+| No integration changes required | Submit the 3YC `commitmentRequest` through the existing [PATCH Update Customer API](../customer-account/update-customer-account.md) as usual. The conversion happens automatically when the customer is in the qualifying window. |
+| Stop filing manual conversion tickets | Extended-term customers within their last term year no longer need a manual conversion before enrolling in 3YC. |
+| Continue to expect rejection outside the window | Enrollment requests submitted more than one year before the anniversary date are still rejected; this has not changed. |
+
+For more information, see [Extended-term customers and 3YC enrollment](../customer-account/three-year-commit.md#extended-term-customers-and-3yc-enrollment).
+
 ## The Bridge and AI Kit now support partial quantity returns
 
 ### September 25, 2026

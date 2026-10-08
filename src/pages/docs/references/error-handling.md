@@ -10,10 +10,13 @@
 |1010| Account Status: Inactive \<br /\> **Reason:** Invalid Address| Reseller Account, Customer Account|
 |1012| **Account Status:** Inactive \<br /\> Reason: Account is blocked| Reseller Account, Customer Account|
 |1014| **Account Status:** Inactive \<br /\> **Reason:** Customer already exists with the same Company Name and primary admin|Customer Account|
-|1020| **Order Status:** Failed |**Reason:** Distributor is inactive|
-|1022| **Order Status:** Failed \<br /\> **Reason:** Reseller is inactive| Order|
+|1020| **Order Status:** Failed \<br /\> **Reason:** Distributor is inactive| Order|
+|1022| **Order Status:** Failed \<br /\> **Reason:** Reseller is inactive \<br /\> **Account Status:** Sanctioned \<br /\> **Reason:** Account flagged as a sanctioned party; blocked from proceeding| Order, Reseller Account, Customer Account, Deployment|
+|1023| **Account Status:** Screening \<br /\> **Reason:** Held awaiting a screening adjudication decision| Reseller Account, Customer Account, Deployment|
 |1024| **Order Status:** Failed \<br /\> Reason: Customer is inactive| Order|
 |1026|**Order Status:** Failed \<br /\> **Reason:** Customer ID is invalid|Order|
+
+**Note:** Status code 1022 carries two distinct meanings depending on the resource type: an Order-level failure reason (reseller is inactive) and an Account-level or Deployment-level screening outcome (sanctioned party). Always interpret the code together with the resource type of the response.
 
 ## Error handling
 
