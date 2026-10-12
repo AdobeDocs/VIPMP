@@ -14,6 +14,10 @@ Partners can leverage the `Fetch Price List` API to retrieve up-to-date pricing 
 
   Partners can access current price lists across all products, countries, and currencies.
 
+- **Country-specific pricing support**
+
+  Partners can retrieve country-specific price lists by passing a supported country code in `region`, enabling accurate quoting where country-specific price lists are available. This feature introduces country-specific USD pricing without changing the currency.
+
 ## Fetch Price List API
 
 | Endpoint      | Method |
@@ -130,7 +134,7 @@ A sample request is as follows:
 
 | **Field**                        | **Required** | **Type**           | **Description** |
 |----------------------------------|--------------|--------------------|-----------------|
-| `region`                         | Yes          | String (Enum)      | Specifies the region for which the Price List should be returned. This must be one of the regions supported for the Partner. The following region codes are supported: \<br /\> AP, JP, WE, LA, MX, EE, PA, NA  |
+| `region` | Yes | String (Enum) | Specifies the region or country for which the Price List should be returned. The value must be supported for the Partner. \<br /\>- Supported regional codes: `AP`, `WE`, `LA`, `EE`, `PA`, `NA`. \<br /\> - Supported country codes: `JP`, `CN`, `MX`, `KR`, `TR`, `BR`, `IN`, for country-specific USD pricing. See [Local currencies support](#local-currencies-support). |
 | `marketSegment`                  | Yes          | String (Enum)      | Specifies the market segment. Must be one of the supported segments, such as: \<br /\> - COM \<br /\> - EDU \<br /\> - GOV. |
 | `priceListType`                   | No           | String (Enum)      | Indicates the price list type. Possible values: \<br /\> - STANDARD \<br /\> - 3YC \<br /\> - STD-LGA (Standard Price List for Large Government Agencies)|
 | `currency`                       | Yes          | String (Enum)      | Specifies the currency. Must be one of the supported currencies for the Partner. \<br /\>Possible Values: AUD, EUR, GBP, JPY, USD. |
@@ -245,7 +249,7 @@ A sample response is as follows:
 |-----------|--------------|----------|-----------------|
 | `priceListMonth` | Yes | String | Price List published month |
 | `marketSegment` | Yes | String (Enum) | Market segment applicable for the offers included in the response. Possible values: \<br /\> - COM \<br /\> - EDU \<br /\> - GOV |
-| `region` | Yes | String (Enum) | Region where offer is sold. \<br /\> Possible values: \<br /\> - NA \<br /\> - PA \<br /\> - EE \<br /\> - MX \<br /\> - LA \<br /\> - WE \<br /\> - JP \<br /\> - AP |
+| `region` | Yes | String (Enum) | For regional price list requests, the region where the offer is sold. \<br /\> Possible values: \<br /\> - NA \<br /\> - PA \<br /\> - EE \<br /\> - MX \<br /\> - LA \<br /\> - WE \<br /\> - JP \<br /\> - AP |
 | `currency` | Yes | String (Enum) | Currency applicable for the market segment and region. \<br /\> Possible Values: \<br /\> - AUD \<br /\> - EUR \<br /\> - GBP \<br /\> - JPY \<br /\> - USD |
 | `priceListType` | Yes | String (Enum) | The price list type. \<br /\> Possible values:\<br /\> - STANDARD \<br /\> - 3YC \<br /\> - STD-LGA (Standard Price List for Large Government Agencies) |
 | `totalCount` | Yes | Integer | Indicates the total items matched as per the search criteria. |
@@ -263,7 +267,7 @@ A sample response is as follows:
 | `offer → version` | Yes | String | Possible values: \<br /\> - ALL |
 | `offer → users` | Yes | String (Enum) | License type \<br /\> The Following are the possible values: \<br /\> - 1 User \<br /\> - Named \<br /\> - Per Credit Pack \<br /\> - Per Server \<br /\> - Per Transaction \<br /\> - Per Workstation \<br /\> - Subscription |
 | `offer → levelDetails` | Yes | String | Level Description of Min and Max range for the price point. |
-| `offer → firstOrderDate` | Yes | Date | The first date for the item's sale. |
+| `offer → firstOrderDate` | Yes | Date | The first date for the item's sale. For a country-specific price list, the date the offer's country-specific price applies to orders. For 3YC pricing, use the customer's applicable partner price lock date. |
 | `offer → lastOrderDate` | Yes | Date | The last date for the item's sale. |
 | `offer → partnerPrice` | Yes | String | List Price for Partner \<br /\> |
 | `offer → estimatedStreetPrice` | Yes | String | Estimated retail price \<br /\>  |
@@ -293,3 +297,40 @@ The following table lists the error codes that are specific to the Fetch Price L
 |5122 |Invalid Request |Fetch Price Lists |400 |
 
 For the complete set of error codes, see [Status codes and error handling](../references/error-handling.md).
+
+## Local currencies support
+
+For supported countries, partners can retrieve country-specific USD price lists in addition to regional price lists. Local currencies support is available for South Korea (KR), Türkiye (TR), Brazil (BR), and India (IN). These countries move from regional to country-specific pricing at their respective cutovers. A cutover is the date on which the country-specific USD price list becomes available and starts applying to pricing. For South Korea, Türkiye, Brazil, and India, the cutover date is December 1, 2026.The currency remains USD.
+
+### Request country-specific prices
+
+Use the required `region` request parameter in `POST /v3/pricelist` for either regional or country-specific prices. Supply a supported regional code (`AP`, `WE`, `LA`, `EE`, `PA`, or `NA`) for regional pricing, or a supported country code (`JP`, `CN`, `MX`,`KR`, `TR`, `BR`, or `IN`) for country-specific USD pricing.
+
+For the same offer, currency, and price list month, a country-specific price can differ from the regional price. Use the applicable country-specific list for quoting after cutover, subject to the 3YC partner price locks described below.
+
+Each offer's `firstOrderDate` indicates when its country-specific price applies to orders. The following request illustrates a country-specific lookup for Türkiye with `region` set to `TR`. The month and offer ID are illustrative values, not a cutover date or a guarantee of offer availability.
+
+```json
+{
+    "region": "TR",
+    "marketSegment": "COM",
+    "priceListType": "STANDARD",
+    "currency": "USD",
+    "priceListMonth": "202610",
+    "filters": {
+        "offerId": "65324779CA01A12"
+    }
+}
+```
+
+Supply the applicable regional code in `region` to request the regional price list, including when retrieving historical regional pricing for a 3YC commitment accepted before cutover. For example, `region` set to `NA` requests North American regional pricing.
+
+### Pricing at cutover to local currency
+
+| Scenario | Pricing behavior |
+|---|---|
+| New orders, renewals, early renewals, mid-term license  additions, and `SWITCH_PLAN` on or after cutover | Use the country-specific USD price list, subject to the existing 3YC partner price lock described below. Mid-term purchases continue to modify the existing subscription. |
+| 3YC commitment accepted before cutover | Retain the regional price list at the customer's partner price lock date until the commitment ends. Do not replace this locked price with the country-specific price. |
+| 3YC commitment accepted on or after cutover | Lock to the country-specific USD price list at the commitment acceptance date. |
+| Early renewal placed before cutover | Retain regional pricing. |
+| Returns and plan reverts | Use the original order price, not the price currently available in the country-specific list. |
