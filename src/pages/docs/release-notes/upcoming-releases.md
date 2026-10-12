@@ -23,7 +23,7 @@ Partners can retrieve the applicable country-specific prices for accurate quotin
 | Request the applicable price list | Set `region` to `KR`, `TR`, `BR`, or `IN` for country-specific USD pricing, or to the applicable supported regional code for regional pricing. |
 | Review pricing at cutover | Account for 3YC price locks, early renewals placed before cutover, and original-order pricing for returns and plan reverts. |
 
-For more information, see [Local currencies support](../manage-pricing/index.md#local-currencies-support).
+For more information, see [Local currency support](../manage-pricing/index.md#local-currency-support).
 
 ## Adobe Instant Deal Registration
 
