@@ -13,7 +13,7 @@ Instant Deal Registration:
 1. A partner can discover Instant Deal Registration opportunities using the [Get Flexible Discounts](../flex-discounts/apis.md#get-flexible-discounts) API or the [Fetch Recommendations](../recommendations/apis.md#fetch-recommendations) API.
 2. The partner previews or places an order through the existing order workflow. No registration request, code, or identifier is required.
 3. Adobe evaluates eligible line items automatically at order time.
-4. If a line item qualifies, Adobe applies the deal registration amount and reports it separately from the partner-price values.
+4. If a line item qualifies, Adobe applies the deal registration amount and reports it separately from the partner-price values. If a flexible discount is also on the line item, the flexible discount is applied first and then the deal registration amount is calculated on the discounted price.
 5. Partners can view the outcome when they preview, create, or retrieve orders, including renewal and return orders. Upon a return, the deal amount applied to the original transaction is reversed.
 
 Discovery does not guarantee that a deal registration amount will be applied. Adobe re-evaluates eligibility when the order is processed.

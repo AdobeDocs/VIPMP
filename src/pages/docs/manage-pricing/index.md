@@ -134,7 +134,7 @@ A sample request is as follows:
 
 | **Field**                        | **Required** | **Type**           | **Description** |
 |----------------------------------|--------------|--------------------|-----------------|
-| `region` | Yes | String (Enum) | Specifies the region or country for which the Price List should be returned. The value must be supported for the Partner. \<br /\>- Supported regional codes: `AP`, `WE`, `LA`, `EE`, `PA`, `NA`. \<br /\> - Supported country codes: `JP`, `CN`, `MX`, `KR`, `TR`, `BR`, `IN`, for country-specific USD pricing. See [Local currencies support](#local-currencies-support). |
+| `region` | Yes | String (Enum) | Specifies the region or country for which the Price List should be returned. The value must be supported for the Partner. \<br /\>- Supported regional codes: `AP`, `WE`, `LA`, `EE`, `PA`, `NA`. \<br /\> - Supported country codes: `JP`, `CN`, `MX`, `KR`, `TR`, `BR`, `IN`, for country-specific USD pricing. See [Local currencies support](#local-currency-support). |
 | `marketSegment`                  | Yes          | String (Enum)      | Specifies the market segment. Must be one of the supported segments, such as: \<br /\> - COM \<br /\> - EDU \<br /\> - GOV. |
 | `priceListType`                   | No           | String (Enum)      | Indicates the price list type. Possible values: \<br /\> - STANDARD \<br /\> - 3YC \<br /\> - STD-LGA (Standard Price List for Large Government Agencies)|
 | `currency`                       | Yes          | String (Enum)      | Specifies the currency. Must be one of the supported currencies for the Partner. \<br /\>Possible Values: AUD, EUR, GBP, JPY, USD. |
@@ -298,13 +298,13 @@ The following table lists the error codes that are specific to the Fetch Price L
 
 For the complete set of error codes, see [Status codes and error handling](../references/error-handling.md).
 
-## Local currencies support
+## Local currency support
 
-For supported countries, partners can retrieve country-specific USD price lists in addition to regional price lists. Local currencies support is available for South Korea (KR), Türkiye (TR), Brazil (BR), and India (IN). These countries move from regional to country-specific pricing at their respective cutovers. A cutover is the date on which the country-specific USD price list becomes available and starts applying to pricing. For South Korea, Türkiye, Brazil, and India, the cutover date is December 1, 2026.The currency remains USD.
+For supported countries, partners can retrieve country-specific USD price lists in addition to regional price lists. Local currencies support is available for South Korea (KR), Türkiye (TR), Brazil (BR), and India (IN). These countries move from regional to country-specific pricing on the  cutover date. A cutover is the date on which the country-specific USD price list becomes available and takes effect. For South Korea, Türkiye, Brazil, and India, the cutover date is December 1, 2026. The currency remains USD.
 
 ### Request country-specific prices
 
-Use the required `region` request parameter in `POST /v3/pricelist` for either regional or country-specific prices. Supply a supported regional code (`AP`, `WE`, `LA`, `EE`, `PA`, or `NA`) for regional pricing, or a supported country code (`JP`, `CN`, `MX`,`KR`, `TR`, `BR`, or `IN`) for country-specific USD pricing.
+Use the required `region` request parameter in `POST /v3/pricelist` for either regional or country-specific prices. Supply a supported regional code (`AP`, `WE`, `LA`, `EE`, `PA`, or `NA`) for regional pricing, or a supported country code (`JP`, `CN`, `MX`, `KR`, `TR`, `BR`, or `IN`) for country-specific USD pricing.
 
 For the same offer, currency, and price list month, a country-specific price can differ from the regional price. Use the applicable country-specific list for quoting after cutover, subject to the 3YC partner price locks described below.
 

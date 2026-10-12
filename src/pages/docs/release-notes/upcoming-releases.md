@@ -1,10 +1,10 @@
 # Upcoming releases
 
-## Local currencies support: country-specific USD pricing
+## Local currency support: Country-specific USD pricing
 
 **Expected release:** November 2026
 
-Local currencies support introduces country-specific USD price lists for South Korea (`KR`), Türkiye (`TR`), Brazil (`BR`), and India (`IN`) through the existing [Fetch Price List](../manage-pricing/index.md) API.  These countries move from regional to country-specific pricing at their respective cutovers. A cutover is the date on which the country-specific USD price list becomes available and starts applying to pricing. For South Korea, Türkiye, Brazil, and India, the cutover date is December 1, 2026.
+Local currencies support introduces country-specific USD price lists for South Korea (`KR`), Türkiye (`TR`), Brazil (`BR`), and India (`IN`) through the existing [Fetch Price List](../manage-pricing/index.md) API.  These countries move from regional to country-specific pricing at cutover. A cutover is the date on which the country-specific USD price list becomes available and takes effect. For South Korea, Türkiye, Brazil, and India, the cutover date is December 1, 2026. The currency remains USD.
 
 **What changed?**
 

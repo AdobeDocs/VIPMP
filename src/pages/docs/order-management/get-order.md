@@ -314,8 +314,8 @@ The pricing data is returned only when:
 | discountedPartnerPrice | Unit price after applying discount. \<br /\>                                                                                                          |
 | netPartnerPrice        | Prorated unit price after discount.                                                                                                                 |
 | lineItemPartnerPrice   | Prorated price of the item after discount and before tax. This is the price that the partner needs to pay to Adobe for this item.                   |
-| earnedDealRegPerUnit | Deal registration amount per unit. Included only for a qualifying line item when `fetch-price=true`. |
-| earnedDealRegAmount | Total deal registration amount for the line item: `earnedDealRegPerUnit` multiplied by quantity. Included only for a qualifying line item when `fetch-price=true`. |
+| earnedDealRegPerUnit | Prorated Deal registration amount per unit. Included only for a qualifying line item when `fetch-price=true`. |
+| earnedDealRegAmount | Prorated total deal registration amount for the line item: `earnedDealRegPerUnit` multiplied by quantity. Included only for a qualifying line item when `fetch-price=true`. |
 
 **Note:** The `proratedDays` parameter in the response specifies the number of days for which the order will be invoiced. This parameter appears only when the `fetch-price` parameter is set to `true` in the request.
 

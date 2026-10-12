@@ -13,7 +13,7 @@ Interpret `isDealRegistered` as follows:
 - `false`: Instant Deal Registration was auto-injected, but qualification failed. Deal registration amount fields are omitted.
 - Absent: Instant Deal Registration was not injected or evaluated for the line item.
 
-## Test scenario
+## Test renewal credit
 
 Use this scenario for customers who have Acrobat Standard or Acrobat Pro and purchase Acrobat Studio. It supports Commercial (COM), Government (GOV), and Education (EDU) market segments.
 
