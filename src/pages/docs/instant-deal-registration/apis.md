@@ -113,39 +113,101 @@ Instant Deal Registration applies independently of `flexDiscountCodes`. A partne
 
 ## Understand Instant Deal Registration response fields
 
-Adobe evaluates and applies an eligible deal without a code or ID, regardless of whether the order request contains a flexible discount code. The following fields can appear in Preview Order, Create Order, Get Order, Get Order History, Preview Renewal, and Return responses:
+Adobe evaluates and applies an eligible deal without a code or ID, regardless of whether the order request contains a flexible discount code. Pricing appears in the Get Order by ID and Get Order History APIs when the `fetch-price=true` query parameter is included in the request:
+
+Sample request: `<ENV>/v3/customers/11233441871/orders/02938476?fetch-price=true`
+
+Sample response when no flexible discount code is applied:
 
 ```json
 {
+  "referenceOrderId": "",
+  "externalReferenceId": "9c6a5425-c6e0-480b-b075-7b439a6375d",
   "orderId": "5120008001",
+  "customerId": "1005831871",
+  "currencyCode": "USD",
   "orderType": "NEW",
   "status": "1000",
+  "creationDate": "2026-03-17T11:42:29Z",
   "lineItems": [
     {
       "extLineItemNumber": 1,
       "offerId": "65304578CA01A12",
       "quantity": 20,
+      "subscriptionId": "",
+      "status": "1000",
+      "currencyCode": "USD",
+      "remainingQuantity": 20,
+      "proratedDays": 90,
       "isDealRegistered": true,
       "pricing": {
         "partnerPrice": 209.76,
-        "discountedPartnerPrice": 169.90,
-        "lineItemPartnerPrice": 3398.00,
-        "earnedDealRegPerUnit": 20.98,
-        "earnedDealRegAmount": 419.6
+        "discountedPartnerPrice": 209.76,
+        "netPartnerPrice": 51.72,
+        "lineItemPartnerPrice": 1034.40,
+        "earnedDealRegPerUnit": 5.17,
+        "earnedDealRegAmount": 103.40
+      }
+    }
+  ],
+  "pricingSummary": [
+    {
+      "totalLineItemPartnerPrice": 1034.40,
+      "totalEarnedDealRegAmount": 103.40,
+      "currencyCode": "USD"
+    }
+  ]
+}
+```
+
+If a flexible discount is applied to the same line item, the flexible discount is applied first, and the deal registration amount is then calculated based on the discounted price. The following example shows a line item with both a flexible discount and a deal registration amount applied:
+
+```json
+{
+  "referenceOrderId": "",
+  "externalReferenceId": "9c6a5425-c6e0-480b-b075-7b439a6375d",
+  "orderId": "5120008001",
+  "customerId": "1005831871",
+  "currencyCode": "USD",
+  "orderType": "NEW",
+  "status": "1000",
+  "creationDate": "2026-03-17T11:42:29Z",
+  "lineItems": [
+    {
+      "extLineItemNumber": 1,
+      "offerId": "65304578CA01A12",
+      "quantity": 20,
+      "subscriptionId": "",
+      "status": "1000",
+      "currencyCode": "USD",
+      "remainingQuantity": 20,
+      "proratedDays": 90,
+      "isDealRegistered": true,
+      "pricing": {
+        "partnerPrice": 209.76,
+        "discountedPartnerPrice": 199.76,
+        "netPartnerPrice": 49.26,
+        "lineItemPartnerPrice": 985.20,
+        "earnedDealRegPerUnit": 4.93,
+        "earnedDealRegAmount": 98.60
       },
+      "flexDiscountCodes": ["BLACK_FRIDAY"],
       "flexDiscounts": [
         {
+          "id": "55555555-313b-476c-9d0b-6a610d5b91e0",
           "code": "BLACK_FRIDAY",
           "result": "SUCCESS"
         }
       ]
     }
   ],
-  "pricingSummary": {
-    "totalLineItemPartnerPrice": 3398.00,
-    "totalEarnedDealRegAmount": 419.6,
-    "currencyCode": "USD"
-  }
+  "pricingSummary": [
+    {
+      "totalLineItemPartnerPrice": 985.20,
+      "totalEarnedDealRegAmount": 98.60,
+      "currencyCode": "USD"
+    }
+  ]
 }
 ```
 
