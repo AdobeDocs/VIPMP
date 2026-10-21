@@ -9,32 +9,34 @@
 
 ### October 07, 2026
 
-Partners can now view account screening progress while reseller, customer, and deploy-to accounts are checked against sanctions and watchlists before they are allowed to transact.
+Partners can now view account screening progress while for reseller, customer, and deploy-to accounts, which are automatically screened against government restricted party lists at account creation before they can transact.
 
 **What changed?**
 
-Account creation now includes an asynchronous sanctions screening process. Two new status codes have been added:
+Account creation now includes an asynchronous compliance screening process. Two new status codes have been added:
 
 | Status | Meaning |
 |---|---|
-| 1023 (Screening) | The account is awaiting a screening adjudication decision. |
-| 1022 (Sanctioned) | The account has been identified as a sanctioned party and is blocked from transacting. |
+| 1023 (Screening) | The account is undergoing additional review before it can transact. |
+| 1022 (Compliance Block) | The account has been blocked. |
 
 These statuses apply to Reseller Account, Customer Account, and Deployment resources.
 
-Status 1002 (Pending) remains unchanged but now indicates that sanctions screening has been successfully completed and the account is progressing through the remaining account creation checks.
+Status 1002 (Pending) remains unchanged but now indicates that screening has been successfully completed and the account is progressing through the remaining account creation checks.
 
 **Why it matters**
 
-Previously, sanctions screening occurred only after order submission, often leading to cancellations and manual remediation. Screening accounts before they can transact gives partners visibility into accounts under review or blocked due to sanctions, reducing uncertainty and eliminating most post-order cleanup.
+Screening at account creation is part of Adobe’s ongoing trade compliance program. Most accounts will not be affected. For accounts that require additional review, the new statuses and notifications let your systems recognize when an account is not yet able to transact.
 
 **Action required**
 
 | Action | Details |
 |---|---|
-| Handle the new status codes | Update polling and account status logic to recognize 1023 (Screening) and 1022 (Sanctioned) alongside existing Active, Inactive, and Pending statuses. |
+| Handle the new status codes | Update polling and account status logic to recognize 1023 and 1022 alongside existing Active, Inactive, and Pending statuses. |
 | Expect delays before an account is usable | Orders, 3YC enrollment, and other actions that require an active account remain unavailable while an account is being screened, just as they are for any account that has not yet reached Active status. |
 | No action needed for existing Active or Inactive accounts | The new statuses apply only to accounts undergoing creation or re-screening. |
+
+Screening your customers and resellers for trade compliance remains your responsibility, and you are accountable for all orders placed through your marketplace.
 
 For more information, see [Account screening statuses](../customer-account/create-customer-account.md#account-screening-statuses) and [Status codes and error handling](../references/error-handling.md).
 

@@ -32,13 +32,13 @@ Ensure that you are aware of the following before creating a customer account:
 
 ## Account screening statuses
 
-As part of the asynchronous validation process, every new customer account is screened against sanctions and watchlists before it can transact. This screening helps identify sanctioned parties before any orders are placed. The account `status` indicates the screening outcome:
+As part of the asynchronous validation process, every new customer account is screened against government restricted party lists before it can transact. The account `status` indicates the screening outcome:
 
 | Status | Meaning |
 |--------|---------|
-| 1002 (Pending) |Screening has cleared successfully. The account is still undergoing the remaining account creation validations. |
-| 1023 (Screening) | The account is awaiting a screening adjudication decision. No action is required from the partner while the account remains in this status. |
-| 1022 (Sanctioned) | The account has been flagged as a sanctioned party and is blocked from proceeding. |
+| 1002 (Pending) |Screening has completed. The account is still undergoing the remaining account creation validations. |
+| 1023 (Screening) | The account is undergoing additional review before it can transact. No action is required from the partner while the account remains in this status. |
+| 1022 (Compliance Block) | The account has been blocked.  |
 
 Use the [Get Customer Account Details](get-customer-account.md) endpoint to monitor the account and retrieve the final `status` after screening is complete.
 

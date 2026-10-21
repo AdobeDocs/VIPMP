@@ -11,8 +11,8 @@
 |1012| **Account Status:** Inactive \<br /\> Reason: Account is blocked| Reseller Account, Customer Account|
 |1014| **Account Status:** Inactive \<br /\> **Reason:** Customer already exists with the same Company Name and primary admin|Customer Account|
 |1020| **Order Status:** Failed \<br /\> **Reason:** Distributor is inactive| Order|
-|1022| **Order Status:** Failed \<br /\> **Reason:** Reseller is inactive \<br /\> **Account Status:** Sanctioned \<br /\> **Reason:** Account flagged as a sanctioned party; blocked from proceeding| Order, Reseller Account, Customer Account, Deployment|
-|1023| **Account Status:** Screening \<br /\> **Reason:** Held awaiting a screening adjudication decision| Reseller Account, Customer Account, Deployment|
+|1022| **Order Status:** Failed \<br /\> **Reason:** Reseller is inactive \<br /\> **Account Status:** Compliance Block \<br /\> **Reason:** The account has been blocked.| Order, Reseller Account, Customer Account, Deployment|
+|1023| **Account Status:** Screening \<br /\> **Reason:** The account is undergoing additional review before it can transact.| Reseller Account, Customer Account, Deployment|
 |1024| **Order Status:** Failed \<br /\> Reason: Customer is inactive| Order|
 |1026|**Order Status:** Failed \<br /\> **Reason:** Customer ID is invalid|Order|
 
@@ -150,6 +150,14 @@ Some error responses will include additionalDetails, an array of strings with mo
 |5135| Invalid Discount Code|Create Order | 400|
 |5136 |INVALID_COUNTRY \<br /\> \<br /\>Not allowed to fetch Recommendations for Country  `<code>` |Fetch Recommendations \<br /\>Get Order \<br /\>Preview Order |400 |
 |5137|INVALID_LANGUAGE \<br /\> \<br /\>Not allowed to fetch Recommendations for language `<Code>` |Fetch Recommendations \<br /\>Get Order \<br /\>Preview Order | 400 |
+
+## Country currency validation
+
+After a country's currency cutover, old-currency new orders, previews, manual renewals, early renewals, and seat additions return `CURRENCY_NOT_ACTIVE_FOR_COUNTRY` with HTTP 422, subject to commitment exceptions. For eligible customers, use the new currency rather than attempting to add seats to an old-currency subscription.
+
+An early-renewal request referencing an old USD subscription is also rejected when the request specifies CAD or MXN. Use the [new-currency early-renewal flow](../renewals/manual-renewals.md#early-renewal-after-a-currency-change), which omits the old subscription ID. Customers with pre-cutover 3YC commitments must retain their previous pricing and currency until commitment end; active 3YC early renewal in USD remains supported under the existing eligibility rules.
+
+See [Local currency support](../manage-pricing/index.md#local-currency-support) for the country, lifecycle, and commitment rules.
 
 ## 2127 Ineligible order cancellation
 
