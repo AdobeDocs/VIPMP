@@ -49,6 +49,12 @@ The following limitations are present in this release:
 - **Complex upgrades excluded**: Combining multiple single apps into All Apps is not supported due to complexity in license mapping and pricing.
 - **Partial upgrade restrictions**: Certain partial upgrades may be limited based on product eligibility or financial viability. Subscriptions tagged as high-growth offers or specific global customer products are excluded from switch eligibility.
 
+## Pricing when the country currency changes
+
+After a currency cutover, an eligible `SWITCH_PLAN` from the previous currency to the new currency is priced entirely in the new currency. For example, this applies to transitions from USD to CAD in Canada and from USD to MXN in Mexico. Returns and switch reverts retain the original order's pricing and currency.
+
+Currency changes do not expand switch eligibility. HGO subscriptions remain ineligible, and existing product and global customer restrictions continue to apply. See [Local currency support](../manage-pricing/index.md#local-currency-support) for country-specific prices and commitment exceptions.
+
 ## Mid-term upgrade process
 
 The following figure illustrates the upgrade process:

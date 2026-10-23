@@ -34,6 +34,23 @@ Early renewal allows partners to renew subscriptions before the AD and introduce
 - **Non‑3YC customers:** Price effective date is the order placement date.
 - **3YC customers:** Price effective date is based on the license commitment start date. Early renewal does not reset the 3YC commitment cycle.
 
+Country-specific prices apply from the country's cutover, subject to commitment price locks. Early renewals placed before cutover retain regional pricing. For currency changes, follow the [new-currency request rules](#early-renewal-after-a-currency-change) below.
+
+### Early renewal after a currency change
+
+After a currency cutover, eligible customers must early renew in the new currency. For example, this applies when Canada transitions from USD to CAD or Mexico transitions from USD to MXN. This is an exception to the standard requirement to reference an existing subscription:
+
+- Use `orderType: "PREVIEW_RENEWAL"` to preview and `orderType: "RENEWAL"` to submit the early renewal.
+- Select an offer from the applicable country-specific price list and send `currencyCode: "CAD"` or `currencyCode: "MXN"` on the line item.
+- Omit `subscriptionId` for this new-currency early renewal. An old USD subscription ID is rejected with HTTP 422 even when the request specifies the new currency.
+- Include `deploymentId` where required for a global customer's deployment.
+
+The order creates a new-currency subscription to the next anniversary date. Old-currency early renewals are rejected with `CURRENCY_NOT_ACTIVE_FOR_COUNTRY` (HTTP 422), except where commitment rules permit the old currency.
+
+Customers with a 3YC commitment accepted before cutover cannot order in the new currency during that commitment. Active 3YC customers can still early renew in USD, subject to the existing eligibility restrictions, including the final-term recommitment rule. Contact support to terminate the 3YC before moving to the new currency early. Active HGO commitments also retain the old currency until commitment end.
+
+At anniversary renewal, quantities already early renewed on either subscription are deducted before the remaining quantities are combined in the new currency. See [Combined renewal quantities](auto-renewals.md#calculate-the-combined-renewal-quantity).
+
 ### Quantity and product rules
 
 - The first early renewal can include either existing products or new products.
@@ -74,10 +91,10 @@ Simulate a renewal to validate eligibility, pricing, and offers before placing t
 
 **Notes:**
 
-- `subscriptionId` is necessary when the order is for an existing subscription
+- `subscriptionId` is necessary when the order is for an existing subscription, except for an eligible [early renewal in a new currency](#early-renewal-after-a-currency-change), which must omit the old subscription ID.
 - If the intention is to renew a new offer, then it is optional.
-  - Optionally, in this case, `deploymentId` and `currency` can be included as valid properties.
-- The order request will be rejected if a subscriptionId is found for the offerId included in the request.
+  - In this case, send the applicable `currencyCode` on the line item and include `deploymentId` where required for a global customer's deployment.
+- When renewing a new offer without `subscriptionId`, the request is rejected if a subscription already exists for that offer, except for the new-currency early-renewal flow described above.
 - Adobe evaluates Instant Deal Registration automatically and independently of flexible discount codes.
 
 **Request**
@@ -143,10 +160,10 @@ Use the `POST /v3/customers/<customer-id>/orders` endpoint with `orderType` as  
 
 **Notes:**
 
-- `subscriptionId` is necessary when the order is for an existing subscription
+- `subscriptionId` is necessary when the order is for an existing subscription, except for an eligible [early renewal in a new currency](#early-renewal-after-a-currency-change), which must omit the old subscription ID.
 - If the intention is to create a subscription for a new offer, then it is optional.
-  - Optionally, in this case, `deploymentId` and `currency` can be included as valid properties.
-- The order request will be rejected if a subscriptionId is found for the offerId included in the request.
+  - In this case, send the applicable `currencyCode` on the line item and include `deploymentId` where required for a global customer's deployment.
+- When renewing a new offer without `subscriptionId`, the request is rejected if a subscription already exists for that offer, except for the new-currency early-renewal flow described above.
 
 **Request:**
 

@@ -9,9 +9,10 @@ Ensure that you are aware of the following before creating an order:
 - `orderType` is required in the Create Order request.
   - Possible values are: NEW, RETURN, PREVIEW, PREVIEW_RENEWAL, or RENEWAL
   - See [Order Scenarios](./order-scenarios.md) for request and response samples for each order type.
-- `subscriptionId` is mandatory in lineItems for:
+- For renewal of an existing subscription, `subscriptionId` is mandatory in lineItems for:
   - `orderType` RENEWAL
   - `orderType` PREVIEW_RENEWAL if lineItems are present
+  - Exception: an eligible [early renewal after a currency change](../renewals/manual-renewals.md#early-renewal-after-a-currency-change) must use the new currency without the old subscription ID.
 - `referenceOrderId` is required for RETURN orders and should not be included for other order types.
 - For `RETURN` orders that reference a `NEW` or `RENEWAL` order, you can now return a quantity that is less than the original line item quantity, within 14 days of the original order. The requested quantity is validated against the line item’s current `remainingQuantity` value on the original order. See [Return or cancellation of order](order-scenarios.md#return-or-cancellation-of-order) for details on eligibility, exclusions, and error codes.
 - `currencyCode` should now be sent at the lineItem level instead of  the order level.
@@ -20,6 +21,14 @@ Ensure that you are aware of the following before creating an order:
 - `flexDiscountCodes` can be used in the request to apply Flexible Discounts for customers who meet the eligibility criteria. For additional details, see [Managing Flexible Discounts](../flex-discounts/apis.md).
 - Do not send an Adobe Instant Deal Registration code or ID. Adobe evaluates eligible line items automatically, independently of whether `flexDiscountCodes` is present.
   - When `fetch-price=true`, a qualifying response line item includes `earnedDealRegPerUnit` and `earnedDealRegAmount` in `pricing`, and `pricingSummary` includes `totalEarnedDealRegAmount`. These deal registration amounts remain separate from existing partner-price fields.
+
+## Orders after a country currency change
+
+After a country transitions to a new currency, eligible customers place new orders and purchase additional seats in the new currency. These orders create new subscriptions in the new currency rather than adding licenses to existing subscriptions in the previous currency. For example, this applies when Canada transitions from USD to CAD or Mexico transitions from USD to MXN.
+
+API requests for new orders, previews, manual renewals, early renewals, and license additions using the previous currency return `CURRENCY_NOT_ACTIVE_FOR_COUNTRY` with HTTP 422, subject to commitment exceptions.
+
+Pre-cutover 3YC commitments retain their existing price list and currency until the commitment ends. Customers with an active pre-cutover 3YC commitment cannot place orders in the new currency during the commitment period. Returns and switch reverts retain the pricing and currency of the original order. See [Local currency support](../manage-pricing/index.md#local-currency-support) for the complete lifecycle and commitment rules.
 
 ## Request header
 
@@ -104,3 +113,4 @@ Order resource without read-only fields:
 | 401         | Invalid Authorization token |
 | 403         | Invalid API Key             |
 | 404         | Invalid customer ID         |
+| 422         | Currency not active for the country |

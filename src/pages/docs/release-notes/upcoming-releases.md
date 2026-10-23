@@ -1,27 +1,43 @@
 # Upcoming releases
 
-## Local currency support: Country-specific USD pricing
+**Note:** This is the initial version of the documentation, published early to provide partners with visibility into upcoming changes. The documentation will be updated as additional details become available. The expected release dates are indicative only and may change.
+
+## Local currency support
 
 **Expected release:** November 2026
 
-Local currencies support introduces country-specific USD price lists for South Korea (`KR`), Türkiye (`TR`), Brazil (`BR`), and India (`IN`) through the existing [Fetch Price List](../manage-pricing/index.md) API.  These countries move from regional to country-specific pricing at cutover. A cutover is the date on which the country-specific USD price list becomes available and takes effect. For South Korea, Türkiye, Brazil, and India, the cutover date is December 1, 2026. The currency remains USD.
+Local currency support introduces country-specific price lists through the existing [Fetch Price List](../manage-pricing/index.md) API. The pricing and currency rules for each country take effect on its cutover date. The cutover date is the date on which the country-specific price list becomes available and takes effect.
+
+| Country | Currency after cutover | What changes |
+|---|---|---|
+| South Korea (`KR`), Türkiye (`TR`), Brazil (`BR`), India (`IN`) | USD | Country-specific prices replace regional USD prices. The currency does not change. |
+| Canada (`CA`) | CAD | Country-specific CAD prices apply, with subscriptions moving from USD to CAD. |
+| Mexico (`MX`) | MXN | Country-specific MXN prices apply, with subscriptions moving from USD to MXN. |
+
+**Important:** Local currency support will be rolled out in phases. The first phase introduces country-specific pricing in USD. The second phase introduces CAD for Canada and MXN for Mexico. Follow official communications from Adobe for information about the releases.
 
 **What changed?**
 
-- The existing `region` parameter in `POST /v3/pricelist` accepts a supported regional code for regional pricing or a supported country code (`KR`, `TR`, `BR`, or `IN`) for country-specific USD pricing.
-- Country-specific prices can differ from regional prices for the same offer, currency, and price list month. Each offer's `firstOrderDate` indicates when its country-specific price applies to orders.
-- Pricing after cutover follows the country-specific list, subject to existing 3YC price locks and the exceptions described in the pricing guide.
+- Country-specific prices can differ from regional prices for the same offer, currency, and price list month. Each offer's `firstOrderDate` for each order indicates when the country-specific price takes effect for orders.
+- New orders use the applicable country-specific price list and currency, subject to commitment exceptions. Existing subscriptions transition to the new currency at anniversary renewal, while active 3YC and HGO commitments retain the existing currency until the commitment ends.
+- Subscriptions in both the old and new currencies can remain active for the same SKU. At renewal, eligible quantities from the old-currency subscription are consolidated into the new-currency subscription, excluding quantities that were renewed early. Partners can disable auto-renewal for the old-currency subscription to prevent consolidation.
+- Existing flexible discount codes are carried over during consolidation.
+- API requests to create orders or previews using the old currency are rejected after the currency change, subject to commitment exceptions.
+- Eligible early renewals in the new currency cannot reference an old-currency subscription.
 
 **Why it matters**
 
-Partners can retrieve the applicable country-specific prices for accurate quoting while retaining regional pricing.
+Partners can quote country-specific prices and manage currency transitions without losing subscription history or counting early-renewed seats twice.
 
 **Action required**
 
 | Action | Details |
 |---|---|
-| Request the applicable price list | Set `region` to `KR`, `TR`, `BR`, or `IN` for country-specific USD pricing, or to the applicable supported regional code for regional pricing. |
-| Review pricing at cutover | Account for 3YC price locks, early renewals placed before cutover, and original-order pricing for returns and plan reverts. |
+| Request the applicable price list | Retrieve country-specific prices in the applicable currency. See the [pricing guide](../manage-pricing/index.md#request-country-specific-prices) for request details. |
+| Track both subscriptions | Retain subscription IDs and currencies, and support two active subscriptions for the same SKU during the transition. |
+| Review renewal quantities | Use [Preview Renewal](../order-management/order-scenarios.md#preview-renewal-orders) and review the [combined renewal rules](../renewals/auto-renewals.md#renewals-when-the-country-currency-changes). |
+| Update order handling | Handle HTTP 422 currency rejections and the [exception for early renewals in the new currency](../renewals/manual-renewals.md#early-renewal-after-a-currency-change). |
+| Preserve pricing exceptions | Retain commitment price locks, early renewals placed before cutover, and the original order's pricing and currency for returns and switch reverts. |
 
 For more information, see [Local currency support](../manage-pricing/index.md#local-currency-support).
 

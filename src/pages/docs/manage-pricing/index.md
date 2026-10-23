@@ -16,7 +16,7 @@ Partners can leverage the `Fetch Price List` API to retrieve up-to-date pricing 
 
 - **Country-specific pricing support**
 
-  Partners can retrieve country-specific price lists by passing a supported country code in `region`, enabling accurate quoting where country-specific price lists are available. This feature introduces country-specific USD pricing without changing the currency.
+  Partners can retrieve country-specific price lists for accurate quoting. Depending on the `country`, the price list uses USD or a local currency. See [Local currency support](#local-currency-support) for pricing, subscription, and renewal behavior.
 
 ## Fetch Price List API
 
@@ -134,10 +134,10 @@ A sample request is as follows:
 
 | **Field**                        | **Required** | **Type**           | **Description** |
 |----------------------------------|--------------|--------------------|-----------------|
-| `region` | Yes | String (Enum) | Specifies the region or country for which the Price List should be returned. The value must be supported for the Partner. \<br /\>- Supported regional codes: `AP`, `WE`, `LA`, `EE`, `PA`, `NA`. \<br /\> - Supported country codes: `JP`, `CN`, `MX`, `KR`, `TR`, `BR`, `IN`, for country-specific USD pricing. See [Local currencies support](#local-currency-support). |
+| `region` | Yes | String (Enum) | Specifies the region or country for which the Price List should be returned. The value must be supported for the Partner. \<br /\>- Supported regional codes: `AP`, `WE`, `LA`, `EE`, `PA`, `NA`. \<br /\> - Supported country codes: `JP`, `CN`, `MX`, `KR`, `TR`, `BR`, `IN`, `CA`. See [Local currency support](#local-currency-support) for country-specific pricing and currencies. |
 | `marketSegment`                  | Yes          | String (Enum)      | Specifies the market segment. Must be one of the supported segments, such as: \<br /\> - COM \<br /\> - EDU \<br /\> - GOV. |
 | `priceListType`                   | No           | String (Enum)      | Indicates the price list type. Possible values: \<br /\> - STANDARD \<br /\> - 3YC \<br /\> - STD-LGA (Standard Price List for Large Government Agencies)|
-| `currency`                       | Yes          | String (Enum)      | Specifies the currency. Must be one of the supported currencies for the Partner. \<br /\>Possible Values: AUD, EUR, GBP, JPY, USD. |
+| `currency`                       | Yes          | String (Enum)      | Specifies the currency. Must be one of the supported currencies for the Partner and applicable price list. \<br /\>Possible Values: AUD, CAD, EUR, GBP, JPY, MXN, USD. |
 | `priceListMonth`                | Yes          | String             | Specifies the month you want the Price List for, in `YYYYMM` format. Example: `202410`. |
 | `filters`                        | No           | Object             | Filters to narrow down the Price List. All filters use AND logic. For example, if `offerId` and `productFamily` filters are included in the request, then the API response will include results that match `offerId` AND `productFamily` |
 | `filters → offerId`             | No           | String             | Returns only offers matching the specified `offerId`. |
@@ -250,7 +250,7 @@ A sample response is as follows:
 | `priceListMonth` | Yes | String | Price List published month |
 | `marketSegment` | Yes | String (Enum) | Market segment applicable for the offers included in the response. Possible values: \<br /\> - COM \<br /\> - EDU \<br /\> - GOV |
 | `region` | Yes | String (Enum) | For regional price list requests, the region where the offer is sold. \<br /\> Possible values: \<br /\> - NA \<br /\> - PA \<br /\> - EE \<br /\> - MX \<br /\> - LA \<br /\> - WE \<br /\> - JP \<br /\> - AP |
-| `currency` | Yes | String (Enum) | Currency applicable for the market segment and region. \<br /\> Possible Values: \<br /\> - AUD \<br /\> - EUR \<br /\> - GBP \<br /\> - JPY \<br /\> - USD |
+| `currency` | Yes | String (Enum) | Currency applicable for the market segment and region or country. Must be supported for the partner and applicable price list. \<br /\> Possible Values: \<br /\> - AUD \<br /\> - CAD \<br /\> - EUR \<br /\> - GBP \<br /\> - JPY \<br /\> - MXN \<br /\> - USD |
 | `priceListType` | Yes | String (Enum) | The price list type. \<br /\> Possible values:\<br /\> - STANDARD \<br /\> - 3YC \<br /\> - STD-LGA (Standard Price List for Large Government Agencies) |
 | `totalCount` | Yes | Integer | Indicates the total items matched as per the search criteria. |
 | `count` | Yes | Integer | Indicates the total number of offers returned in the response. |
@@ -300,15 +300,26 @@ For the complete set of error codes, see [Status codes and error handling](../re
 
 ## Local currency support
 
-For supported countries, partners can retrieve country-specific USD price lists in addition to regional price lists. Local currencies support is available for South Korea (KR), Türkiye (TR), Brazil (BR), and India (IN). These countries move from regional to country-specific pricing on the  cutover date. A cutover is the date on which the country-specific USD price list becomes available and takes effect. For South Korea, Türkiye, Brazil, and India, the cutover date is December 1, 2026. The currency remains USD.
+Local currency support provides country-specific prices and, where applicable, a change in subscription currency. A country's cutover is the date on which its country-specific pricing and applicable currency take effect.
+
+| Country | Currency after cutover | What changes |
+|---|---|---|
+| South Korea (`KR`), Türkiye (`TR`), Brazil (`BR`), India (`IN`) | USD | Country-specific prices replace regional USD prices. The currency does not change. |
+| Canada (`CA`) | CAD | Country-specific CAD prices apply, with subscriptions moving from USD to CAD as described below. |
+| Mexico (`MX`) | MXN | Country-specific MXN prices apply, with subscriptions moving from USD to MXN as described below. |
+
+**Important:** 
+
+- Local currency support will be rolled out in phases. The first phase, planned for November 2026, introduces country-specific pricing in USD. The second phase, planned for December 2026, introduces CAD for Canada and MXN for Mexico.
+- The December 1, 2026 cutover date applies to South Korea, Türkiye, Brazil, and India only; it is not a CAD or MXN cutover date. Use the applicable country's cutover when planning orders and renewals.
 
 ### Request country-specific prices
 
-Use the required `region` request parameter in `POST /v3/pricelist` for either regional or country-specific prices. Supply a supported regional code (`AP`, `WE`, `LA`, `EE`, `PA`, or `NA`) for regional pricing, or a supported country code (`JP`, `CN`, `MX`, `KR`, `TR`, `BR`, or `IN`) for country-specific USD pricing.
+Use `POST /v3/pricelist` to retrieve country-specific prices. Use `USD` for `KR`, `TR`, `BR`, and `IN`, `CAD` for `CA`, and `MXN` for `MX`. See [Request parameters](#request-parameters) for supported request fields and region and country codes.
 
-For the same offer, currency, and price list month, a country-specific price can differ from the regional price. Use the applicable country-specific list for quoting after cutover, subject to the 3YC partner price locks described below.
+Country-specific prices can differ from regional prices for the same offer, currency, and price list month. After cutover, use country-specific pricing, subject to existing 3YC partner price locks.
 
-Each offer's `firstOrderDate` indicates when its country-specific price applies to orders. The following request illustrates a country-specific lookup for Türkiye with `region` set to `TR`. The month and offer ID are illustrative values, not a cutover date or a guarantee of offer availability.
+Each offer's `firstOrderDate` indicates when its country-specific price applies. The following example retrieves a price for `Türkiye`. The month and offer ID are illustrative.
 
 ```json
 {
@@ -323,14 +334,91 @@ Each offer's `firstOrderDate` indicates when its country-specific price applies 
 }
 ```
 
-Supply the applicable regional code in `region` to request the regional price list, including when retrieving historical regional pricing for a 3YC commitment accepted before cutover. For example, `region` set to `NA` requests North American regional pricing.
+To retrieve regional pricing, including historical pricing for a 3YC commitment accepted before cutover, specify the applicable regional code in `region`, such as `NA` for North America.
 
-### Pricing at cutover to local currency
+### Quote and place orders at cutover
 
 | Scenario | Pricing behavior |
 |---|---|
-| New orders, renewals, early renewals, mid-term license  additions, and `SWITCH_PLAN` on or after cutover | Use the country-specific USD price list, subject to the existing 3YC partner price lock described below. Mid-term purchases continue to modify the existing subscription. |
-| 3YC commitment accepted before cutover | Retain the regional price list at the customer's partner price lock date until the commitment ends. Do not replace this locked price with the country-specific price. |
-| 3YC commitment accepted on or after cutover | Lock to the country-specific USD price list at the commitment acceptance date. |
+| New orders, renewals, early renewals, mid-term seat additions, and `SWITCH_PLAN` on or after cutover | Use country-specific pricing and currency after cutover, subject to commitment exceptions. If the currency changes, create a new-currency subscription instead of adding seats to the old-currency subscription. |
+| 3YC commitment accepted before cutover | Retain the regional price list from the partner price lock date and the original currency until the commitment ends. |
+| 3YC commitment accepted on or after cutover | Lock to the country-specific price list at the commitment acceptance date. |
 | Early renewal placed before cutover | Retain regional pricing. |
-| Returns and plan reverts | Use the original order price, not the price currently available in the country-specific list. |
+| Returns and switch reverts | Use the original order price and currency. Existing eligibility rules still apply. |
+
+For order requests, send the applicable `currencyCode` on each line item as described in [Create order](../order-management/create-order.md).
+
+### Track subscriptions when the currency changes
+
+Subscriptions are uniquely identified by SKU and currency. For Canada and Mexico, subscriptions transition from USD to the applicable local currency, CAD and MXN, as follows:
+
+- New orders after cutover create subscriptions in CAD or MXN.
+- At the next eligible anniversary renewal, the subscription renews in the new currency. If a subscription in that currency does not exist, a new one is created.
+- Auto-renewal is disabled for the old-currency subscription, which remains active until it expires.
+- Active 3YC and High Growth Offer, or HGO, commitments remain in the old currency until the commitment ends.
+- Scheduled subscriptions migrate with the active subscription.
+
+During the transition, two active subscriptions can exist for the same SKU. When tracking these subscriptions:
+
+- Retain both subscription IDs and their currencyCode values.
+- Do not treat the new subscription as a duplicate.
+- Do not overwrite the history of the old subscription.
+
+Currency changes also apply to global customers. Renewal consolidation applies only to subscriptions with the same deployment and SKU, not to all subscriptions for that SKU across countries. Continue to use `deploymentId` for deployment-specific orders. See[Manage deployments](../deployment-management/index.md).
+
+Use [Get details of a customer's subscriptions](../subscription-management/get-details-for-customers.md) to track the separate records and [Manage auto-renewals](../renewals/auto-renewals.md#renewals-when-the-country-currency-changes) to calculate the combined renewal quantity.
+
+At the anniversary date, subscriptions for the same deployment and SKU are consolidated into one renewal order in the new currency. Preview Renewal shows the combined renewal quantity. The renewal quantity is calculated as follows:
+
+- For each subscription, use renewalQuantity as the target quantity. If renewalQuantity is null, use currentQuantity.
+- Subtract any quantity already early renewed from each subscription's target quantity.
+- Add the remaining quantities from the old-currency and new-currency subscriptions to determine the final renewal quantity.
+- If part of a subscription has been renewed early, the early-renewed quantity remains in the existing subscription until the next commitment. At the anniversary date, the remaining quantity is migrated to the new-currency subscription.
+
+For example, if the USD subscription has a target of 100 licenses and 40 were already early renewed, and the CAD subscription has a target of 20 with no early renewals, the anniversary renewal is for 80 licenses in CAD:
+
+```json
+(100 - 40) + (20 - 0) = 80
+```
+
+When the subscriptions are consolidated:
+
+- `renewalQuantity` is combined across both subscriptions. Either subscription can be updated before the anniversary date.
+- The `autoRenewable` setting from the new-currency subscription applies.
+- `flexDiscountCodes` are carried over.
+- The Renewal / MOQ code is carried over.
+
+### Handle old-currency order rejections
+
+After a country changes currency, new orders, order previews, manual renewals, early renewals, and seat additions in the old currency are rejected with `CURRENCY_NOT_ACTIVE_FOR_COUNTRY` (HTTP 422), subject to the commitment exceptions.
+
+For eligible customers:
+
+- Place a new order in the new currency instead of adding licenses to the old-currency subscription.
+- Do not attempt to migrate an old subscription by changing the currency in a request that still references that subscription.
+- For early renewals, specify the new currency without the old `subscriptionId`.
+- Do not reference the old USD subscription, even if the request specifies `CAD` or `MXN`.
+- The new-currency subscription runs until the next anniversary date.
+
+See [Early renewal after a currency change](../renewals/manual-renewals.md#early-renewal-after-a-currency-change) for the request rules.
+
+### Preserve commitment pricing and currency
+
+Existing commitments have the following exceptions:
+
+- **3YC accepted before cutover:** Retains the existing price list and currency until the commitment ends. Orders cannot be placed in the new currency during the commitment.
+- **3YC early renewal:** Active 3YC customers can continue to early renew in USD, subject to existing eligibility rules.
+- **Early currency transition:** To move a customer to the new currency before the 3YC commitment ends, contact support to terminate the 3YC first.
+- **HGO commitments:** Remain in the old currency until the commitment ends.
+- **HGO subscriptions:** Remain ineligible for `SWITCH_PLAN`.
+
+### Switch plans and process returns
+
+For switch plans, returns, and reverts:
+
+- An eligible `SWITCH_PLAN` across currencies uses the destination currency for the entire transaction.
+- Returns retain the original order price and currency.
+- Switch reverts retain the original order price and currency.
+- Existing product, commitment, return-window, and switch-eligibility restrictions continue to apply.
+
+See [Mid-term upgrades](../mid-term/index.md).

@@ -29,6 +29,12 @@ Ensure that you are aware of the following before updating the auto-renewal conf
   - 10,000 for Team products
   - 200,000 for Enterprise products (not supported yet)
 
+### Renewal quantities during a currency change
+
+Before anniversary renewal, partners can update the renewal quantity for subscriptions in either the previous currency or the new currency. Each subscription contributes its explicitly set `autoRenewal.renewalQuantity`, or its `currentQuantity` if no renewal quantity is explicitly set. Quantities that were already renewed early are excluded before the remaining quantities are consolidated into the new-currency subscription.
+
+Review the previous and new currency subscriptions when setting renewal quantities. Do not set the same combined renewal quantity on both subscriptions unless you intend that quantity to be counted for each subscription. During a currency change, consolidation at renewal takes precedence over the standard renewal behavior for individual subscriptions. See [Currency-change auto-renewals](../renewals/auto-renewals.md#renewals-when-the-country-currency-changes) for preference precedence, carried-over discounts, and an example.
+
 ## Request header
 
 | Parameter        | Description                                                                                                                                                                                                                      |
