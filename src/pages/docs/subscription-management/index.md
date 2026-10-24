@@ -2,6 +2,14 @@
 
 A Subscription is an agreement between the customer and Adobe to provide, receive, or use Adobe paid and free products and services on a continuing or periodic basis. A subscription may contain one or more acquired offers.
 
+## Subscriptions during a country currency change
+
+After a country transitions to a new currency, new-currency orders and anniversary renewals create a subscription in the new currency if one does not already exist. The subscription in the previous currency remains active until it expires, with auto-renewal disabled as the subscription transitions to the new currency. As a result, two active subscriptions with different currencies can exist for the same SKU. Retain the separate subscription IDs and currencies in your integration.
+
+For example, this behavior applies when Canada transitions from USD to CAD or Mexico transitions from USD to MXN.
+
+At anniversary renewal, eligible subscriptions in the previous and new currencies for the same deployment and SKU are consolidated after excluding quantities that were renewed early. Active 3YC and HGO commitments remain in the previous currency until the commitment ends. See [Local currency support](../manage-pricing/index.md#local-currency-support) and [Currency-change auto-renewals](../renewals/auto-renewals.md#renewals-when-the-country-currency-changes). The consolidation rules take precedence over the independent subscription behavior described below.
+
 ## Auto-renewal scenarios
 
 You can manage the auto-renewal preferences for each subscription independently through the subscription’s `autoRenewal` object, as shown in the following example:

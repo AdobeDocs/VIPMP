@@ -530,6 +530,8 @@ A few of the benefits of previewing a renewal order include:
 - `proratedDays` in the response indicates the number of days for which the order will be invoiced. This applies in the case of mid-term purchases. 
 - Adobe Instant Deal Registration follows the same response behavior described for [Preview Order](#preview-an-order), including line-item application status and separate deal registration amounts when `fetch-price=true`.
 
+When a country's currency changes, Preview Renewal shows the consolidated new-currency quantity for eligible old- and new-currency subscriptions of the same deployment and SKU, after deducting quantities already early renewed. See [Combined renewal quantities](../renewals/auto-renewals.md#calculate-the-combined-renewal-quantity). For a selected early renewal in the new currency, follow the [exception that omits the old subscription ID](../renewals/manual-renewals.md#early-renewal-after-a-currency-change). Existing multi-currency preview pricing restrictions still apply.
+
 ### Sample request
 
 **Request URL:** `<ENV>/v3/customers/{customer-id}/orders?fetch-price=true`
@@ -705,9 +707,9 @@ OR
 
 **Notes:**
 
-- RENEWAL order type is used for late renewals, which are initiated after the anniversary date.
-- Subscription ID is required in the request line item.
-- The license quantities must be less than or equal to the customer’s current subscription quantities.
+- RENEWAL order type supports [early and late manual renewals](../renewals/manual-renewals.md). The example below shows a late renewal.
+- For late renewal of an existing subscription, Subscription ID is required in the request line item. Eligible [early renewals after a currency change](../renewals/manual-renewals.md#early-renewal-after-a-currency-change) use the new currency without the old subscription ID.
+- For late renewals, the license quantities must be less than or equal to the customer’s current subscription quantities.
 - Order ID is created by this service and returned synchronously.
 - Partner Marketplaces are expected to check the status of the order for success.
 - You can select the expired subscriptions for manual renewal by using the [Get All Subscriptions for a Customer](../subscription-management/get-details-for-customers.md) API. Subscriptions that can be selected for manual renewal are indicated by the `allowedActions`": `["MANUAL_RENEWAL"]` parameter of the Get All Subscriptions of a Customer API response.
@@ -764,6 +766,7 @@ OR
 | 401         | Invalid Authorization token |
 | 403         | Invalid API Key             |
 | 404         | Invalid customer ID         |
+| 422         | Currency not active for the country; see [Local currency support](../manage-pricing/index.md#handle-old-currency-order-rejections) |
 
 ## Assumptions
 

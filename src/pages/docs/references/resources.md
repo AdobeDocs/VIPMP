@@ -89,7 +89,7 @@ Please see the Validations/Regular Expressions section for any regular expressio
 | priceListMonth | Yes | String | Price List published month |
 | marketSegment | Yes | String (Enum) | Market segment applicable for the offers included in the response. Possible values: \<br /\> - COM \<br /\> - EDU \<br /\> - GOV |
 | region | Yes | String (Enum) | Region where offer is sold. \<br /\> Possible values: \<br /\> - NA \<br /\> - PA \<br /\> - EE \<br /\> - MX \<br /\> - LA \<br /\> - WE \<br /\> - JP \<br /\> - AP |
-| currency | Yes | String (Enum) | Currency applicable for the market segment and region. \<br /\> Possible Values: \<br /\> - AUD \<br /\> - EUR \<br /\> - GBP \<br /\> - JPY \<br /\> - USD |
+| currency | Yes | String (Enum) | Currency applicable for the market segment and region or country. Must be supported for the partner and applicable price list. \<br /\> Possible Values: \<br /\> - AUD \<br /\> - CAD \<br /\> - EUR \<br /\> - GBP \<br /\> - JPY \<br /\> - MXN \<br /\> - USD |
 | discountType | Yes | String (Enum) | The volume discount type applicable for the offers included in the response. \<br /\> Possible values:\<br /\> - STANDARD \<br /\> - 3YC |
 | totalCount | Yes | Integer | Indicates the total items matched as per the search criteria. |
 | count | Yes | Integer | Indicates the total number of offers returned in the response. |
@@ -241,6 +241,7 @@ Please see the Validations/Regular Expressions section for any regular expressio
 |Property | Type | Description | Range/Limits|
 |:----|:----|:----|:----|
 |subscriptionId (read only)| String | Unique identifier of the subscription resource | Max: 40 characters|
+|currencyCode (read only)| String | Subscription currency in ISO 4217 format. Track this with the subscription ID during a [country currency change](../manage-pricing/index.md#track-subscriptions-when-the-currency-changes). | 3 characters|
 |currentQuantity (read only)| integer | Total quantity of the subscription that a customer has |Max: 10,000 for Team \<br /\> 599,000 for Enterprise|
 |usedQuantity | integer | Total used quantity for the license or the consumable| |
 |offerId | String | The base discount level offer id. \<br /\> **Note:** This attribute is included for developers to identify the offer and NOT the discount level. Partners need to use “Get customer Account” and “Get Order history” APIs to see discount level information.| |

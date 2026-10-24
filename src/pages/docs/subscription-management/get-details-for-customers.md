@@ -75,6 +75,7 @@ Example:
 
 - No parameters or filters are available at this time.
 - The `renewalCode` parameter will be available in the response only if the customer receives a High Growth Offer on the next Anniversary Date.
+- During a [country currency change](../manage-pricing/index.md#track-subscriptions-when-the-currency-changes), two active subscriptions can exist for the same SKU. Track each `subscriptionId` and `currencyCode` separately, including deployment context for global customers. Do not discard the old-currency record before it expires.
 
 ## HTTP status codes
 

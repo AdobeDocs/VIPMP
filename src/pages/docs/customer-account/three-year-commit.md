@@ -99,6 +99,12 @@ The diagram illustrates the decision-making process for determining partner pric
 
 The flow ensures accurate pricing by considering factors such as customer type, offer matches, and applicable discounts before arriving at the final price charged by Adobe.
 
+### Country-specific prices and currency changes
+
+A 3YC commitment accepted before a country’s pricing cutover retains the regional price list based on the customer’s partner price lock date and remains in the original currency until the commitment ends. A 3YC commitment accepted on or after the cutover uses the country-specific price list available at the time of acceptance.
+
+For countries transitioning to a new currency, customers with a 3YC commitment accepted before the cutover cannot place orders in the new currency while the commitment is active. They can continue to early renew in USD, subject to existing eligibility restrictions. To transition to the new currency before the commitment ends, contact support to terminate the existing 3YC commitment. See [Local currency support](../manage-pricing/index.md#preserve-commitment-pricing-and-currency).
+
 ## Commitment request considerations
 
 - Discount levels are updated whenever the commitment status changes, such as when a new commitment is made or an existing one expires.
