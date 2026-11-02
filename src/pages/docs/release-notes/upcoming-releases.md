@@ -2,6 +2,22 @@
 
 **Note:** This is the initial version of the documentation, published early to provide partners with visibility into upcoming changes. The documentation will be updated as additional details become available. The expected release dates are indicative only and may change.
 
+## Data exports
+
+**Expected release:** December 2026
+
+Data exports enable partners to retrieve bulk data as downloadable CSV reports at the partner or reseller level. The initial dataset supports propensity reports for churn and seat expansion.
+
+**What's new?**
+
+- [Create report](../data-exports/apis.md#create-report) (`POST /v3/reports`):  Create a report for a specified scope and dataset, with optional filters. The API returns a `reportId` for tracking the report.
+- [Get report status](../data-exports/apis.md#get-report-status) (`GET /v3/reports/{report-id}`): Check the report status and retrieve the `downloadUrl` when the report status is `COMPLETED`.
+- [List reports](../data-exports/apis.md#list-reports) (`GET /v3/reports`): View the authenticated partner's reports, with the newest reports listed first.
+- **Duplicate request handling**: If a matching report status is already `PENDING` or `RUNNING`, the API returns the existing `reportId` instead of creating a new report.
+
+For more information, see the [Data exports overview](../data-exports/index.md), [Manage data exports using APIs](../data-exports/apis.md), and [Error codes for data exports](../data-exports/error-codes.md).
+
+
 ## Local currency support
 
 **Expected release:** November 2026
