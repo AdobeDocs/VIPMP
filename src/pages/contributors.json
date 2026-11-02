@@ -209,7 +209,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "10/8/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/customer-account/update-customer-account",
@@ -220,8 +220,10 @@
     },
     {
       "page": "/docs/deployment-management/",
-      "avatars": [],
-      "lastUpdated": "2/6/2026"
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/deployment-management/create-deployment",
@@ -336,7 +338,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "10/12/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/market-segments/",
@@ -350,7 +352,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "6/24/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/mid-term/apis",
@@ -417,7 +419,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "10/7/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/order-management/get-order",
@@ -439,7 +441,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "10/7/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/order-management/update-order",
@@ -512,7 +514,7 @@
         "https://avatars.githubusercontent.com/u/115529590?v=4",
         "https://avatars.githubusercontent.com/u/719818?v=4"
       ],
-      "lastUpdated": "10/7/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/references/status-codes",
@@ -551,7 +553,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "10/12/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/renewals/auto-renewals",
@@ -559,7 +561,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "3/19/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/renewals/error-codes",
@@ -574,7 +576,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "10/7/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/renewals/overview",
@@ -656,7 +658,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "4/21/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/subscription-management/create-subscription",
@@ -677,14 +679,14 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "3/6/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/subscription-management/update-subscription",
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "10/7/2026"
+      "lastUpdated": "10/23/2026"
     },
     {
       "page": "/docs/support",
