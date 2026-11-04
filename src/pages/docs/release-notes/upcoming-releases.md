@@ -6,17 +6,15 @@
 
 **Expected release:** December 2026
 
-Data exports enable partners to retrieve bulk data as downloadable CSV reports at the partner or reseller level. The initial dataset supports propensity reports for churn and seat expansion.
+Data exports enable partners to retrieve data across their resellers as downloadable CSV reports. Currently, the propensity dataset is available, with churn and seat expansion report types.
 
 **What's new?**
 
-- [Create report](../data-exports/apis.md#create-report) (`POST /v3/reports`):  Create a report for a specified scope and dataset, with optional filters. The API returns a `reportId` for tracking the report.
-- [Get report status](../data-exports/apis.md#get-report-status) (`GET /v3/reports/{report-id}`): Check the report status and retrieve the `downloadUrl` when the report status is `COMPLETED`.
-- [List reports](../data-exports/apis.md#list-reports) (`GET /v3/reports`): View the authenticated partner's reports, with the newest reports listed first.
-- **Duplicate request handling**: If a matching report status is already `PENDING` or `RUNNING`, the API returns the existing `reportId` instead of creating a new report.
+- [Create report](../data-exports/apis.md#create-report) (`POST /v3/reports`): Create a report for a specified scope and dataset, with optional filters. An HTTP `202` response returns a `reportId` with an `INITIATED` status, indicating that the report is being processed asynchronously. The response does not include the report file.
+- [Get report status](../data-exports/apis.md#get-report-status) (`GET /v3/reports/{report-id}`): Check the report status while it is in `INITIATED` or `IN_PROGRESS` status. When the status is `COMPLETED`, use `downloadLink.url` to download the CSV and `downloadLink.expiresAt` to determine when the download link expires. Request the report status again using the same `reportId` to get a new download link for the retained file.
+- [List reports](../data-exports/apis.md#list-reports) (`GET /v3/reports`): View the authenticated partner's reports, starting with the newest, using `limit` and `offset` for pagination.
 
 For more information, see the [Data exports overview](../data-exports/index.md), [Manage data exports using APIs](../data-exports/apis.md), and [Error codes for data exports](../data-exports/error-codes.md).
-
 
 ## Local currency support
 
