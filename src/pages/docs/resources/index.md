@@ -11,3 +11,4 @@ You can utilize APIs to manage various resources and features, including:
 - [Flexible Discounts API](../flex-discounts/flex-discount-apis.md)
 - [Recommendations API](../recommendations/recommendations-apis.md)
 - [Notifications](../notification-management/index.md)
+- [Data exports](../data-exports/index.md)

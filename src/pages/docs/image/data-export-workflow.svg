@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title description">
+  <title id="title">Data export workflow</title>
+  <desc id="description">Create report returns HTTP 202 and a reportId with status INITIATED. A matching INITIATED or IN_PROGRESS report returns HTTP 400 with code 4122 and the existing reportId. Use Get report status to poll the report. Continue polling INITIATED or IN_PROGRESS reports. Download the CSV using downloadLink.url only when COMPLETED. Create a new report if FAILED or ARCHIVED. Get report status again for a fresh link while the report remains completed.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 9 5 L 0 10 Z" fill="#536579"/>
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #203047; }
+      .heading { font-size: 30px; font-weight: 700; }
+      .subtitle { font-size: 17px; fill: #536579; }
+      .step { font-size: 22px; font-weight: 700; }
+      .body { font-size: 17px; }
+      .small { font-size: 15px; fill: #536579; }
+      .code { font-family: Consolas, "Courier New", monospace; font-size: 15px; }
+      .label { font-size: 16px; font-weight: 700; }
+      .number { font-size: 18px; font-weight: 700; fill: #fff; }
+      .connector { fill: none; stroke: #536579; stroke-width: 2; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="700" rx="20" fill="#f5f7fb"/>
+  <text x="44" y="52" class="heading">Data export workflow</text>
+  <text x="44" y="82" class="subtitle">Asynchronous reports: create a report, get its status, then download the CSV.</text>
+
+  <rect x="44" y="120" width="330" height="230" rx="14" fill="#fff" stroke="#c9d6e8"/>
+  <circle cx="76" cy="153" r="17" fill="#285cc4"/>
+  <text x="76" y="159" text-anchor="middle" class="number">1</text>
+  <text x="105" y="161" class="step">Create report</text>
+  <text x="66" y="201" class="code">POST /v3/reports</text>
+  <text x="66" y="236" class="body">Select scope, dataset, and filters.</text>
+  <text x="66" y="272" class="label">New report: HTTP 202</text>
+  <text x="66" y="298" class="body">Save reportId.</text>
+  <text x="66" y="321" class="small">Initial status: INITIATED. Not the file.</text>
+
+  <rect x="430" y="120" width="340" height="230" rx="14" fill="#edf3ff" stroke="#9bb6e8"/>
+  <circle cx="462" cy="153" r="17" fill="#285cc4"/>
+  <text x="462" y="159" text-anchor="middle" class="number">2</text>
+  <text x="491" y="161" class="step">Get report status</text>
+  <text x="452" y="201" class="code">GET /v3/reports/{report-id}</text>
+  <text x="452" y="236" class="body">Use the saved reportId.</text>
+  <text x="452" y="272" class="label">Read the report status.</text>
+  <text x="452" y="301" class="body">HTTP 200 does not mean</text>
+  <text x="452" y="325" class="body">the report is completed.</text>
+
+  <rect x="826" y="120" width="330" height="230" rx="14" fill="#edf8f2" stroke="#9bcbb0"/>
+  <circle cx="858" cy="153" r="17" fill="#237749"/>
+  <text x="858" y="159" text-anchor="middle" class="number">3</text>
+  <text x="887" y="161" class="step">Download CSV</text>
+  <text x="848" y="201" class="code">GET &lt;downloadLink.url&gt;</text>
+  <text x="848" y="236" class="body">Fetch the file separately using</text>
+  <text x="848" y="260" class="body">the returned pre-signed URL.</text>
+  <text x="848" y="301" class="label">Protect the URL as a credential.</text>
+  <text x="848" y="329" class="small">Do not cache the status response.</text>
+
+  <path d="M 374 230 H 430" class="connector"/>
+  <text x="402" y="216" text-anchor="middle" class="small">ID</text>
+  <path d="M 770 230 H 826" class="connector"/>
+  <text x="848" y="181" class="small">Only when COMPLETED</text>
+
+  <rect x="44" y="390" width="330" height="150" rx="14" fill="#fff" stroke="#c9d6e8"/>
+  <text x="66" y="422" class="label">Matching report in progress?</text>
+  <text x="66" y="454" class="code">HTTP 400 / code 4122</text>
+  <text x="66" y="484" class="body">Use the existing reportId from</text>
+  <text x="66" y="508" class="code">additionalDetails</text>
+  <text x="66" y="530" class="small">No new report is created.</text>
+  <path d="M 209 350 V 390" class="connector"/>
+  <path d="M 374 465 H 402 V 320 H 430" class="connector"/>
+
+  <rect x="430" y="390" width="340" height="150" rx="14" fill="#fff8e9" stroke="#dfc18a"/>
+  <text x="452" y="425" class="label">INITIATED / IN_PROGRESS</text>
+  <text x="452" y="460" class="body">Continue polling the same report.</text>
+  <text x="452" y="497" class="small">No downloadLink is returned.</text>
+  <text x="452" y="522" class="small">Polling interval is not specified.</text>
+  <path d="M 560 350 V 390" class="connector"/>
+  <path d="M 700 390 V 350" class="connector"/>
+
+  <rect x="826" y="390" width="330" height="150" rx="14" fill="#fff" stroke="#c9d6e8"/>
+  <text x="848" y="425" class="label">Need a fresh download link?</text>
+  <text x="848" y="460" class="body">If the report is still COMPLETED,</text>
+  <text x="848" y="486" class="body">request status again to obtain</text>
+  <text x="848" y="512" class="body">a new pre-signed URL.</text>
+  <path d="M 991 350 V 390" class="connector"/>
+
+  <path d="M 770 320 H 792 V 562 H 600 V 580" class="connector"/>
+  <rect x="430" y="580" width="726" height="94" rx="14" fill="#fff0ef" stroke="#e0b0aa"/>
+  <text x="452" y="614" class="label">FAILED / ARCHIVED: create a new report</text>
+  <text x="452" y="645" class="body">For FAILED, inspect additionalDetails for partner-facing failure reasons.</text>
+  <path d="M 430 627 H 24 V 184 H 44" class="connector"/>
+
+</svg>
