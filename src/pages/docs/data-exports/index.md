@@ -1,6 +1,6 @@
 # Data exports
 
-Data exports provide an asynchronous way to retrieve data across a partner's resellers as a downloadable report. Reports currently support the propensity dataset, with churn and seat expansion report types. Each report contains a single dataset.
+Data exports provide an asynchronous way to retrieve data across a partner's resellers as a downloadable report. Reports currently support the propensity dataset, with churn and seat expansion report types. Each report contains a single dataset type.
 
 ## Export workflow
 
@@ -8,8 +8,8 @@ Use the following workflow to create and download a data export:
 
 ![Data export workflow: create a report, poll while INITIATED or IN_PROGRESS, and download the CSV when COMPLETED. Create a new report if FAILED or ARCHIVED.](../image/data-export-workflow.png)
 
-1. **Create report:** Select the dataset, scope, and applicable filters. The service accepts the request and returns a `reportId` for the report instead of the generated file.
-2. **Get report status:** Use the `reportId` to check the report status until processing is complete.
+1. **Create report:** Select the dataset, scope, and applicable filters. The service accepts the request and returns a `reportId` for the report instead of the generated file. 
+2. **Get report status:** Use the `reportId` to check the report status until processing is complete. Once processing is complete, a download URL is returned.
 3. **Download report:** When the report status is `COMPLETED`, retrieve the CSV file using `downloadLink.url`.
 
 All exports are asynchronous, including small exports. Use the list operation to find previous reports or check for work already in progress. For endpoints, request fields, and examples, see [Manage data exports using APIs](./apis.md).
@@ -18,7 +18,7 @@ All exports are asynchronous, including small exports. Use the list operation to
 
 The report scope determines whether the export includes data across all resellers or specific resellers.
 
-Partner identity is determined by authentication rather than by a partner identifier in the request. Partners can view only their own reports.
+Partner identity is determined by authentication rather than by a partner identifier in the request. Partners can view only reports of their own resellers.
 
 Set `scope.level` to `partner` to export the authenticated partner's data across resellers, or set it to `reseller` with one or more reseller IDs in `scope.ids`. Invalid reseller IDs and reseller IDs that do not belong to the authenticated partner are skipped and contribute no rows. The service does not return a reseller-recognition error for these IDs. They do not provide access to another partner's data. For partner scope, `scope.ids` is ignored.
 
@@ -58,7 +58,7 @@ A request is considered a match based on the authenticated partner and the norma
 
 The status operation returns `downloadLink` only for `COMPLETED` reports. The `url` is a short-lived pre-signed URL, and `expiresAt` specifies the UTC time when the URL expires.
 
-Request the report status again using the same `reportId` to get a new download link to the retained file while the report remains `COMPLETED`. Download link expiry does not affect report retention or cause the report to transition to `ARCHIVED`. Protect pre-signed URLs as credentials and do not cache the completed status response.
+Request the report status again using the same `reportId` to get a new download link to the retained file while the report remains `COMPLETED`. Download link expiry does not affect report retention or cause the report to transition to `ARCHIVED`. Treat pre-signed URLs as credentials and do not cache the completed status response. Share the URL only with the intended resellers.
 
 Report retention begins when processing completes and is independent of download link expiry:
 

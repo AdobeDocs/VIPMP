@@ -42,7 +42,7 @@ Some error responses will include additionalDetails, an array of strings with mo
 |1114 | Invalid Distributor | Create Reseller Account | 400|
 |1115 | Invalid Reseller|Create Customer Account, Get Reseller Account, Update Reseller Account, Reseller Change Preview, Reseller Change Commit| 404|
 |1116 | Invalid Customer| Get Customer Account, Update Customer Account, Get Order History, Get All Subscriptions |404|
-|1117| Some fields are invalid \<br /\> For debugging purposes, the names of the fields will be included in the invalidFields array in the response body.| Create Reseller, Update Reseller, Create Customer, Update Customer, Create Order, Update Subscription Auto-Renewal|400|
+|1117| Some fields are invalid \<br /\> For debugging purposes, the names of the fields will be included in the invalidFields array in the response body. \<br /\> For Create report and List reports, validation details are returned in `additionalDetails`; invalid fields include scope, dataset selection, format, filters, `limit`, and `offset`, as applicable.| Create Reseller, Update Reseller, Create Customer, Update Customer, Create Order, Update Subscription Auto-Renewal, Create report, List reports|400|
 |1118| Invalid Address \<br /\> **Note:** If address and other fields are invalid, then 1117 will be used. |Create Reseller, Update Reseller, Create Customer, Update Customer |400|
 |1119 | Some fields are not editable| Update Customer, Update Reseller, Cancel Order, Update Subscription Auto-Renewal| 400|
 |1121| Request contains additional unexpected fields.| All | 400|
@@ -66,7 +66,9 @@ Some error responses will include additionalDetails, an array of strings with mo
 |1160 |Invalid Market Segment for Partner |Fetch Price Lists |400 |
 |1161 |Invalid Currency/Region for Partner |Fetch Price Lists |400 |
 |1162 |Price List not found |Fetch Price Lists |404 |
+|1172 | Service is unavailable. The report service is unavailable or timing out. | Create report, Get report status, List reports |503 |
 |1178 | Invalid Country for Partner | Get Flexible Discounts | 400|
+|1181 | Invalid Report ID. Report ID not found. | Get report status |404 |
 |2115 | Invalid Customer or Order ID |Get Order Details, Cancel Order| 404|
 |2116 | Invalid status | Cancel Order | 400|
 |2117 | Cancellation window has closed | Cancel Order | 400|
@@ -127,7 +129,7 @@ Some error responses will include additionalDetails, an array of strings with mo
 |4119 | Correlation ID is Invalid or Missing | All | 400|
 |4120| Duplicate request id, same requestId has already been processed |All | 400|
 |4121| You are not allowed to perform that action on this resource| All | 403|
-|4122|  This request is already being processed. Please wait a moment and try again.| Transfer Subscriptions, Create Order (Only For Manual Renewal), Cancel Order | 400|
+|4122|  This request is already being processed. Please wait a moment and try again. \<br /\> For Create report, a matching report is `INITIATED` or `IN_PROGRESS`. The existing `reportId` is returned in `additionalDetails`; no new report is created.| Transfer Subscriptions, Create Order (Only For Manual Renewal), Cancel Order, Create report | 400|
 |5115 | Invalid Membership ID |Preview Offers, Transfer Subscriptions| 400|
 |5116 | Invalid Membership or Transfer ID | Get Transfer Details | 400|
 |5117| Customer is not eligible for transfer (see table below for REASON_CODE list)| Preview Offers, Transfer Subscriptions| 400|

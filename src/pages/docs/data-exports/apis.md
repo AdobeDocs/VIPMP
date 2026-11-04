@@ -102,6 +102,8 @@ HTTP `202 Accepted`:
 }
 ```
 
+**Note:** A blank probability or reasons column does not indicate LOW propensity or missing data. It indicates that the product did not match the requested probability filter.
+
 #### Response parameters
 
 | Field | Type | Description |
