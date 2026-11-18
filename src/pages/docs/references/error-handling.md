@@ -20,6 +20,16 @@
 
 ## Error handling
 
+### Throttling handling
+
+Client-level throttling introduces a random response delay when the soft limit is exceeded and returns HTTP 429 when the hard limit is exceeded. See [API rate limits and throttling](rate-limits.md) for details about the rolling five-second window and its thresholds. Error code 4118 maps to HTTP 429, as listed below.
+
+For client integrations, pace requests, reduce bursts, and use bounded exponential backoff with jitter when retrying after an HTTP 429 response. Cap both the backoff interval and the number of retry attempts instead of retrying indefinitely. These recommendations do not define the server retry policy or specify server-side delay durations.
+
+Follow the [Idempotency - Correlation ID header](idempotency.md) rules: after receiving any response, including HTTP 429, use a new correlation ID for the retry and a unique request ID for each request. If a request times out without a response, you may reuse the same correlation ID when retrying the same intent.
+
+### Error responses
+
 Any Commerce Partner API status response with a 4xx or 5xx HTTP status code includes an error message consisting of a code field containing the HTTP response code, and a message field describing the error. Below is an example error response:
 
 ### Response body

@@ -5,6 +5,19 @@
 
 **Important:** This section lists only features that are currently available in production. For planned enhancements and upcoming changes, see [Upcoming releases](./upcoming-releases.md).
 
+## Closed reusable discounts in Sandbox
+
+### November 18, 2026
+
+The new **Closed Reusable Discounts** tab under **Portal Resources > View Available Flex Discounts** lets partners view closed reusable discounts available in Sandbox.
+
+**What’s new?**
+
+- Review the applicability labels and eligibility criteria provided in the comment for each discount before using its code.
+- Apply or reuse a discount only when all eligibility criteria are met, including eligible 3-year commitment, or 3YC, scenarios. Not all listed discounts apply to 3YC customers.
+
+For more information, see [View and apply closed reusable discounts](../../sandbox/sandbox-portal/flex-discounts/index.md#view-and-apply-closed-reusable-discounts).
+
 ## Account screening introduces new Sanctioned and Screening statuses
 
 ### October 07, 2026

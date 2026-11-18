@@ -254,7 +254,7 @@ For the end-to-end capability and order response behavior, see [Adobe Instant De
 | rank                   | Integer                  | The ranking position of the recommended product within its category. For more information, see [Recommendation ranking and ordering](./index.md#recommendation-ranking-and-ordering).                                                                                                                                     |
 | product                | Object                   | Details about the recommended product.                                                                                                                                                                   |
 | baseOfferId            | String                   | The base offer ID associated with the product.                                                                                                                                                           |
-| source                 | Object                   | Indicates the source of the recommendation.                                                                                                                                                              |
+| source                 | Object                   | Indicates the source of the recommendation. For `PREVIEW` and `PREVIEW_RENEWAL` API calls, this object is returned only when the original request explicitly includes one or more line items with an `offerId`. When the request does not include any line items, product recommendations may still be returned with `fetch-recommendations=true`, but the `source` object will not be populated. |
 | sourceType             | String                   | Specifies the type of the source entity. Currently only `OFFER` is supported.                                                                                                                              |
 | offerIds               | String Array             | List of offer IDs that contributed to this recommendation.                                                                                                                                               |
 | overlayRecommendations | Object                   | Contains overlay recommendation opportunities created by Adobe agents during overlay interactions. Present only when opportunities exist for the customer. For more information, see [Overlay recommendations](./index.md#overlay-recommendations).                                                               |
@@ -325,6 +325,8 @@ The Adobe Instant Deal Registration object does not include `code` or `id`.
 ## Preview Order
 
 Use the `Preview Order API` to get the recommendations to display while previewing the order.
+
+**Note:** For `PREVIEW` API calls, the `source` object in product recommendations is returned only when the original request explicitly includes one or more line items with an `offerId`. When the request does not include any line items, product recommendations may still be returned with `fetch-recommendations=true`, but the `source` object will not be populated.
 
 |**Endpoint** | **Method**|
 |--- | ---|
@@ -403,6 +405,8 @@ No change from the standard [Preview Order API](../order-management/order-scenar
 ## Preview Order Renewal
 
 Use the `Preview Renewal` API call with appropriate query parameters to fetch relevant recommendations for both auto and manual renewal scenarios:
+
+**Note:** For `PREVIEW_RENEWAL` API calls, the `source` object in product recommendations is returned only when the original request explicitly includes one or more line items with an `offerId`. When the request does not include any line items, product recommendations may still be returned with `fetch-recommendations=true`, but the `source` object will not be populated.
 
 |**Endpoint** | **Method**|
 |--- | ---|
@@ -484,7 +488,7 @@ No change to the standard request body. For example:
 | product            | Details about the recommended product. |
 | id                 | Unique identifier for the recommended product. |
 | baseOfferId        | The base offer ID associated with the product. |
-| source             | Indicates the source of the recommendation. |
+| source             | Indicates the source of the recommendation. For `PREVIEW_RENEWAL` API calls, this object is returned only when the original request explicitly includes one or more line items with an `offerId`. When the request does not include any line items, product recommendations may still be returned with `fetch-recommendations=true`, but the `source` object will not be populated. |
 
 ### HTTP Status Code
 

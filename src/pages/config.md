@@ -88,6 +88,7 @@
         - [API request header](docs/references/api-headers.md)
         - [Idempotency – Correlation ID Header](docs/references/idempotency.md)
         - [HTTP status codes](docs/references/status-codes.md)
+        - [API rate limits and throttling](docs/references/rate-limits.md)
         - [Status codes and error handling](docs/references/error-handling.md)
         - [Supported Countries and Locales](docs/references/supported-locales.md)
         - [Resources and fields](docs/references/resources.md)
