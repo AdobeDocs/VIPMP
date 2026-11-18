@@ -1,7 +1,7 @@
 {
-  "total": 155,
+  "total": 156,
   "offset": 0,
-  "limit": 155,
+  "limit": 156,
   "data": [
     {
       "page": "/",
@@ -106,7 +106,7 @@
         "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "11/2/2026"
+      "lastUpdated": "11/18/2026"
     },
     {
       "page": "/docs/",
@@ -487,7 +487,7 @@
         "https://avatars.githubusercontent.com/u/81235708?v=4",
         "https://avatars.githubusercontent.com/u/173429592?v=4"
       ],
-      "lastUpdated": "10/7/2026"
+      "lastUpdated": "11/18/2026"
     },
     {
       "page": "/docs/recommendations/error-codes",
@@ -504,9 +504,10 @@
     {
       "page": "/docs/references/",
       "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4",
         "https://avatars.githubusercontent.com/u/115529590?v=4"
       ],
-      "lastUpdated": "2/6/2026"
+      "lastUpdated": "11/18/2026"
     },
     {
       "page": "/docs/references/api-headers",
@@ -518,6 +519,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
+      "lastUpdated": "11/18/2026"
       "lastUpdated": "11/4/2026"
     },
     {
@@ -527,6 +529,13 @@
         "https://avatars.githubusercontent.com/u/719818?v=4"
       ],
       "lastUpdated": "2/6/2026"
+    },
+    {
+      "page": "/docs/references/rate-limits",
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "11/18/2026"
     },
     {
       "page": "/docs/references/resources",
@@ -539,8 +548,10 @@
     },
     {
       "page": "/docs/references/status-codes",
-      "avatars": [],
-      "lastUpdated": "2/6/2026"
+      "avatars": [
+        "https://avatars.githubusercontent.com/u/160894503?v=4"
+      ],
+      "lastUpdated": "11/18/2026"
     },
     {
       "page": "/docs/references/supported-locales",
@@ -561,7 +572,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "10/21/2026"
+      "lastUpdated": "11/18/2026"
     },
     {
       "page": "/docs/release-notes/fy24",
@@ -749,7 +760,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "4/21/2026"
+      "lastUpdated": "11/18/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/",
@@ -820,7 +831,7 @@
       "avatars": [
         "https://avatars.githubusercontent.com/u/160894503?v=4"
       ],
-      "lastUpdated": "10/7/2026"
+      "lastUpdated": "11/18/2026"
     },
     {
       "page": "/sandbox/sandbox-portal/high-growth-offer/high-growth",
