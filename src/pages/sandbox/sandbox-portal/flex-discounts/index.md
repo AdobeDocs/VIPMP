@@ -7,6 +7,7 @@ Partners can get flexible discounts for a product in a specific market segment a
 You can explore and test the Flexible Discounts feature in the Sandbox environment using the following options:
 
 - [View the available flexible discounts](#view-the-available-flexible-discounts)
+- [Test discount qualification criteria](#test-discount-qualification-criteria)
 - [Edit reusable flexible discounts](#edit-reusable-flexible-discounts)
 - [Create, view, and manage closed discounts](#create-view-and-manage-closed-discounts)
 - [View flexible discounts applied to an Order](#view-flexible-discounts-applied-to-an-order)
@@ -42,6 +43,16 @@ You can use the discount code while placing an order using the Create Order API.
 **Note:** In the Sandbox environment, Flexible Discounts that include the term "FAILURE" in both the `name` and the `code` are specifically intended for validating failure scenarios. These codes are designed to always fail when used in PREVIEW and NEW order flows. All other discount codes can be used to validate successful application scenarios. Example:
 
 ![Flex discounts with name and code with the term FAILURE in it](../image/flex_discount_failure.png)
+
+### Test discount qualification criteria
+
+Partner Sandbox supports additional [qualification criteria](../../../docs/flex-discounts/apis.md#evaluate-qualification-criteria), including general discovery, customer-context discovery, and on-demand promotions. No new request parameter is required.
+
+The Sandbox UI displays the same promotion-wide fields and grouped `requirementSets` as the API and includes a filter for error promotions.
+
+Inspect a discount's returned criteria and compare them with the test customer's VIPMP subscriptions and three-year-commitment benefits. Use the documented [renewal, commitment, and upgrade  examples](../../../docs/flex-discounts/apis.md#example-renewal-retention-response) to guide integration checks. Discovery does not guarantee that an order will qualify; continue testing order-time success and failure behavior.
+
+Returning additional qualification criteria does not introduce new `2141` reason codes or change Sandbox order qualification behavior.
 
 ### Edit reusable flexible discounts
 
