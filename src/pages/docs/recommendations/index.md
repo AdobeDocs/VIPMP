@@ -112,13 +112,27 @@ Each propensity type includes a `probability` field with one of the following th
 
 Each propensity object includes a `reasons` array containing up to seven leading indicators that explain why the customer received the given rating, ordered by relevance. Each reason has the following attributes:
 
-| Field | Description |
-|---|---|
-| `reasonCode` | An identifier for the reason signal, for example, `contract_num_months_to_renew`. |
-| `description` | Description of the reason signal. |
-| `value` | The current value of the signal for this customer. Values are returned as strings, for example, `"11"` for months remaining. |
+| Field | JSON type | Description |
+|---|---|---|
+| `reasonCode` | String | An identifier for the reason signal, for example, `contract_num_months_to_renew`. |
+| `description` | String | Human-readable description of the reason signal. |
+| `value` | String | The current value of the signal for this customer, for example, `"11"` for months remaining. Interpret the string according to the reason code, as described below. |
 
 The `reasons` array may contain fewer than seven entries, or be empty. The array is always present when the propensity object is populated.
+
+#### Reason-code reference
+
+The following table describes individual signals for Churn and Seat Expansion. It is not an exhaustive list of reason codes and does not represent reason codes that are guaranteed to appear in every response. All examples show the JSON string returned in `value`; the underlying data type indicates how to interpret that string.
+
+| Propensity type | Reason code | Description | Underlying data type | Expected values and examples |
+|---|---|---|---|---|
+| Churn | `units_yoy_growth` | Year-on-year change in license units, expressed as a growth ratio. | Numeric (double) | Multiply the value by 100 to get the percentage change. `"0.0"` = no change; positive values indicate growth, while negative values indicate decline. `"0.5"` = 50% growth, `"-0.75"` = 75% decline, and `"10.0"` = 1,000% growth. The value is a growth ratio, not a percentage or a multiplier of the total number of units. |
+| Churn | `engagement_rate` | Level of product or license utilization, derived from multiple engagement factors. | Categorical | `"High"`, `"Medium"`, or `"Low"` indicate high, medium, or low engagement, respectively. These title-case values describe utilization, not churn probability. |
+| Churn | `contract_tenure` | Contract tenure in years. | Numeric (double) | Interpret values as whole years: `"1.0"` = 1 year and `"5.0"` = 5 years. |
+| Seat Expansion | **TBD:**  `assigned_seat_count` | Current number of assigned seats. | Numeric (seat count) | A count of assigned seats; for example, `"190"` = 190 assigned seats. |
+| Seat Expansion | **TBD:** `provisioned_seat_count` | Number of provisioned seats. | Numeric (seat count) | A count of provisioned seats; for example, `"200"` = 200 provisioned seats. |
+
+Reason values describe individual signals, not the overall propensity rating. In particular, `engagement_rate` uses `"High"`, `"Medium"`, and `"Low"`, whereas `probability` uses `"HIGH"`, `"MEDIUM"`, and `"LOW"`. Do not infer the overall propensity rating from a single reason value; use the `probability` field.
 
 ### Refresh date
 

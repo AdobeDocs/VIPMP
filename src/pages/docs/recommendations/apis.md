@@ -309,7 +309,7 @@ The Adobe Instant Deal Registration object does not include `code` or `id`.
 |---|---|---|
 | reasonCode | String | A partner-friendly identifier for the reason signal. Reason codes indicate the primary drivers of the signal. However, a customer with a high churn risk may still have reason codes that appear healthy because some predictive factors are not exposed. This behavior is expected and is not a cause for concern. |
 | description | String | Human-readable description of the reason signal. |
-| value | String | Current value of the signal for the customer (for example, `"190"` for assigned seats). |
+| value | String | Current value of the signal for the customer (for example, `"190"` for assigned seats). See [Reason codes](./index.md#reason-codes) for each documented signal's underlying data type, expected values, and interpretation. |
 
 ### HTTP Status Codes
 

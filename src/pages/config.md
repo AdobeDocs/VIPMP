@@ -105,6 +105,7 @@
           - [Supported features](/bridge/marketplace-assistant/supported-features.md)
     - [Sandbox User Guide](sandbox/index.md)
         - [API collection and interaction basics](sandbox/api-collection.md)
+        - [Data exports](sandbox/sandbox-portal/data-exports/index.md)
         - [Manage resources](sandbox/sandbox-portal/index.md)
             - [Distributors](sandbox/distributor-management/index.md)
             - [Resellers](sandbox/sandbox-portal/reseller-management/index.md)

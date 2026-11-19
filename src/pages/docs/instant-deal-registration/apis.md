@@ -1,5 +1,7 @@
 # Discover and verify Adobe Instant Deal Registration using APIs
 
+**Important:** The Adobe Instant Deal Registration program is currently under review, and the API documentation may be subject to change. Existing API documentation and Sandbox access will remain available. However, partners are recommended to pause any ongoing integration development and defer new integration work until further guidance is provided.
+
 Adobe Instant Deal Registration uses existing discovery and order APIs. There is no registration endpoint and no partner-supplied code or ID.
 
 ## Discover using the Recommendations API

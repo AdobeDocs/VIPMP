@@ -58,7 +58,9 @@ A request is considered a match based on the authenticated partner and the norma
 
 The status operation returns `downloadLink` only for `COMPLETED` reports. The `url` is a short-lived pre-signed URL, and `expiresAt` specifies the UTC time when the URL expires.
 
-Request the report status again using the same `reportId` to get a new download link to the retained file while the report remains `COMPLETED`. Download link expiry does not affect report retention or cause the report to transition to `ARCHIVED`. Treat pre-signed URLs as credentials and do not cache the completed status response. Share the URL only with the intended resellers.
+Request the report status again using the same `reportId` to get a new download link to the retained file while the report remains `COMPLETED`. Download link expiry does not affect report retention or cause the report to transition to `ARCHIVED`.
+
+The download URL is a pre-signed link that grants access to anyone who holds it. Until it expires, anyone with access to the link, whether inside or outside your organization, can download the file without authenticating. Treat the link as sensitive as the data itself and share it only with those authorized to access the report contents.
 
 Report retention begins when processing completes and is independent of download link expiry:
 

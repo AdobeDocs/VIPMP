@@ -29,11 +29,11 @@ Key advantages of flexible discounts include:
 
 - **Support for 3-year commitment (3YC) incentives:**
 
-  - Supports offers for customers who are new to 3YC (orders that make them 3YC-compliant) or existing 3YC customers, including cases where minimum commit quantity (MCQ) thresholds are met. Promotions can be reused and applied to the first term, the current term, or for additional purchases and renewal for the three year commit duration.
+  - Supports offers for customers who are new to 3YC (orders that make them 3YC-compliant) or existing 3YC customers, including cases where minimum commit quantity (MCQ) thresholds are met. Discounts can be reused and applied to the first term, the current term, or for additional purchases and renewal for the three year commit duration.
 
 **How reusable and non-reusable discounts work:**
 
-In general, promotions and discounts are available only between their configured start and end dates. Reusable discounts extend this model by allowing continued application beyond the original end date, subject to prior use and configuration.
+In general, discounts and discounts are available only between their configured start and end dates. Reusable discounts extend this model by allowing continued application beyond the original end date, subject to prior use and configuration.
 
 | Aspect                        | Standard (Non-reusable) discount                              | Reusable discount                                                                |
 |-------------------------------|---------------------------------------------------------------|----------------------------------------------------------------------------------|
@@ -87,9 +87,17 @@ These discounts are applied to a part number using a discount code. Partners mus
 
 ## Eligibility criteria
 
-Flexible discounts are available to all VIP Marketplace customers, regardless of their existing volume discounts, including those with Linked Memberships. However, eligibility is determined by other factors, such as the customer's market segment, country, and so on.
+Flexible discounts are available to all VIP Marketplace customers, regardless of their existing volume discounts, including those with Linked Memberships. However, eligibility is determined by other factors, such as the customer's market segment, country, and so on. For example, introductory offers apply only to customers who are purchasing a product for the first time.
 
-Introductory offers apply only to customers who are purchasing a product for the first time.
+### Evaluate discount qualification criteria
+
+The Flexible Discounts API provides additional qualification fields and grouped conditions for general discovery, customer-context discovery, on-demand discounts, and the partner Sandbox. Use these criteria to identify applicable offers and order types, then verify that all conditions in at least one requirement set are met. Conditions can include customer status, product ownership, renewal requirements, three-year commitment, upgrade percentages, retention rates, and discount usage caps.
+
+### Discovery does not guarantee eligibility
+
+The qualification criteria returned in the discovery response do not guarantee promotion eligibility. Eligibility is evaluated during order placement. Qualification failures will continue to be surfaced with the existing error codes such as 2141.
+
+See [Evaluate qualification criteria](./apis.md#evaluate-qualification-criteria) for the response fields, evaluation rules, customer-data reconciliation, and examples.
 
 ### Reusable discount eligibility
 
@@ -117,7 +125,7 @@ Flexible discounts may require the customer to meet 3-year commitment (3YC) crit
 **New to 3YC**
 
 - Customer must enter into a 3YC commitment on the qualifying order.
-- The customer must not have previously enrolled in a 3YC commitment.
+- The customer must not have previously enrolled in a 3YC commitment. Customers who recommit after their previous 3YC term has ended are considered existing 3YC customers, not new 3YC customers.
 - Eligible based on configured scope:  
   - First year only  
   - Full commitment term  

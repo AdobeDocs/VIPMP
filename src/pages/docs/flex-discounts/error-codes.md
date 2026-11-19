@@ -4,7 +4,7 @@ The following error codes are specific to Flexible Discounts:
 
 | Error Code | Message                                                                                                                                                                                                   | Applicable API calls | HTTP Status Code |
 |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|------------------|
-| 2141       | Customer is not qualified for the flexible discount. \<br /\> \<br /\> For the complete set of reason codes of 2141, see [2141 Invalid Flexible Discount reason codes](#2141-ineligible-flexible-discounts-reason_code-list).                                                                   |    Create Order, \<br /\> Preview Order,  \<br /\>  Update Subscription, \<br /\>  Create Subscription               |    400              |
+| 2141       | Customer is not qualified for the flexible discount. \<br /\> \<br /\> See [2141 Ineligible Flexible Discounts reason codes](#2141-ineligible-flexible-discounts-reason_code-list) for documented reasons. A generic qualification failure can also be returned. |    Create Order, \<br /\> Preview Order,  \<br /\>  Update Subscription, \<br /\>  Create Subscription               |    400              |
 | 2142     | This Flexible Discount is for one-time use and is no longer available.                                                                 |    Get Flexible Discounts               |    400              |
 | 2144       | Flexible Discount cannot be applied in combination with other discounts. \<br /\>  |       Create Order, \<br /\> Preview Order,  \<br /\>  Update Subscription, \<br /\>  Create Subscription             |  400                |
 | 2145       | Flexible discount codes cannot be applied to non-base products.                 |    Create Order, \<br /\> Preview Order,  \<br /\>  Update Subscription, \<br /\>  Create Subscription                |    400              |
@@ -13,7 +13,9 @@ The following error codes are specific to Flexible Discounts:
 
 ## 2141 Ineligible Flexible Discounts REASON_CODE list
 
-These REASON_CODE values are included in the `additionalDetails` array for 2141 errors.
+The following documented REASON_CODE values can appear in the `additionalDetails` array for `2141` errors. Availability depends on the discount and API flow; do not assume every qualification failure includes a specific reason. Continue to handle the generic `Invalid Flexible Discount` reason shown below.
+
+Returning additional [qualification criteria](./apis.md#evaluate-qualification-criteria), as proposed, does not add reason codes or change existing qualification-error behavior.
 
 | Error Code | Error Reason | Action Required |
 |---|---|---|
