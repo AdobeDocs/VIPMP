@@ -228,6 +228,8 @@ When a closed discount code is included in the request, the following response s
 
 #### flexDiscounts object
 
+For proposed optional fields within `qualification`, see [Evaluate qualification criteria](#evaluate-qualification-criteria). These additions are subject to rollout and do not change the existing fields listed below.
+
 | Parameter                              | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 |----------------------------------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | category                               | String           | Flexible discount category. Possible values are `STANDARD`, `ON_DEMAND`, `INTRO`, and `DEAL_REGISTRATION`. Adobe Instant Deal Registration entries have no partner-visible code or ID. |
@@ -297,6 +299,235 @@ On failure, the response includes the appropriate HTTP status code based on the 
 | 401         | Invalid Authorization token                 |
 | 403         | Invalid API Key                             |
 | 404         | Invalid request                             |
+| 503         | Required qualification data could not be retrieved and no cached offer is available (applies to the   qualification criteria). Retry using normal client retry handling. |
+
+### Evaluate qualification criteria
+
+The following fields in the `qualification` object are available for `GET /v3/flex-discounts`, `GET /v3/customers/{customer-id}/flex-discounts`, and on-demand discounts in the Flexible Discounts flow. They also apply to the partner Sandbox.
+
+**Discovery does not guarantee eligibility**
+
+Adobe evaluates all applicable qualification rules when the order is submitted.
+
+#### Qualification fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `baseOfferIds` | Array of strings | Existing field identifying the applicable offers. For upgrades, these are the target offers. |
+| `retainContractQuantityAtRenewal` | Boolean | Optional. When `true`, the renewal quantity must be at least the total `currentQuantity` across the customer's subscriptions. |
+| `orderTypes` | Array of strings | Applicable order types: `NEW`, `RENEWAL`, or `SWITCH`. Seat additions use `NEW`. |
+| `requirementSetsMatch` | String | Indicates how the returned requirement sets are evaluated. Omitted when no requirement sets are returned. |
+| `requirementSets` | Array of objects | Optional alternative groups of conditions. When no requirement sets are returned, both `requirementSets` and `requirementSetsMatch` are omitted. |
+| `requirementSets[].conditionsMatch` | String | Specifies how conditions within the requirement set are evaluated. |
+| `requirementSets[].conditions` | Array of objects | Conditions to check within the set. |
+
+Check all applicable discount-wide fields and match at least one requirement set. All conditions within that set must match, while only one of multiple values in a condition must match. Do not combine conditions across requirement sets.
+
+All qualification fields are optional. Missing fields do not imply false, zero, an empty list, or the absence of other qualification criteria.
+
+Each condition includes a `type`, an `entities` array, and type-specific value fields. Entities can be `customer`, `subscription`, `order`, or `partner`. Conditions that compare two entities include both. Additional qualifiers are included where applicable, including `benefitType`, `motionType`, and `offerType`.
+
+#### Condition types
+
+These condition types are returned only when applicable and available.
+
+| `type` | `entities` | Value fields and qualifiers | Meaning |
+| --- | --- | --- | --- |
+| `CUSTOMER_STATUSES` | `["customer"]` | `values`: `NEW`, `EXISTING`, or `FORMER` | Qualifying customer status in the relevant product scope. |
+| `OWNED_OFFER_IDS` | `["subscription"]` | `offerIds`: array of strings | The customer must own a listed offer. For upgrades, identifies the source product; `baseOfferIds` identifies the target. |
+| `NOT_OWNED_OFFER_IDS` | `["subscription"]` | `offerIds`: array of strings | The customer must not own the applicable listed offer. This does not require the customer to be new. |
+| `RENEWAL_WINDOW` | `["customer"]` | `value`: Boolean | Whether the renewal-window criterion is required, as configured for the discount. |
+| `ENROLLEE_STATUSES` | `["customer"]` | `benefitType`: `THREE_YEAR_COMMIT`; `values`: `NEW`, `EXISTING`, or `NOT_ENROLLED` | Qualifying three-year-commitment enrollee status. This is separate from customer product status. |
+| `MINIMUM_QUANTITIES` | `["customer"]` | `benefitType`: `THREE_YEAR_COMMIT`; `offerType`: `LICENSE` or `CONSUMABLES`; `quantity`: integer | Minimum three-year-commitment quantity for the specified offer type. |
+| `MINIMUM_UPGRADE_PERCENTAGE` | `["order", "subscription"]` | `motionType`: `UPGRADE`; `offerType`: `LICENSE` or `CONSUMABLES`; `value`: integer percentage, 1-100 | Minimum upgraded quantity as a percentage of the current source subscription quantity. Used with `SWITCH` orders. |
+| `RETENTION_RATE` | `["order", "subscription"]` | `offerType`: `LICENSE` or `CONSUMABLES`; `value`: integer percentage, 1-100 | Minimum renewal quantity for the current subscription. The unit can be PERCENTAGE, CONSUMABLE, QUANTITY, or CREDITS. |
+| `PARTNER_USAGE_CAP` | `["partner"]` | `max`: integer | Maximum permitted uses of the discount, when configured. |
+
+#### Reconcile criteria with customer data
+
+Use [Get details of a customer's subscriptions](../subscription-management/get-details-for-customers.md), `GET /v3/customers/{customer-id}/subscriptions`, to evaluate customer status and product ownership. Inspect the `items` array, including each subscription's `offerId` and `status`. For quantity-based conditions, also check `currentQuantity`.
+
+Evaluate CUSTOMER_STATUSES within the relevant product scope. A customer can be existing for one product without owning another, so evaluate `OWNED_OFFER_IDS` and `NOT_OWNED_OFFER_IDS` separately from `CUSTOMER_STATUSES`.
+
+| Derived status | Subscription evidence in the relevant product scope |
+| --- | --- |
+| `NEW` | No prior subscriptions exist in the relevant product scope. A successful response with `totalCount: 0` and `items: []` indicates that no subscriptions were returned for the customer. |
+| `EXISTING` | At least one active subscription exists in the relevant product scope. The subscription API represents an active subscription with `status: "1000"`. |
+| `FORMER` | Previous subscriptions exist in the relevant scope, but none is active. |
+
+**Status-derivation limitation:**
+
+The qualification criteria do not define the `FORMER` status. If status cannot be determined, rely on Adobe's qualification at order submission.
+
+For three-year commitment conditions, use [Get Customer Account](../customer-account/get-customer-account.md) to evaluate the `THREE_YEAR_COMMIT` benefit. Compare the minimum quantities for the same `offerType` and derive enrollee status from the commitment and request data. The API does not return `enrolleeStatus`.
+
+`NOT_ENROLLED` indicates no applicable commitment, `NEW` the first commitment term, and `EXISTING` a recommitment.** These classifications do not replace other discount checks. See [3YC eligibility](index.md#3-year-commitment-3yc-eligibility).
+
+### Example: renewal retention response
+
+This `200 OK` response shows a renewal discount for an existing customer who owns the listed offer and retains the current contract quantity.
+
+Request: `GET <ENV>/v3/flex-discounts?market-segment=COM&country=US&limit=20&offset=0`
+
+```json
+{
+  "limit": 20,
+  "offset": 0,
+  "count": 1,
+  "totalCount": 1,
+  "flexDiscounts": [
+    {
+      "id": "55555555-313b-476c-9d0b-6a610d5b91e0",
+      "category": "STANDARD",
+      "code": "RETENTION_ACROBAT_PRO_25",
+      "name": "Acrobat Pro Teams 25% Retention",
+      "description": "25% off Acrobat Pro for Teams at renewal for existing customers who meet the 90% retention requirement.",
+      "startDate": "2026-01-15T08:00:00Z",
+      "endDate": "2026-12-16T07:59:00Z",
+      "status": "ACTIVE",
+      "qualification": {
+        "baseOfferIds": ["65304470CA01A12"],
+        "orderTypes": ["RENEWAL"],
+        "requirementSetsMatch": "ANY",
+        "requirementSets": [
+          {
+            "conditionsMatch": "ALL",
+            "conditions": [
+              { "entities": ["customer"], "type": "CUSTOMER_STATUSES", "values": ["EXISTING"] },
+              { "entities": ["subscription"], "type": "OWNED_OFFER_IDS", "offerIds": ["65304470CA01A12"] },
+              { "entities": ["order", "subscription"], "type": "RETENTION_RATE", "offerType": "LICENSE", "value": 90, "unit": "PERCENTAGE" }
+            ]
+          }
+        ]
+      },
+      "outcomes": [
+        { "type": "PERCENTAGE_DISCOUNT", "discountValues": [{ "value": 25 }] }
+      ]
+    }
+  ],
+  "links": {
+    "self": {
+      "uri": "/v3/flex-discounts?market-segment=COM&country=US&limit=20&offset=0",
+      "method": "GET",
+      "headers": []
+    }
+  }
+}
+```
+
+### Example: three-year commitment
+
+This example requires a new or renewal order for a new or existing three-year-commitment enrollee with at least 100 licenses.
+
+**How to interpret the following example:** Offer 65304470CA01A12 is eligible for either a NEW or RENEWAL order. The offer has one requirement set, and both conditions in the set must be met. The customer must be enrolled in THREE_YEAR_COMMIT with either NEW or EXISTING enrollee status and have a minimum commitment of 100 LICENSE units. The enrollee-status values are alternatives, so only one must match. For example, a minimum commitment of 99 licenses does not satisfy the requirement set, even if the enrollee status matches. Enrollee status refers to the customer's status in the three-year commitment, not whether the customer is new to VIP Marketplace.
+
+```json
+{
+  "limit": 20,
+  "offset": 0,
+  "count": 1,
+  "totalCount": 1,
+  "flexDiscounts": [
+    {
+      "id": "55555555-313b-476c-9d0b-aaaa11112222",
+      "category": "STANDARD",
+      "code": "3YC_GROWTH",
+      "name": "3YC Growth Offer",
+      "description": "10% off for new and existing 3YC customers with a minimum commitment of 100 licenses.",
+      "startDate": "2026-02-01T08:00:00Z",
+      "endDate": "2026-10-29T06:59:00Z",
+      "status": "ACTIVE",
+      "qualification": {
+        "baseOfferIds": ["65304470CA01A12"],
+        "orderTypes": ["NEW", "RENEWAL"],
+        "requirementSetsMatch": "ANY",
+        "requirementSets": [
+          {
+            "conditionsMatch": "ALL",
+            "conditions": [
+              { "entities": ["customer"], "benefitType": "THREE_YEAR_COMMIT", "type": "ENROLLEE_STATUSES", "values": ["NEW", "EXISTING"] },
+              { "entities": ["customer"], "benefitType": "THREE_YEAR_COMMIT", "type": "MINIMUM_QUANTITIES", "offerType": "LICENSE", "quantity": 100 }
+            ]
+          }
+        ]
+      },
+      "outcomes": [
+        { "type": "PERCENTAGE_DISCOUNT", "discountValues": [{ "value": 10 }] }
+      ]
+    }
+  ],
+  "links": {
+    "self": {
+      "uri": "/v3/flex-discounts?market-segment=COM&country=US&limit=20&offset=0",
+      "method": "GET",
+      "headers": []
+    }
+  }
+}
+```
+
+### Example: alternative requirement sets
+
+This renewal discount applies to either a new customer or an existing customer who owns the listed offer. The ownership requirement applies only to the existing customer.
+
+**How to interpret the following example:** The order must be a RENEWAL for offer 65304470CA01A12. With requirementSetsMatch: ANY, either requirement set can match: NEW customer status alone, or EXISTING customer status with ownership of the offer. An existing customer without ownership does not match.
+
+```json
+{
+  "qualification": {
+    "baseOfferIds": ["65304470CA01A12"],
+    "orderTypes": ["RENEWAL"],
+    "requirementSetsMatch": "ANY",
+    "requirementSets": [
+      {
+        "conditionsMatch": "ALL",
+        "conditions": [
+          { "entities": ["customer"], "type": "CUSTOMER_STATUSES", "values": ["NEW"] }
+        ]
+      },
+      {
+        "conditionsMatch": "ALL",
+        "conditions": [
+          { "entities": ["customer"], "type": "CUSTOMER_STATUSES", "values": ["EXISTING"] },
+          { "entities": ["subscription"], "type": "OWNED_OFFER_IDS", "offerIds": ["65304470CA01A12"] }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Example: mid-term upgrade
+
+This example requires a `SWITCH` order to `65304471CA01A12`. The customer must own `65304470CA01A12`, not own the target offer, and upgrade at least 100% of the current source licenses.
+
+For 50 current source licenses, at least 50 licenses must be upgraded.
+
+```json
+{
+  "qualification": {
+    "baseOfferIds": ["65304471CA01A12"],
+    "orderTypes": ["SWITCH"],
+    "requirementSetsMatch": "ANY",
+    "requirementSets": [
+      {
+        "conditionsMatch": "ALL",
+        "conditions": [
+          { "entities": ["subscription"], "type": "NOT_OWNED_OFFER_IDS", "offerIds": ["65304471CA01A12"] },
+          { "entities": ["subscription"], "type": "OWNED_OFFER_IDS", "offerIds": ["65304470CA01A12"] },
+          { "entities": ["order", "subscription"], "motionType": "UPGRADE", "type": "MINIMUM_UPGRADE_PERCENTAGE", "offerType": "LICENSE", "value": 100 }
+        ]
+      }
+    ]
+  }
+}
+```
+
+#### Compatibility and failure handling
+
+Handle missing or unknown qualification fields and conditions without treating them as proof of eligibility.
+
+A successful response may contain incomplete qualification criteria without indicating that the criteria are incomplete. If the required data is unavailable and no cached offer is available, the request returns `503 Service Unavailable`.
 
 ## Get flexible discounts of a customer
 
@@ -307,6 +538,8 @@ Use the `/v3/customers/<customer-id>/flex-discounts` endpoint to get details of 
 | `/v3/customers/<customer-id>/flex-discounts` | GET    |
 
 **Note:** Parameters included in the response of this endpoint are the same as that of Get Flexible Discounts API. So, for the descriptions and other details, see [Get Flexible Discounts](#get-flexible-discounts) API.
+
+The proposed additional [qualification criteria](#evaluate-qualification-criteria) also apply to this customer-context response. No additional query parameter is required. Customer context and discount reusability do not guarantee qualification for a subsequent order.
 
 **Request URL**: `/v3/customers/<customer-id>/flex-discounts?limit=30`
 

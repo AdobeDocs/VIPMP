@@ -2,6 +2,33 @@
 
 **Note:** This is the initial version of the documentation, published early to provide partners with visibility into upcoming changes. The documentation will be updated as additional details become available. The expected release dates are indicative only and may change.
 
+## Flexible Discounts qualification criteria enhancement
+
+**Expected release:** January 2026.
+
+The Flexible Discounts API qualification enrichment provides additional criteria to help partners assess whether a discount is relevant to a customer or order before submission. No new request parameter is required. Existing `baseOfferIds`, discount outcomes, and discount lock dates retain their meaning.
+
+**What's new?**
+
+- Discount-wide `orderTypes` and `retainContractQuantityAtRenewal` fields describe applicable order types and renewal quantity requirements.
+- Optional `requirementSets` describe alternative groups of customer, subscription, order, and partner conditions.
+- Partner-visible conditions cover customer status, product ownership, renewal windows, three-year commitment enrollee status, minimum quantities, upgrade percentages, retention rates, and discount usage caps.
+- The same qualification structure is available for general Flexible Discounts discovery, customer-context discovery, on-demand discounts, Deal Rewards, and the partner Sandbox.
+
+**Why it matters**
+
+Partners can use the returned qualification criteria during discount discovery and compare them with customer subscription and to determine the criterias for which a customer can qualify for a discount. However, discovery does not guarantee eligibility. Some applicable conditions may not be returned, and Adobe's qualification at the time of order submission remains authoritative.
+
+**Partner actions**
+
+| Action | Details |
+|---|---|
+| Preserve grouped logic | Check all applicable discount-wide fields and ensure that all conditions within at least one requirement set are met. Do not combine conditions across different requirement sets. |
+| Continue handling qualification failures | Existing error `2141` handling remains applicable.|
+| Test discovery and order behavior | When enabled in Sandbox, compare the returned criteria with test customer data and test both successful and unsuccessful order-time qualification scenarios. |
+
+For field definitions and examples, see [Evaluate qualification criteria](../flex-discounts/apis.md#evaluate-qualification-criteria). For Sandbox guidance, see [Test discount qualification criteria](../../sandbox/sandbox-portal/flex-discounts/index.md#test-discount-qualification-criteria).
+
 ## Data exports
 
 **Expected release:** December 2026
@@ -57,7 +84,9 @@ For more information, see [Local currency support](../manage-pricing/index.md#lo
 
 ## Adobe Instant Deal Registration
 
-**Expected release:** November 2026
+**Expected release:** January 2027
+
+**Important:** The Adobe Instant Deal Registration program is currently under review, and the API documentation may be subject to change. Existing API documentation and Sandbox access will remain available. However, partners are recommended to pause any ongoing integration development and defer new integration work until further guidance is provided.
 
 Adobe Instant Deal Registration is an automatically applied, codeless reseller credits, removing the need for a manual registration step on qualifying orders. There is no code to request, submit, or track. Partners see the intant deal registration amount directly in any qualifying orders and can view information on the deal through two discovery APIs. For more information see, [Adobe Instant Deal Registration overview](../instant-deal-registration/index.md).
 

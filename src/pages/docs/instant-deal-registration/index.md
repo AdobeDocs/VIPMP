@@ -1,5 +1,7 @@
 # Adobe Instant Deal Registration
 
+**Important:** The Adobe Instant Deal Registration program is currently under review, and the API documentation may be subject to change. Existing API documentation and Sandbox access will remain available. However, partners are recommended to pause any ongoing integration development and defer new integration work until further guidance is provided.
+
 Adobe Instant Deal Registration is an automatically applied, codeless reseller credit. Unlike Flexible Discounts, partners do not provide or see an Instant Deal Registration code. Adobe automatically determines eligibility and applies the deal amount to qualifying order line items. Partners can discover opportunities through discovery APIs and view qualification outcomes through dedicated API response fields.
 
 Instant Deal Registration:

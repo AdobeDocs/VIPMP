@@ -58,7 +58,7 @@ The following example requests a reseller-scoped churn report:
 |---|---|---|---|
 | `scope` | Yes | Object | Defines whose data to export. |
 | `scope.level` | Yes | String (enum) | `partner` or `reseller`. |
-| `scope.ids` | For reseller scope | String array | One or more reseller IDs. Duplicate IDs are removed. Blank IDs are invalid. Unrecognized reseller IDs and reseller IDs that do not belong to the authenticated partner are skipped and contribute no rows. The service does not return a reseller-recognition error for these IDs. Ignored for partner scope, where identity comes from the token. |
+| `scope.ids` | For reseller scope | String array | One or more reseller IDs. Duplicate IDs are removed. Blank IDs are invalid. Unrecognized reseller IDs and reseller IDs are denied access. The service does not return a reseller-recognition error for these IDs. Ignored for partner scope, where identity comes from the token. |
 | `datasets` | Yes | Object array | Exactly one item is allowed. |
 | `datasets[].dataset` | Yes | String (enum) | `propensity`. |
 | `datasets[].type` | Yes | String (enum) | `churn` or `seat_expansion`. |
@@ -329,7 +329,7 @@ Retention begins when a report becomes `COMPLETED`:
 
 | Report type | Retention |
 |---|---|
-| `churn` | 1 month |
+| `churn` | 21 days |
 | `seat_expansion` | 7 days |
 
 When retention ends, the report becomes `ARCHIVED` and its file is no longer available. Use [Create report](#create-report) to request a new report. Download link expiry and report retention are independent. `downloadLink.expiresAt` indicates only when the download link expires.
@@ -337,6 +337,10 @@ When retention ends, the report becomes `ARCHIVED` and its file is no longer ava
 ## Report file format
 
 Reports are UTF-8 CSV files with a header row and one row per customer. Columns depend on `datasets[].type`. Dates use `YYYY-MM-DD` in UTC. Each reasons field contains `reasonCode=value` pairs separated by semicolons and is enclosed in double quotation marks.
+
+**Note:** If a report successfully runs but matches no customers, the generated CSV file contains only the column headers and no data rows.
+
+A sample rport file is available [here](../../assets/propensity_churn_1000526372_2026-11-18T04-02-16Z.csv).
 
 ### Churn report
 
