@@ -9,15 +9,15 @@ Data exports let partners test an asynchronous report integration by creating a 
 
 ## Prerequisites
 
-- Obtain Sandbox API credentials and a valid access token. See [API collection and interaction basics](../api-collection.md#api-interaction-basics).
-- Use the Sandbox Partner API base URL, `https://partnersandbox-stage.adobe.io`, with the standard authentication and [API request headers](../../docs/references/api-headers.md). See [API authentication and access](../../docs/authentication/index.md) for environment URLs.
+- Obtain Sandbox API credentials and a valid access token. See [API collection and interaction basics](../../api-collection.md#api-interaction-basics).
+- Use the Sandbox Partner API base URL, `https://partnersandbox-stage.adobe.io`, with the standard authentication and [API request headers](../../../docs/references/api-headers.md). See [API authentication and access](../../../docs/authentication/index.md) for environment URLs.
 - Confirm that data exports are enabled in Sandbox.
 
 The planned Sandbox scenarios use the `propensity` dataset, the `churn` report type, and the `HIGH` probability filter. Do not assume that other report types or probability filters described in the general API reference are enabled in Sandbox.
 
 ## API workflow
 
-Sandbox uses the same report endpoints, request and response structures, report states, and error codes as the production environment. Use the general [Data exports API reference](../../docs/data-exports/apis.md) for the complete contract, applying the Sandbox differences on this page.
+Sandbox uses the same report endpoints, request and response structures, report states, and error codes as the production environment. Use the general [Data exports API reference](../../../docs/data-exports/apis.md) for the complete contract, applying the Sandbox differences on this page.
 
 | Operation | Method and endpoint |
 |---|---|
@@ -30,7 +30,7 @@ Once the feature is available, use the following workflow:
 1. Create a report using the Sandbox base URL. Select the partner or reseller scope and use the Sandbox dataset and filter shown below. Save the `reportId` returned with HTTP `202`.
 2. Get the report status using the saved `reportId`. Continue checking while the state is `INITIATED` or `IN_PROGRESS`. If a duplicate create request returns HTTP `400`, code `4122`, use the existing report ID from `additionalDetails`.
 3. If the report is `COMPLETED`, download the sample CSV using `downloadLink.url`. If the report is `FAILED`, inspect `additionalDetails`. If the report is `FAILED` or `ARCHIVED`, create a new report if you need another export.
-4. List reports to retrieve the authenticated partner's Sandbox reports, ordered from newest to oldest. Use paging as described in [List reports](../../docs/data-exports/apis.md#list-reports). `ARCHIVED` reports are excluded.
+4. List reports to retrieve the authenticated partner's Sandbox reports, ordered from newest to oldest. Use paging as described in [List reports](../../../docs/data-exports/apis.md#list-reports). `ARCHIVED` reports are excluded.
 
 ### Create request
 
@@ -70,7 +70,7 @@ The planned implementation selects one of three sample CSV files based on the re
 
 The specific reseller ID values do not affect which sample file is selected. Unlike production, Sandbox does not validate whether the specified reseller IDs belong to the partner. Any nonblank reseller ID is accepted. Blank IDs remain invalid.
 
-The reseller and customer IDs in the sample CSV files are sample IDs. They may not match Sandbox records or the reseller IDs supplied in the request. Use the files to test file download and CSV parsing, not customer data or reseller ownership validation. CSV format and columns match the general [Report file format](../../docs/data-exports/apis.md#report-file-format).
+The reseller and customer IDs in the sample CSV files are sample IDs. They may not match Sandbox records or the reseller IDs supplied in the request. Use the files to test file download and CSV parsing, not customer data or reseller ownership validation. CSV format and columns match the general [Report file format](../../../docs/data-exports/apis.md#report-file-format).
 
 ### Simulated processing and failure
 
@@ -113,7 +113,7 @@ These scenarios describe the expected results after the Sandbox implementation h
 
 ## Related documentation
 
-- [Data exports overview](../../docs/data-exports/index.md)
-- [Manage data exports using APIs](../../docs/data-exports/apis.md)
-- [Error codes for data exports](../../docs/data-exports/error-codes.md)
-- [Sandbox support](../sandbox-support.md)
+- [Data exports overview](../../../docs/data-exports/index.md)
+- [Manage data exports using APIs](../../../docs/data-exports/apis.md)
+- [Error codes for data exports](../../../docs/data-exports/error-codes.md)
+- [Sandbox support](../../sandbox-support.md)

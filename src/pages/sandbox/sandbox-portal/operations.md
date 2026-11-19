@@ -8,3 +8,4 @@ You can manage and test the following operational workflows in Sandbox:
 - [Recommendations](recommendations/index.md)
 - [Adobe Instant Deal Registration](instant-deal-registration/index.md)
 - [Flexible Discounts](flex-discounts/index.md)
+- [Data exports](./data-exports/index.md)

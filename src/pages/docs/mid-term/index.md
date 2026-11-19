@@ -40,7 +40,10 @@ During a mid-term upgrade from one Teams subscription to another, partners can a
 
 User reassignment follows a Last-In-First-Out (LIFO) strategy, meaning the most recently assigned users are reassigned first.
 
-**Note:** Automatic user reassignment is not supported for upgrades from Teams to Enterprise or between Enterprise subscriptions.
+**Note:** Automatic user reassignment is supported for upgrades from Teams to Enterprise and between Enterprise subscriptions when both of the following criteria are met. This applies to both SWITCH and REVERT_SWITCH orders:
+
+- The target product does not already exist in the customer’s portfolio.
+- The switch covers the full quantity, meaning the entire source quantity is migrated rather than a partial quantity.
 
 ## Limitations
 

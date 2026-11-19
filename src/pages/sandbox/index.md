@@ -2,8 +2,6 @@
 
 Sandbox is a development environment where Adobe Partners can test their integrations with Adobe’s Commerce Partner APIs and marketplaces. Sandbox replicates the production environment, allowing the Partner to fully test and implement Adobe’s Commerce Partner API (CPAPI) calls without incurring any costs or impacting production data.
 
-For planned API-only report testing with synthetic CSV files, see [Test data exports in Sandbox](./data-exports/index.md). Sandbox data exports still require deployment and verification before these scenarios are available.
-
 Interaction with Sandbox can occur through API calls, the [Sandbox Partner Portal](https://partnerportal-sandbox.adobe.com/), or both, as illustrated in the matrix below:
 
 | CPAPI Call                                                           | API calls | Portal |
