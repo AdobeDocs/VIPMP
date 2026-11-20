@@ -10,6 +10,7 @@ You can explore and test the Flexible Discounts feature in the Sandbox environme
 - [Test discount qualification criteria](#test-discount-qualification-criteria)
 - [Edit reusable flexible discounts](#edit-reusable-flexible-discounts)
 - [Create, view, and manage closed discounts](#create-view-and-manage-closed-discounts)
+- [View and apply closed reusable discounts](#view-and-apply-closed-reusable-discounts)
 - [View flexible discounts applied to an Order](#view-flexible-discounts-applied-to-an-order)
 - [View flexible discounts applied to a subscription](#view-flexible-discounts-applied-to-a-subscription)
 - [Flexible discounts for 3YC customers](#)
@@ -40,7 +41,7 @@ The UI displays a list of current discounts, including the following details:
 
 You can use the discount code while placing an order using the Create Order API. This instruction applies to code-based flexible discounts only. Adobe Instant Deal Registration has no partner-visible code or ID and is applied automatically by Adobe.
 
-**Note:** In the Sandbox environment, Flexible Discounts that include the term "FAILURE" in both the `name` and the `code` are specifically intended for validating failure scenarios. These codes are designed to always fail when used in PREVIEW and NEW order flows. All other discount codes can be used to validate successful application scenarios. Example:
+**Note:** In the Sandbox environment, Flexible Discounts that include the term "FAILURE" in both the `name` and the `code` are specifically intended for validating failure scenarios. These codes are designed to always fail when used in PREVIEW and NEW order flows. Other discount codes can be used to validate successful application scenarios when all applicable eligibility criteria are met. Example:
 
 ![Flex discounts with name and code with the term FAILURE in it](../image/flex_discount_failure.png)
 
@@ -94,12 +95,13 @@ Example for editing the end date of reusable flexible discounts:
 
 ### Create, view, and manage closed discounts
 
-Closed discounts are discounts that are not returned by default in the [Get Flexible Discount API](../../../docs/flex-discounts/apis.md#get-flexible-discounts). However, you can retrieve a closed discount through the GET  Flexble Discount API by searching with the specific discount code.
+Closed discounts are not returned by default in the [Get Flexible Discounts API](../../../docs/flex-discounts/apis.md#get-flexible-discounts). However, you can retrieve a closed discount by searching with its specific discount code. Closed reusable discounts are listed separately in the Sandbox UI and are not returned by the Get Flexible Discount APIs.
 
-In the Sandbox environment, you can browse the available closed discount templates, create closed discount codes for your customers based on those templates, and manage those codes by navigating to the following tabs under  **Portal Resources > View Available Flex Discounts**:
+In the Sandbox environment, you can browse closed discount templates, create and manage customer-specific codes, or select a listed closed reusable discount from the following tabs under **Portal Resources > View Available Flex Discounts**:
 
 - **Closed Discount Templates:** Displays the available test templates that you can use to create closed discounts.
 - **Closed Discounts (Customer-Specific):** Displays the closed discounts you have created, with options to search, create, and delete them.
+- **Closed Reusable Discounts:** Lists reusable closed discounts that you can select and apply when every applicability criterion is met.
 
 #### View closed discount templates
 
@@ -141,14 +143,15 @@ To create a closed discount code:
 
 2. Complete the following fields:
 
-   - Market Segment
-   - Customer ID
-   - Flex Discount Template
-   - Expiry Date and Expiry Time
+   - **Market Segment**
+   - **Customer ID**
+   - **Flex Discount Template**
+   - **Expiry Date**
+   - **Expiry Time**
 
 3. Select **Create**.
 
-4. After the code is created successfully, the **Closed Discount Code Created** dialog displays the generated discount code and the Customer ID, each with a copy button. Select **Done** to close the dialog.
+4. After the code is successfully created, the **Closed Discount Code Created** dialog displays the generated discount code and **Customer ID**, each with a copy button. Select **Done** to close the dialog.
 
    ![Closed discount code created](../image/closed-discount-created.png)
 
@@ -160,7 +163,7 @@ To create a closed discount code:
 
 You can use the generated code while placing an order using the [Create Order API](../../../docs/order-management/create-order.md). Depending on the renewal preferences, you can also use the code with the [Update Subscription API](../../../docs/subscription-management/update-subscription.md).
 
-**Note:** Customer specific closed discount codes are unique to a customer can only be used by the customer for whom they were generated.
+**Note:** Customer-specific closed discount codes are unique to a customer and can be used only by the customer for whom they were generated.
 
 #### Delete a closed discount code
 
@@ -187,7 +190,31 @@ When creating a closed discount code, you may encounter the following validation
 - **Cap reached**
   - `Closed discount code creation limit reached (max 20). Please delete an existing code to create a new one.`
 - **Existing code (reuse)**
-  - `A closed discount code already exists for this customer and flex discount. See the existing active code and customer ID below.`
+  - `A closed discount code already exists for this customer and flex discount. See the existing active code and customer ID below.
+
+### View and apply closed reusable discounts
+
+Closed reusable discounts are discounts that eligible customers can apply and reuse across terms. Similar to one-time codes, these are not listed on the APIs. They also do not have to be customer specific.
+
+To view available closed reusable discounts, go to **Portal Resources > View Available Flex Discounts > Closed Reusable Discounts** to view the closed reusable discounts.
+
+![Closed Reusable Discounts tab with country, market segment, and renewal filters](../image/closed-reusable-discounts.png)
+
+Review the applicability labels and the comment above each displayed discount. The comment describes the criteria under which that discount can be applied. You must meet every criterion before selecting and applying the discount; matching the filters alone does not establish eligibility.
+
+Each displayed discount object contains only `code`, `outcomes`, and `qualification`:
+
+- `code`: The discount code to use when applying the discount.
+- `outcomes`: The discount type and associated values.
+- `qualification`: The offer qualification details. Only the applicable base offer IDs are displayed.
+
+![Example closed reusable discount showing applicability labels, criteria comment, code, qualification, and outcomes](../image/closed-reusable-discount-details.png)
+
+**Note:** The code, country, currency, and discount value in this screenshot are illustrative Sandbox data, not production values or eligibility rules for other discounts. When applying closed reusable discount codes in sandbox, always review the criteria for the discount.
+
+Once the discount is selected, use the `code` when placing an order, just as you would for other closed discounts. You do not need to generate a customer-specific code from a template for these listed discounts.
+
+Closed reusable discounts can be reused in 3YC scenarios, but eligibility varies. Not all listed discounts apply to 3YC customers.
 
 ### View flexible discounts applied to an Order
 
