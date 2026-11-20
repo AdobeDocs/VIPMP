@@ -88,7 +88,7 @@ Partner scope ignores reseller IDs, so `TEST_FAILURE` has no effect on a partner
 
 Only reports in the `COMPLETED` state include `downloadLink`. If a link expires while the report remains `COMPLETED`, get the report status again to obtain a fresh link. Download link expiration and report retention are independent.
 
-A completed Sandbox report is treated as `ARCHIVED` five minutes after completion, rather than the production churn retention period of one month. An archived report has no download link and no longer appears in the List reports response. Create a new report to obtain the file again. Failed reports are not archived.
+A completed Sandbox report is treated as `ARCHIVED` 30 minutes after completion, rather than the production churn retention period of 21 days. An archived report has no download link and no longer appears in the List reports response. Create a new report to obtain the file again. Failed reports are not archived.
 
 The planned behavior does not specify the lifetime of a download link. Test expired-link renewal only if `downloadLink.expiresAt` occurs before the report is archived; do not assume the five-minute retention window permits that test.
 
