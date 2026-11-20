@@ -280,7 +280,7 @@ The Adobe Instant Deal Registration object does not include `code` or `id`.
 | **Parameter** | **Type** | **Description** |
 |---|---|---|
 | category | String | Scope of this prediction. Possible values are: `creativeCloud`, `documentCloud`, or `allOfferings`. Only the entries relevant to the customer are included. When the underlying model does not provide a product-family breakdown, a single entry with `allOfferings` is returned. |
-| probability | String | Mapped propensity rating. Possible values are: `HIGH`, `MEDIUM`, or `LOW`. /<br/\>**Note:** Currently, only `HIGH` is supported.|
+| probability | String | Mapped propensity rating. Possible values are: `HIGH`, `MEDIUM`, or `LOW`. \<br/\>**Note:** Currently, only `HIGH` is supported.|
 | refreshDate | String (UTC ISO-8601) | Date when the propensity score was last refreshed, expressed as start-of-day UTC (for example, `2026-06-02T00:00:00Z`). Refresh frequency varies by model type, with `churn` data typically refreshed monthly and `seatExpansion` data typically refreshed weekly. |
 | reasons | Array of Reason | List of signals that contributed to the rating, ordered by relevance. May be an empty array if no reasons are available. |
 | additionalDetails | Object | Model-specific fields for this prediction. Returns an empty object `{}` when none apply. |
