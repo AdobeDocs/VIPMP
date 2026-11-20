@@ -1,6 +1,6 @@
 # Data exports
 
-Data exports provide an asynchronous way to retrieve data across a partner's resellers as a downloadable report. Reports currently support the propensity dataset, with churn  report type. Each report contains a single dataset type.
+Data exports provide an asynchronous way to retrieve data across a partner's resellers as a downloadable report. Reports currently support the propensity dataset, with churn and seat expansion report types. Each report contains a single dataset type.
 
 ## Export workflow
 
@@ -66,7 +66,8 @@ Report retention begins when processing completes and is independent of download
 
 | Report type | Retention |
 |---|---|
-| `churn` | 21 days |
+| `churn` | 1 month |
+| `seat_expansion` | 7 days |
 
 After retention ends, the report becomes `ARCHIVED`. Create a new report to obtain fresh data.
 

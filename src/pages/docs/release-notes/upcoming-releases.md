@@ -29,6 +29,20 @@ Partners can use the returned qualification criteria during discount discovery a
 
 For field definitions and examples, see [Evaluate qualification criteria](../flex-discounts/apis.md#evaluate-qualification-criteria). For Sandbox guidance, see [Test discount qualification criteria](../../sandbox/sandbox-portal/flex-discounts/index.md#test-discount-qualification-criteria).
 
+## Data exports
+
+**Expected release:** December 2026
+
+Data exports enable partners to retrieve data across their resellers as downloadable CSV reports. Currently, the propensity dataset is available, with churn and seat expansion report types.
+
+**What's new?**
+
+- [Create report](../data-exports/apis.md#create-report) (`POST /v3/reports`): Create a report for a specified scope and dataset, with optional filters. An HTTP `202` response returns a `reportId` with an `INITIATED` status, indicating that the report is being processed asynchronously. The response does not include the report file.
+- [Get report status](../data-exports/apis.md#get-report-status) (`GET /v3/reports/{report-id}`): Check the report status while it is in `INITIATED` or `IN_PROGRESS` status. When the status is `COMPLETED`, use `downloadLink.url` to download the CSV and `downloadLink.expiresAt` to determine when the download link expires. Request the report status again using the same `reportId` to get a new download link for the retained file.
+- [List reports](../data-exports/apis.md#list-reports) (`GET /v3/reports`): View the authenticated partner's reports, starting with the newest, using `limit` and `offset` for pagination.
+
+For more information, see the [Data exports overview](../data-exports/index.md), [Manage data exports using APIs](../data-exports/apis.md), and [Error codes for data exports](../data-exports/error-codes.md).
+
 ## Local currency support
 
 **Expected release:** November 2026
@@ -103,3 +117,37 @@ Unlike a traditional deal registration rebate, the deal registration amount appe
 ### Testing Adobe Instant Deal Registration in Sandbox
 
 Sandbox provides predefined scenarios that simulate both qualifying and non-qualifying Instant Deal Registration outcomes while remaining contract-compatible with production responses. See [Test Adobe Instant Deal Registration in Sandbox](../../sandbox/sandbox-portal/instant-deal-registration/index.md).
+
+## Churn and seat expansion propensity are now surfaced in the Recommendations API
+
+**Expected release:** November 2026
+
+Partners can now see churn risk and seat expansion signals for each customer through the existing [Fetch Recommendations](../recommendations/apis.md#fetch-recommendations) (`POST /v3/recommendations`) API.
+
+**What changed?**
+
+Set the request parameter `includePropensity` to ["churn"], ["seatExpansion"], or `["churn", "seatExpansion"]` to retrieve the corresponding `churn` and `seatExpansion` propensity signals. Each contains a `probability` rating (`HIGH`, `MEDIUM`, or `LOW`), a `refreshDate`, and a `reasons` array with up to seven leading indicators ordered by relevance.
+
+Seat expansion also includes `predictedAddonSize` with the expected number of additional seats.
+
+**Important:** An empty object `{}` for either node means propensity data is not available for that customer. Do not interpret `{}` as LOW risk or LOW expansion potential.
+
+**Why it matters**
+
+Partners can now identify at-risk customers and high-growth opportunities using data-driven signals, rather than relying on anecdotal indicators or waiting for account-manager outreach.
+
+**Action required**
+
+| Action | Details |
+|---|---|
+| Parse the new `propensity` object | It appears at the same level as `productRecommendations`. Handle three states: absent (feature not enabled), empty `{}` (data unavailable), and populated (data available). |
+| Do not equate `{}` with LOW | An empty object means no data. Treat it as unknown, not low risk. |
+| No changes needed for existing fields | `productRecommendations` and `overlayRecommendations` are unchanged. Existing integrations continue to work without modification. |
+
+For more information, see [Propensity Intelligence](../recommendations/index.md#propensity-intelligence).
+
+### Testing Propensity Signals in sandbox
+
+A set of 13 predefined test seeds is configured in the Sandbox so you can exercise every combination of rating level and empty-array behavior during integration testing. Each seed returns a fixed response. 
+
+For more information, see [Testing Propensity Signals in sandbox](../../sandbox/sandbox-portal/recommendations/index.md#testing-propensity-signals-in-sandbox).

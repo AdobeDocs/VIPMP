@@ -96,9 +96,7 @@ The API currently supports the following two propensity types:
 | Churn |  Likelihood of a customer not renewing their contract. Helps partners identify at-risk customers and initiate retention actions. |
 | Seat Expansion |  Likelihood of a customer increasing license quantities for existing products. Helps partners prioritize expansion outreach. Includes a `predictedAddonSize` parameter that indicates the expected number of additional seats. |
 
-**Note:** Currently, only the churn propensity type is supported.
-
-The propensity type appears under the `propensity` object of the [Fetch Recommendations API](./apis.md#fetch-recommendations).
+Both propensity types appear under the `propensity` object of the [Fetch Recommendations API](./apis.md#fetch-recommendations).
 
 ### Probability ratings
 
@@ -109,8 +107,6 @@ Each propensity type includes a `probability` field with one of the following th
 | **HIGH** | Strong signal. Partners should prioritize action. |
 | **MEDIUM** | Moderate signal. Worth monitoring and may warrant proactive engagement. |
 | **LOW** | Weak or no signal. No immediate action needed. |
-
-**Note:** Currently, only `HIGH` is supported.
 
 ### Reason codes
 
@@ -133,16 +129,17 @@ The following table describes individual signals for Churn and Seat Expansion. I
 | Churn | `units_yoy_growth` | Year-on-year change in license units, expressed as a growth ratio. | Numeric (double) | Multiply the value by 100 to get the percentage change. `"0.0"` = no change; positive values indicate growth, while negative values indicate decline. `"0.5"` = 50% growth, `"-0.75"` = 75% decline, and `"10.0"` = 1,000% growth. The value is a growth ratio, not a percentage or a multiplier of the total number of units. |
 | Churn | `engagement_rate` | Level of product or license utilization, derived from multiple engagement factors. | Categorical | `"High"`, `"Medium"`, or `"Low"` indicate high, medium, or low engagement, respectively. These title-case values describe utilization, not churn probability. |
 | Churn | `contract_tenure` | Contract tenure in years. | Numeric (double) | Interpret values as whole years: `"1.0"` = 1 year and `"5.0"` = 5 years. |
+| Seat Expansion | **TBD:**  `assigned_seat_count` | Current number of assigned seats. | Numeric (seat count) | A count of assigned seats; for example, `"190"` = 190 assigned seats. |
+| Seat Expansion | **TBD:** `provisioned_seat_count` | Number of provisioned seats. | Numeric (seat count) | A count of provisioned seats; for example, `"200"` = 200 provisioned seats. |
 
 Reason values describe individual signals, not the overall propensity rating. In particular, `engagement_rate` uses `"High"`, `"Medium"`, and `"Low"`, whereas `probability` uses `"HIGH"`, `"MEDIUM"`, and `"LOW"`. Do not infer the overall propensity rating from a single reason value; use the `probability` field.
-
-**Note:** Currently, only `HIGH` is supported.
 
 ### Refresh date
 
 Each propensity object includes a `refreshDate` field in UTC ISO-8601 format that indicates when the customer was last scored by the underlying model. Refresh frequency varies by model type:
 
 - `churn` data is typically refreshed monthly
+- `seatExpansion` data is typically refreshed weekly
 
 **Note:** Refreshes may occasionally occur earlier than expected due to model updates or data corrections. This is expected and does not indicate an error.
 
@@ -160,6 +157,7 @@ In all cases, `productRecommendations` and `overlayRecommendations` remain unaff
 ### Propensity best practices
 
 - Use `churn.probability: HIGH` to trigger proactive retention workflows such as early renewal outreach or customer success engagement.
+- Use `seatExpansion.probability: HIGH` along with `predictedAddonSize` to prioritize expansion conversations with appropriate sizing context.
 - The `reasons` array provides transparency into what signals drive the rating. Reason codes indicate the primary drivers of the signal. However, a customer with a high churn risk may still have reason codes that appear healthy because some predictive factors are not exposed. This behavior is expected and is not a cause for concern.
 
 ## Overlay recommendations

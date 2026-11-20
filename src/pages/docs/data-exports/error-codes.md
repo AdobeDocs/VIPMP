@@ -46,7 +46,7 @@ HTTP `400`:
 
 An unknown report ID returns HTTP `404`, code `1181`, with message `Invalid Report ID`. Status lookups are limited to reports owned by the authenticated partner.
 
-Incorrect reseller IDs and IDs that do not belong to the partner are skipped and contribute no rows. They never expose another partner's data. Blank reseller IDs, however, are invalid.
+Incorrect reseller IDs and IDs that do not belong to the partner are skipped and contribute no rows, without a reseller-recognition error. They never expose another partner's data. Blank reseller IDs, however, are invalid.
 
 ## HTTP status and report states
 
@@ -75,4 +75,4 @@ Failure details do not expose internal service names, stack traces, or storage e
 
 Only a `COMPLETED` report includes `downloadLink`. If the URL reaches `downloadLink.expiresAt` while the report remains completed, request status again for a fresh link. An `ARCHIVED` report requires a new submission.
 
-Churn reports are retained for 21 days from the date of completion. Retention is separate from link expiry. No-data output and rate or concurrency limits are not specified; do not assign error codes to those cases.
+Report retention starts at completion: 1 month for churn and 7 days for seat expansion. Retention is separate from link expiry. No-data output and rate or concurrency limits are not specified; do not assign error codes to those cases.

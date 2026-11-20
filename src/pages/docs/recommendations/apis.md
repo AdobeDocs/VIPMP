@@ -42,7 +42,7 @@ The following is a sample request body:
   "country": "JP",
   "language": "MULT",
   "includeDealRegistrations": false,
-  "includePropensity": ["churn"]
+  "includePropensity": ["churn", "seatExpansion"]
 }
 ```
 
@@ -58,7 +58,7 @@ The following table lists the request parameters and their corresponding descrip
 | country               | String | The requested country for which recommendations should be fetched. If not provided, the customer's country will be used. See [available country codes](../references/supported-locales.md).                                                                                                                                                                                                                                                                                                                                      | No                                                 |
 | language              | String |The requested language for which recommendations should be fetched. Possible values are: \<br /\> - `EN` \<br /\> - `MULT`  \<br /\>**Note:** Use `EN` for Western Europe customers or global customers deploying in Europe. `MULT` is available for all other regions.                                                                                                                                                                                                                                                                | No                                                 |
 | includeDealRegistrations    | Boolean | Set to `true` to include Adobe Instant Deal Registration opportunities in the response. The default is `false`. For `GENERIC`, opportunities associated with offers currently held by the customer are returned. For `ORDER_PREVIEW` and `RENEWAL_ORDER_PREVIEW`, offers in the request are evaluated. Opportunities associated with products already owned by the customer are returned first. | No |
-| includePropensity              | Array of Strings |Set propensity types to include propensity data in the response. Possible values are: `[]`,  `["churn"]`. Omitting the field or sending an empty array excludes the propensity data from the response. | No                                                 |
+| includePropensity              | Array of Strings |Set propensity types to include propensity data in the response. Possible values are: `[]`,  `["churn"]`, `["seatExpansion"]`,  and `["churn", "seatExpansion"]`. Omitting the field or sending an empty array excludes the propensity data from the response. | No                                                 |
 
 #### Offers object
 
@@ -220,6 +220,25 @@ For the end-to-end capability and order response behavior, see [Adobe Instant De
         "additionalDetails": {}
       }
     ],
+    "seatExpansion": [
+      {
+        "category": "allOfferings",
+        "probability": "HIGH",
+        "refreshDate": "2026-05-27T00:00:00Z",
+        "reasons": [
+          { 
+            "reasonCode": "assigned_seat_count", 
+            "description": "Current number of assigned seats", "value": "190" 
+            },
+          { "reasonCode": "provisioned_seat_count", "description": "Number of provisioned seats", 
+          "value": "200" 
+          }
+        ],
+        "additionalDetails": {
+          "predictedAddonSize": 5
+        }
+      }
+    ]
   }
 }
 ```
@@ -268,19 +287,17 @@ The Adobe Instant Deal Registration object does not include `code` or `id`.
 
 #### **Propensity Object**
 
-**Note:** Currently, only the churn propensity type is supported.
-
 | **Parameter** | **Type** | **Description** |
 |---|---|---|
 | churn | Array of Prediction | Churn propensity predictions for the customer. A single signal type may produce multiple predictions (for example, separate Creative Cloud and Document Cloud entries). Returns an empty array `[]` if no data is available. |
 | seatExpansion | Array of Prediction | Seat expansion propensity predictions for the customer. Returns an empty array `[]` if no data is available. |
 
-**churn array** - Applies to each entry in `churn` object.
+**churn and seatExpansion arrays** - Applies to each entry in `churn` and `seatExpansion` of the `propensity` object
 
 | **Parameter** | **Type** | **Description** |
 |---|---|---|
 | category | String | Scope of this prediction. Possible values are: `creativeCloud`, `documentCloud`, or `allOfferings`. Only the entries relevant to the customer are included. When the underlying model does not provide a product-family breakdown, a single entry with `allOfferings` is returned. |
-| probability | String | Mapped propensity rating. Possible values are: `HIGH`, `MEDIUM`, or `LOW`. /<br/\>**Note:** Currently, only `HIGH` is supported.|
+| probability | String | Mapped propensity rating. Possible values are: `HIGH`, `MEDIUM`, or `LOW`. |
 | refreshDate | String (UTC ISO-8601) | Date when the propensity score was last refreshed, expressed as start-of-day UTC (for example, `2026-06-02T00:00:00Z`). Refresh frequency varies by model type, with `churn` data typically refreshed monthly and `seatExpansion` data typically refreshed weekly. |
 | reasons | Array of Reason | List of signals that contributed to the rating, ordered by relevance. May be an empty array if no reasons are available. |
 | additionalDetails | Object | Model-specific fields for this prediction. Returns an empty object `{}` when none apply. |

@@ -44,7 +44,7 @@ The following example requests a reseller-scoped churn report:
       "dataset": "propensity",
       "type": "churn",
       "filters": {
-        "probability": ["HIGH"]
+        "probability": ["HIGH", "MEDIUM"]
       }
     }
   ],
@@ -58,12 +58,12 @@ The following example requests a reseller-scoped churn report:
 |---|---|---|---|
 | `scope` | Yes | Object | Defines whose data to export. |
 | `scope.level` | Yes | String (enum) | `partner` or `reseller`. |
-| `scope.ids` | For reseller scope | String array | One or more reseller IDs. Duplicate IDs are removed. Blank IDs are invalid. Unrecognized reseller IDs are denied access. The service returns a reseller-recognition error for these IDs. Ignored for partner scope, where identity comes from the token. |
+| `scope.ids` | For reseller scope | String array | One or more reseller IDs. Duplicate IDs are removed. Blank IDs are invalid. Unrecognized reseller IDs and reseller IDs are denied access. The service does not return a reseller-recognition error for these IDs. Ignored for partner scope, where identity comes from the token. |
 | `datasets` | Yes | Object array | Exactly one item is allowed. |
 | `datasets[].dataset` | Yes | String (enum) | `propensity`. |
-| `datasets[].type` | Yes | String (enum) | `churn` or `seat_expansion`. **Note:** Currently, only `churn` is supported.|
+| `datasets[].type` | Yes | String (enum) | `churn` or `seat_expansion`. |
 | `datasets[].filters` | No | Object | Allowed keys depend on the dataset and type. |
-| `datasets[].filters.probability` | No | String array (enum values) | For the propensity dataset: `HIGH`, `MEDIUM`, or `LOW`. If omitted, allowed values are included. Duplicates are removed. / <br/\> **Note:** Currently, only `HIGH` is supported.|
+| `datasets[].filters.probability` | No | String array (enum values) | For the propensity dataset: `HIGH`, `MEDIUM`, or `LOW`. If omitted, all values are included. Duplicates are removed. |
 | `format` | No | String (enum) | The supported value is `csv`, which is also the default. |
 
 For partner scope, use `"scope": {"level": "partner"}`. The `source` field is read-only and must not be sent in the request. There is no force-refresh request field. Unknown fields and filters unsupported for the selected dataset and type return code `1121`.
@@ -84,7 +84,7 @@ HTTP `202 Accepted`:
       "dataset": "propensity",
       "type": "churn",
       "filters": {
-        "probability": ["HIGH"]
+        "probability": ["HIGH", "MEDIUM"]
       }
     }
   ],
@@ -259,7 +259,7 @@ HTTP `200`. The following example is for `GET <env root url>/v3/reports?limit=1&
         {
           "dataset": "propensity",
           "type": "churn",
-          "filters": { "probability": ["HIGH"] }
+          "filters": { "probability": ["HIGH", "MEDIUM"] }
         }
       ],
       "format": "csv",
@@ -299,7 +299,7 @@ HTTP `200`. The following example is for `GET <env root url>/v3/reports?limit=1&
 | `items[].scope` | Object | Scope of the report. |
 | `items[].datasets` | Object array | Dataset selection and filters for the report. |
 | `items[].format` | String (enum) | Report format: `csv`. |
-| `items[].status` | String (enum) | `INITIATED`, `IN_PROGRESS`, `COMPLETED`, or `FAILED`. |
+| `items[].status` | String (enum) | `INITIATED`, `IN_PROGRESS`, `COMPLETED`, `FAILED`, or `ARCHIVED`. |
 | `items[].source` | String (enum) | Read-only origin: `API` for a partner integration or `Bridge` for the Bridge UI. |
 | `items[].creationDate` | String (UTC timestamp) | Time the report was created. |
 | `items[].links.self` | Object | Link to the report's status operation. |
@@ -330,6 +330,7 @@ Retention begins when a report becomes `COMPLETED`:
 | Report type | Retention |
 |---|---|
 | `churn` | 21 days |
+| `seat_expansion` | 7 days |
 
 When retention ends, the report becomes `ARCHIVED` and its file is no longer available. Use [Create report](#create-report) to request a new report. Download link expiry and report retention are independent. `downloadLink.expiresAt` indicates only when the download link expires.
 
@@ -339,7 +340,7 @@ Reports are UTF-8 CSV files with a header row and one row per customer. Columns 
 
 **Note:** If a report successfully runs but matches no customers, the generated CSV file contains only the column headers and no data rows.
 
-A sample report file is available [here](../../assets/propensity_churn_1000526372_2026-11-18T04-02-16Z.csv).
+A sample rport file is available [here](../../assets/propensity_churn_1000526372_2026-11-18T04-02-16Z.csv).
 
 ### Churn report
 
@@ -347,18 +348,30 @@ For `type: "churn"`:
 
 | Column | Type | Description |
 |---|---|---|
-| `Reseller Name` | String | Reseller name. |
-| `Reseller ID` | String | Reseller ID. |
-| `Customer Name` | String | Customer name. |
-| `Customer ID` | String | Customer ID. |
-| `Creative Cloud Churn Probability` | Enum | `HIGH`, `MEDIUM`, or `LOW`. |
-| `Creative Cloud Reason Codes` | String | Creative Cloud churn reasons. |
-| `Document Cloud Churn Probability` | Enum | `HIGH`, `MEDIUM`, or `LOW`. |
-| `Document Cloud Reason Codes` | String | Document Cloud churn reasons. |
-| `Anniversary Date` | Date | Customer anniversary date. |
-| `Probability Refresh Date` | Date | Date the churn score was last refreshed. |
+| `reseller_id` | String | Reseller ID. |
+| `customer_id` | String | Customer ID. |
+| `creative_cloud_probability` | Enum | `HIGH`, `MEDIUM`, or `LOW`. |
+| `creative_cloud_reasons` | String | Creative Cloud churn reasons. |
+| `document_cloud_probability` | Enum | `HIGH`, `MEDIUM`, or `LOW`. |
+| `document_cloud_reasons` | String | Document Cloud churn reasons. |
+| `anniversary_date` | Date | Customer anniversary date. |
+| `refresh_date` | Date | Date the churn score was last refreshed. |
 
 When a probability filter is supplied, a customer row is included if the Creative Cloud or Document Cloud probability matches the specified filter. Columns for a product that does not match the filter are left empty.
+
+### Seat expansion report
+
+For `type: "seat_expansion"`:
+
+| Column | Type | Description |
+|---|---|---|
+| `reseller_id` | String | Reseller ID. |
+| `customer_id` | String | Customer ID. |
+| `probability` | Enum | `HIGH`, `MEDIUM`, or `LOW`. |
+| `predicted_addon_size` | Integer | Predicted number of seats to add. |
+| `reasons` | String | Seat expansion reasons. |
+| `anniversary_date` | Date | Customer anniversary date. |
+| `refresh_date` | Date | Date the seat expansion score was last refreshed. |
 
 ## HTTP status codes
 
