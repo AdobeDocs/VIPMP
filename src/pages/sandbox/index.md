@@ -36,7 +36,7 @@ Interaction with Sandbox can occur through API calls, the [Sandbox Partner Porta
 | Get Order Details                                                    | ✓         | ✓      |
 | Cancel Order                                                         | ✓         | ✓      |
 | Get Orders for Customer                                              | ✓         | ✓      |
-| Edit Order Status (other than cancelling order)                      |           | ✓      |
+| Edit Order Status (other than canceling order)                      |           | ✓      |
 | Subscription Management                                              |           |        |
 | Get Subscription Details                                             | ✓         | ✓      |
 | Get Subscription for Customer                                        | ✓         | ✓      |

@@ -46,7 +46,7 @@ This detailed FAQ covers common questions about Adobe’s mid-term upgrade featu
 | Timing                 | Can be placed anytime                  | Mid-term upgrade during active subscription. |
 | Existing subscription   | Creates new subscription               | Modifies existing subscription.         |
 | Pricing                 | Full term pricing                      | Prorated pricing for remaining term.    |
-| Original product        | Not affected                           | Quantity reduced or subscription cancelled. |
+| Original product        | Not affected                           | Quantity reduced or subscription canceled. |
 | Flexible promotion      | Allowed                                | Not allowed.                            |
 | Use case                | New purchase or add-on                 | Upgrade to higher-tier product.         |
 
@@ -57,7 +57,7 @@ This detailed FAQ covers common questions about Adobe’s mid-term upgrade featu
 - **Full switch:**
 
   - The entire quantity of the original subscription is upgraded to the new product.
-  - Original subscription is completely cancelled (quantity becomes 0).
+  - Original subscription is completely canceled (quantity becomes 0).
   - Only the new product subscription renews at term end.
 
 - **Example:** Switch all 100 Photoshop licenses to Creative Cloud All Apps.
@@ -478,7 +478,7 @@ POST /v3/customers/{customerId}/orders?fetch-price=true
 - discountedPartnerPrice: After discount applied.
 - netPartnerPrice: Final price per unit.
 - lineItemPartnerPrice: Total for this line item (quantity × netPartnerPrice × proration).
-- totalLineItemPartnerPrice: Net amount to charge (new - cancelled).
+- totalLineItemPartnerPrice: Net amount to charge (new - canceled).
 - proratedDays: Number of days remaining in term.
 
 ### Why am I getting "Quantity exceeded" (Error 2151) when I have enough licenses?
@@ -493,7 +493,7 @@ POST /v3/customers/{customerId}/orders?fetch-price=true
   - Another switch or return order is processing
   - Temporarily locks quantity
 - Subscription status changed
-  - Subscription partially cancelled
+  - Subscription partially canceled
   - Some licenses returned
 
 **Resolution:**
@@ -654,7 +654,7 @@ Verify `currentQuantity` restored to pre-switch value.
 1. Original: Acrobat Pro (100 licenses).
 2. Switch: 30 to Acrobat Sign → Creates sub-B.
 3. Revert: Back to Acrobat Pro → Cancels sub-B, restores 30 to original.
-4. Attempt second revert: Fails (sub-B already cancelled).
+4. Attempt second revert: Fails (sub-B already canceled).
 
 **If you need to switch again:** After reverting, you can create a new switch order (not a revert):
 
@@ -666,7 +666,7 @@ Verify `currentQuantity` restored to pre-switch value.
 **Answer:** The order will fail with an error.
 
 - **Error:** Subscription not found or already cancelled.
-- **Reason:** The switch subscription was already cancelled by the first revert, so there's nothing to revert again.
+- **Reason:** The switch subscription was already canceled by the first revert, so there's nothing to revert again.
 
 - **Prevention:**
 
@@ -676,19 +676,19 @@ Verify `currentQuantity` restored to pre-switch value.
 
 ### Can I return licenses from a reverted subscription?
 
-**Answer:** No. After a revert switch, you cannot place a return order on the switch subscription (it's already cancelled).
+**Answer:** No. After a revert switch, you cannot place a return order on the switch subscription (it's already canceled).
 
 - **Valid return scenarios:**
 
   - Before revert: Return licenses from the switch subscription.
   - After revert: Return licenses from the original subscription.
-  - After revert: Return licenses from the (cancelled) switch subscription.
+  - After revert: Return licenses from the (canceled) switch subscription.
 
 - **Example:**
 
   1. Switch: Acrobat Pro → Acrobat Sign (30 licenses).
   2. Revert: Back to Acrobat Pro.
-  3. Return 10 Acrobat Sign licenses: Fails (subscription cancelled by revert).
+  3. Return 10 Acrobat Sign licenses: Fails (subscription canceled by revert).
   4. Return 10 Acrobat Pro licenses: Works (original subscription active).
 
 ### Can I perform concurrent revert switches on the same order?
@@ -703,7 +703,7 @@ Verify `currentQuantity` restored to pre-switch value.
 - **Result:**
 
   - Thread 1: Success (status 1000).
-  - Thread 2: Fails (subscription already cancelled).
+  - Thread 2: Fails (subscription already canceled).
 
 - **Prevention:**
 
@@ -890,8 +890,8 @@ Verify `currentQuantity` restored to pre-switch value.
 | Field                  | In    | Description                               | Value for switch orders |
 |------------------------|-------|-------------------------------------------|------------------------|
 | extLineItemNumber      | lineItems     | Identifies the line item in the current order     | Always 1               |
-| extLineItemNumber      | cancellingItems        | Identifies the cancelling item               | Always 1               |
-| referenceLineItemNumber| cancellingItems        | References which line item is being cancelled | Must match lineItems.extLineItemNumber |
+| extLineItemNumber      | cancellingItems        | Identifies the canceling item               | Always 1               |
+| referenceLineItemNumber| cancellingItems        | References which line item is being canceled | Must match lineItems.extLineItemNumber |
 
 **For switch orders:** All three must be 1 (since only one line item is allowed).
 
@@ -931,7 +931,7 @@ POST /v3/customers/{customerId}/orders?fetch-price=true&reassign-users=true
 | 2152  | Multiple line items not supported. | More than 1 line item. \<br /\> Use single line item only. |
 | 2153  | Line item and cancelling line item mismatch. | extLineItemNumber ≠ referenceLineItemNumber. \<br /\> Set both to 1. |
 | 2154 | Upgrade not supported. | High Growth Offer restrictions, net refund scenario, or restricted product. \<br /\> Check product eligibility and pricing. |
-| 3115 | Invalid subscription. | Subscription expired/cancelled. \<br /\> Verify subscription status. |
+| 3115 | Invalid subscription. | Subscription expired/canceled. \<br /\> Verify subscription status. |
 
 **General troubleshooting:**
 

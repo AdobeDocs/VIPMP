@@ -121,7 +121,7 @@ The list includes the following columns:
 The **Closed Discounts (Customer-Specific)** tab lists all closed discount codes created by your distributor, across all customers and statuses. The list includes the following columns:
 
 - **Closed Discount Code:** The unique identifier of the discount code to be used while placing an order.
-- **Customer ID:** The customer for whom the the closed discount code is valid.
+- **Customer ID:** The customer for whom the closed discount code is valid.
 - **Closed Discount Label:** Label describing the closed discount to be used for the customer.
 - **Template ID:** The template ID corresponding to that label.
 - **Redemption Status:** Possible values are: `ACTIVE`, `EXPIRED`, or `REDEEMED`.
@@ -242,4 +242,4 @@ Points to note:
 
 You can test 3YC and mid-term upgrade (also known as anytime upgrade) discounts in Sandbox. Unlike the discounts that were originally on the sandbox that always succeed or always fail, these discounts will have slight validations associated with them to ensure you are integrating with the new criteria correctly.
 
-Read more about the [3YC eligibility critera](../../../docs/flex-discounts/index.md#3-year-commitment-3yc-eligibility) and [mid-term eligibility criteria](../../../docs/flex-discounts/index.md#mid-term-upgrade-eligibility).
+Read more about the [3YC eligibility criteria](../../../docs/flex-discounts/index.md#3-year-commitment-3yc-eligibility) and [mid-term eligibility criteria](../../../docs/flex-discounts/index.md#mid-term-upgrade-eligibility).

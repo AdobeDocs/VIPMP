@@ -122,7 +122,7 @@ Partners can now use AI Kit and The Bridge UI to return a portion of an eligible
 For more information:
 
 - AI Kit: [GIF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/partial-returns/reference-files/visuals/Partial-Return-Walkthrough.gif), [MP4](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/partial-returns/reference-files/visuals/Partial-Return-Walkthrough.mp4), [PDF](https://github.com/adobe/adobe-commerce-partnerships-ai-kit/blob/main/feature-specs/partial-returns/reference-files/visuals/Partial-Return-Walkthrough.pdf).
-- Bridge: [Supported fetures](../../bridge/supported-features.md#product-catalog-and-ordering)
+- Bridge: [Supported features](../../bridge/supported-features.md#product-catalog-and-ordering)
 
 ## Marketplace Assistant (Beta) is now available
 
@@ -246,7 +246,7 @@ The following APIs have been updated:
 - Get Order History (`GET /v3/customers/{customerId}/orders`):  
   - Returns `lineItems[].flexDiscounts` for `SWITCH` orders in the order history list.
 
-**Important:** `flexDiscountCodes` apply only to `lineItems` (the target product items being switched to). Codes on `cancellingItems` (the source product being cancelled) are not accepted or returned.
+**Important:** `flexDiscountCodes` apply only to `lineItems` (the target product items being switched to). Codes on `cancellingItems` (the source product being canceled) are not accepted or returned.
 
 **Why it matters**
 
@@ -284,7 +284,7 @@ For more information, see [Manage Flexible Discounts](../flex-discounts/index.md
 
 #### Closed discount details are now available when searching by code
 
-Partners can now use the the existing `GET /v3/flex-discounts` API to retrieve details for closed discounts when searching with a specific code shared with them.
+Partners can now use the existing `GET /v3/flex-discounts` API to retrieve details for closed discounts when searching with a specific code shared with them.
 
 Closed discounts are typically shared by Customer Account Managers (CAMs) or Sales Agents and are intended for targeted scenarios such as customer retention or upgrades.
 

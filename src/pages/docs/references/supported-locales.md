@@ -11,7 +11,7 @@ All [ISO 3166-1 2-character country codes](https://en.wikipedia.org/wiki/ISO_316
 |AQ | Antarctica | No population|
 |AX | Åland Islands | Use country FI with region 01|
 |BL| Saint \<br /\> Barthélemy| Use country FR with region BL|
-|BQ | BES Isalnds | Use country NL with region BQ1, BQ2, or BQ3|
+|BQ | BES Islands | Use country NL with region BQ1, BQ2, or BQ3|
 |BV | Bouvet Island | No population|
 |CU | Cuba | Embargoed|
 |CW | Curacao | Use country NL with region CW|

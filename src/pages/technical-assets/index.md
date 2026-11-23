@@ -19,7 +19,7 @@ description: Includes documentation, sample price list and reconciliation files,
 |Adobe Customer Information Site for VIP Marketplace |[ACIS Customer User Guide_VIP Marketplace_Feb 2022](https://raw.githubusercontent.com/AdobeDocs/VIPMP/refs/heads/main/static/documents/invoicing/ACIS%20Customer%20User%20Guide_VIP%20Marketplace_Feb%202022.pdf) |
 |Billing reconciliation file|[Adobe Recon File sample with description](https://raw.githubusercontent.com/AdobeDocs/VIPMP/refs/heads/main/static/documents/invoicing/Adobe%20Recon%20File%20sample%20with%20description.xlsx) |
 |Proration calculations |[Proration Calculation Logic](https://raw.githubusercontent.com/AdobeDocs/VIPMP/refs/heads/main/static/documents/invoicing/Proration%20Calculation%20Logic.xlsx) |
-|Summay invoice example |[Summary_Invoice_0819338879](https://raw.githubusercontent.com/AdobeDocs/VIPMP/refs/heads/main/static/documents/invoicing/Summary_Invoice_0819338879.xlsx) |
+|Summary invoice example |[Summary_Invoice_0819338879](https://raw.githubusercontent.com/AdobeDocs/VIPMP/refs/heads/main/static/documents/invoicing/Summary_Invoice_0819338879.xlsx) |
 
 ### Postman environment files
 

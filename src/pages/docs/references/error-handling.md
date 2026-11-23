@@ -227,7 +227,7 @@ These REASON_CODE values are included in the `additionalDetails` array for 5117 
 |BAD_MARKET_SEGMENT| Customer’s market segment is either not supported for this distributor or for VIPMP |Try a different distributor that supports customer’s market segment or wait for a VIPMP change to allow the market segment.|
 |INACTIVE | VIP Account is inactive| Customer/reseller must reactivate VIP account.|
 |EXTENDED_TERM_3YC| Customer’s contract term length is not supported by VIPMP| Wait for terms to be supported by VIPMP or wait until current term ends.|
-|OPEN_PURCHASE_AUTH| Customer has open purchase authorization(s)| Open PAs must be cancelled/returned if possible, or converted to order and paid for. \<br /\> Can also be bypassed with the `expire-open-pas` query parameter|
+|OPEN_PURCHASE_AUTH| Customer has open purchase authorization(s)| Open PAs must be canceled/returned if possible, or converted to order and paid for. \<br /\> Can also be bypassed with the `expire-open-pas` query parameter|
 |CONTRACT_NOT_ACCEPTED| Customer’s VIP contract has not been accepted| Customer must set up an administrator to accept VIP contract.|
 |IN_WINDOW_PARTIAL_RENEWAL| Customer is in the renewal window prior to their anniversary date and they have partially renewed.| Customer must either renew all active licenses or wait until their anniversary date.|
 |RETURNABLE_PURCHASE| Customer has order(s) still in the return window |Wait until return window has closed (14 days after last order). \<br /\> It can also be bypassed with `ignore-order-return` query parameter.|

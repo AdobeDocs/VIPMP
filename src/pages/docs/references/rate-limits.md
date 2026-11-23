@@ -1,6 +1,6 @@
 # API rate limits and throttling
 
-The Adobbe VIP Marketplace API applies client-level throttling over a rolling five-second window. The request count for each client is evaluated over the preceding five seconds rather than resetting at fixed five-second intervals. As time advances, older requests fall outside the window.
+The Adobe VIP Marketplace API applies client-level throttling over a rolling five-second window. The request count for each client is evaluated over the preceding five seconds rather than resetting at fixed five-second intervals. As time advances, older requests fall outside the window.
 
 The soft limit is 1,000 requests and the hard limit is 1,500 requests within the rolling five-second window. Exceeding the soft limit introduces a random response delay, signaling the client to reduce its request rate. Exceeding the hard limit results in HTTP 429 errors.
 

@@ -47,7 +47,7 @@ The banner uses one of the following severity levels:
 | **Warning**  | A minor issue affects a limited feature or workflow. Core Portal functionality remains available.                          |
 | **Critical** | A significant issue affects one or more key workflows. Users should expect service disruption until the issue is resolved. |
 
-### Banner behaviour
+### Banner behavior
 
 The banner:
 
