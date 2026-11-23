@@ -47,7 +47,7 @@ You can set the anniversary or cotermDate of a customer by following these steps
 
 The 3YC commitment terms details such as status, and end/start date can be updated once the customer has an active commitment.
 
-**Note:**  This option is available only in the Sandbox. You cannot modifiy this in the production environment.
+**Note:**  This option is available only in the Sandbox. You cannot modify this in the production environment.
 
 To Edit 3YC commitment terms, select **Edit 3YC terms** in the expanded customer view.
 

@@ -41,7 +41,7 @@ Pre-cutover 3YC commitments retain their existing price list and currency until 
 | Authorization    | **Required**. Authorization token in the form `Bearer <token>`                                                                                                                                                                   |
 | X-Api-Key        | **Required**. The API Key for your integration                                                                                                                                                                                   |
 
-## Reques body
+## Request body
 
 Order resource without read-only fields:
 

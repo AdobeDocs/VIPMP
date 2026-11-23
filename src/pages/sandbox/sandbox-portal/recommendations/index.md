@@ -36,7 +36,9 @@ Under **Manage Records > Customers**, expand a customer row and select **Set Pro
 
 ![Set Propensity Level action on a customer row](../image/prop-level-option.png)
 
-This opens the **Set propensity level** dialog, where you can independently set **Churn level** and **Seat addition**, corresponding to the `churn` and `seatExpansion` signals in the API response. Select **Save** to apply your changes, or **Reset to default** to revert both levels back to Medium.
+This opens the **Set propensity level** dialog, where you can independently set **Churn level**. Select **Save** to apply your changes, or **Reset to default** to revert both levels back to Medium.
+
+**Note:** Currently, only the `churn` propensity is supported.
 
 ![Set propensity level dialog](../image/set-propensity-level.png)
 
@@ -44,18 +46,16 @@ Configuring propensity levels allows you to test all supported response scenario
 
 | Level | Effect on the API response |
 |---|---|
-| Medium | Default level. Returns a `MEDIUM` probability prediction. |
-| High | Returns a `HIGH` probability prediction. |
+| High | Default level. Returns a `HIGH` probability prediction. |
+| Medium |  Returns a `MEDIUM` probability prediction. |
 | Low | Returns a `LOW` probability prediction. |
 | Opt-out | Returns an empty array for that signal, for example `"churn": []`. |
 
-- Medium is the default level for both `churn` and `seatExpansion` unless they are explicitly configured for a customer.
-- `churn` and `seatExpansion` can be configured independently. For example, you can set `churn` to High while leaving `seatExpansion` at Medium.
-- Selecting **Reset to default** restores both signals to Medium for the selected customer.
+- Selecting **Reset to default** restores signals to High for the selected customer.
 
 ### Testing workflow
 
-1. Set the propensity level for `churn`, `seatExpansion`, or both, for a customer in Sandbox.
-2. Call the [Fetch Recommendations API](../../../docs/recommendations/apis.md#fetch-recommendations) for that customer, setting `includePropensity` to an array containing the signal or signals you configured, for example `["churn", "seatExpansion"]`.
+1. Set the propensity level for `churn` for a customer in Sandbox.
+2. Call the [Fetch Recommendations API](../../../docs/recommendations/apis.md#fetch-recommendations) for that customer, setting `includePropensity` to an array containing the signal you configured, for example `["churn"]`.
 3. Verify that the `propensity` object in the response matches the level you configured.
 4. Repeat the test with different propensity levels to validate all response-handling scenarios in your integration.

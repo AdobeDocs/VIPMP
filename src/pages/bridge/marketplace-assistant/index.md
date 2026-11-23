@@ -2,7 +2,7 @@
 
 Marketplace Assistant is an AI-powered conversational assistant available within [Bridge](../index.md). It answers questions about customer accounts, pricing, and renewals using Commerce Partner APIs and Adobe product documentation. It also identifies the sources used for each response so you can verify the information.
 
- ![Marketplace asisstant home page](<Screenshot 2026-09-15 at 1.46.52 PM.png>)
+ ![Marketplace assistant home page](<Screenshot 2026-09-15 at 1.46.52 PM.png>)
 
 ## How to access Marketplace Assistant chat interface?
 

@@ -17,7 +17,7 @@ The Flexible Discounts API qualification enrichment provides additional criteria
 
 **Why it matters**
 
-Partners can use the returned qualification criteria during discount discovery and compare them with customer subscription and to determine the criterias for which a customer can qualify for a discount. However, discovery does not guarantee eligibility. Some applicable conditions may not be returned, and Adobe's qualification at the time of order submission remains authoritative.
+Partners can use the returned qualification criteria during discount discovery and compare them with customer subscription and to determine the criteria for which a customer can qualify for a discount. However, discovery does not guarantee eligibility. Some applicable conditions may not be returned, and Adobe's qualification at the time of order submission remains authoritative.
 
 **Partner actions**
 
@@ -74,7 +74,7 @@ For more information, see [Local currency support](../manage-pricing/index.md#lo
 
 **Important:** The Adobe Instant Deal Registration program is currently under review, and the API documentation may be subject to change. Existing API documentation and Sandbox access will remain available. However, partners are recommended to pause any ongoing integration development and defer new integration work until further guidance is provided.
 
-Adobe Instant Deal Registration is an automatically applied, codeless reseller credits, removing the need for a manual registration step on qualifying orders. There is no code to request, submit, or track. Partners see the intant deal registration amount directly in any qualifying orders and can view information on the deal through two discovery APIs. For more information see, [Adobe Instant Deal Registration overview](../instant-deal-registration/index.md).
+Adobe Instant Deal Registration is an automatically applied, codeless reseller credits, removing the need for a manual registration step on qualifying orders. There is no code to request, submit, or track. Partners see the instant deal registration amount directly in any qualifying orders and can view information on the deal through two discovery APIs. For more information see, [Adobe Instant Deal Registration overview](../instant-deal-registration/index.md).
 
 **What changed?**
 

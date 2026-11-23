@@ -167,7 +167,7 @@ Use the `discountLockEndDate` field and Preview Order APIs (for example, Preview
 - “New to 3YC” refers to customers who enter compliance with a 3YC commitment through a new order, not those who add seats to an existing subscription.
 - Customers who recommit after their previous 3YC term has ended are considered existing 3YC customers, not new 3YC customers. 
 
-For more information on the error codes returned in case the eligibility crieteria are not mer, see [Error codes specific to Flexible Disocunts](./error-codes.md).
+For more information on the error codes returned in case the eligibility criteria are not met, see [Error codes specific to Flexible Discounts](./error-codes.md).
 
 ### Mid-term upgrade eligibility
 
@@ -191,7 +191,7 @@ Mid-term upgrade, also known as anytime upgrade, scenarios apply to SWITCH order
 **Discount applicability:**
 
 - Apply only to added or upgraded target product quantities  
-- Do not apply to cancelled source product quantities  
+- Do not apply to canceled source product quantities  
 - Can be combined with applicable 3YC eligibility rules  
 
 ## Partner integration process  

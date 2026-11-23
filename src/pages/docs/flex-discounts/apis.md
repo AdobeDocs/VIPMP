@@ -1134,7 +1134,7 @@ Use the `POST /v3/customers/<customer-id>/orders` API with the `orderType` as `P
 
 **Request**
 
-The `flexDiscountCodes` parameter in `lineItems` array can be used to preview the eligibiity of the flexible discount codes to the items being switched, as shown in the following example:
+The `flexDiscountCodes` parameter in `lineItems` array can be used to preview the eligibility of the flexible discount codes to the items being switched, as shown in the following example:
 
 ```json
 {
