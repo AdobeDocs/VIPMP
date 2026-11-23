@@ -63,7 +63,7 @@ The following example requests a reseller-scoped churn report:
 | `datasets[].dataset` | Yes | String (enum) | `propensity`. |
 | `datasets[].type` | Yes | String (enum) | `churn` or `seat_expansion`. **Note:** Currently, only `churn` is supported.|
 | `datasets[].filters` | No | Object | Allowed keys depend on the dataset and type. |
-| `datasets[].filters.probability` | No | String array (enum values) | For the propensity dataset: `HIGH`, `MEDIUM`, or `LOW`. If omitted, allowed values are included. Duplicates are removed. \<br/> **Note:** Currently, only `HIGH` is supported.|
+| `datasets[].filters.probability` | No | String array (enum values) | For the propensity dataset: `HIGH`, `MEDIUM`, or `LOW`. If omitted, allowed values are included. Duplicates are removed. \<br/\> **Note:** Currently, only `HIGH` is supported.|
 | `format` | No | String (enum) | The supported value is `csv`, which is also the default. |
 
 For partner scope, use `"scope": {"level": "partner"}`. The `source` field is read-only and must not be sent in the request. There is no force-refresh request field. Unknown fields and filters unsupported for the selected dataset and type return code `1121`.
